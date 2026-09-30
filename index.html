@@ -43,6 +43,10 @@ a{color:var(--accent)}
 .eyebrow{font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .lede{color:var(--muted);max-width:65ch}
 header{display:grid;gap:12px}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav a{font:600 13px var(--body);text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface)}
+.nav a[aria-current="page"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.casper{font-size:13px;color:var(--muted);margin-top:6px}
 .booked{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .booked .tag{background:var(--good-soft);color:var(--good);font-weight:600;font-size:12px;padding:3px 8px;border-radius:99px}
 .controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
@@ -72,10 +76,10 @@ header{display:grid;gap:12px}
 .total .sub{font-size:12px;color:var(--muted)}
 .stats{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin-top:8px}
 .stats b{color:var(--ink);font-weight:600}
-.tl{position:relative;height:30px;margin:4px 18px 0;border-radius:6px;overflow:hidden;display:flex;background:var(--line)}
+.tl{position:relative;height:30px;border-radius:6px;overflow:hidden;display:flex;background:var(--line)}
 .tl span{height:100%;display:flex;align-items:center;justify-content:center;font:600 11px var(--body);color:#fff;white-space:nowrap;overflow:hidden;border-right:1px solid var(--surface);min-width:0;text-overflow:clip}
 .tl .gap{background:transparent}
-.tl-axis{display:flex;justify-content:space-between;margin:3px 18px 0;font:500 11px var(--mono);color:var(--muted)}
+.tl-axis{font:500 11px var(--mono);color:var(--muted)}
 .c-KR{background:var(--kr)} .c-JP{background:var(--jp)} .c-CN{background:var(--cn)} .c-HK{background:var(--hk)} .c-TW{background:var(--tw)}
 .why{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;padding:12px 18px;font-size:14px}
 .why ul{margin:0;padding-left:18px;display:grid;gap:3px}
@@ -97,6 +101,41 @@ summary::before{content:"▸ ";} details[open] summary::before{content:"▾ ";}
 .leg.booked-leg .p{color:var(--good)}
 .fresh{font:500 10px var(--body);text-transform:uppercase;letter-spacing:.05em;padding:2px 5px;border-radius:4px;margin-left:6px;vertical-align:1px}
 .f-new{background:var(--good-soft);color:var(--good)} .f-old{background:var(--warn-soft);color:var(--warn)}
+.sec{display:grid;gap:12px}
+.sec-head{display:grid;gap:4px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding-block:10px;border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
+.ctl{flex-wrap:wrap}
+.card{scroll-margin-top:120px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);align-items:center}
+.legend>span{display:inline-flex;align-items:center;gap:5px}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px}
+.leg .r .fresh{margin-left:6px}
+.glance td,.glance th{vertical-align:middle}
+.glance tbody tr{cursor:pointer}
+.glance tbody tr:hover td{background:var(--accent-soft)}
+.glance .r{text-align:right}
+.glance .tname{font-weight:600}
+.glance .tsub{font-size:12px;color:var(--muted)}
+.th-sort{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+.th-sort::after{content:" ↕";opacity:.5}
+.th-sort[aria-pressed="true"]{color:var(--accent)}
+.th-sort[aria-pressed="true"]::after{content:" ↑";opacity:1}
+.th-sort:focus-visible,.glance tr:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tl-wrap{position:relative;margin:4px 18px 0}
+.tl-mark{position:absolute;top:-4px;bottom:-4px;border-left:2px dashed var(--ink);opacity:.55;pointer-events:none}
+.tl-axis{position:relative;height:16px;margin:3px 18px 0}
+.tl-axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.tl-axis span:first-child{transform:none}
+.tl-axis span:last-child{transform:translateX(-100%)}
+.staylist{font-size:13px;color:var(--muted);margin:6px 18px 0}
+.staylist b{color:var(--ink);font-weight:600}
+.keydays{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;margin-top:6px}
+.keydays span{color:var(--muted)} .keydays b{color:var(--ink);font-weight:600}
+.leg .r .place{font-size:13px;color:var(--muted);font-family:var(--body)}
+.terms{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0}
+.terms dt{font-weight:600} .terms dd{margin:0;color:var(--muted)}
+.notes h3{font-size:16px;margin-top:8px}
+@media (max-width:640px){.terms{grid-template-columns:1fr}.terms dd{margin-bottom:6px}.glance{min-width:640px}.bar{gap:8px 14px}}
 .board-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
 table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
 th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -117,70 +156,86 @@ td.pr{font-weight:600;white-space:nowrap}
 }
 @media (prefers-reduced-motion:no-preference){.card,.pick{transition:border-color .15s}}
 </style>
-<style>html{color-scheme:light}body{margin:0}@media (prefers-color-scheme:dark){html{color-scheme:dark}}</style>
 </head>
 <body>
 
 
 <div class="wrap">
+<nav class="nav" aria-label="Pages"><a href="index.html" data-page="home" aria-current="page">Flights home</a><a href="ideas.html" data-page="ideas">More trip ideas</a></nav>
 <header>
   <span class="eyebrow">Christmas 2026 · Korea, Japan, China</span>
   <h1>Seoul and home again</h1>
-  <p class="lede">The flight to Seoul is booked. These are the best ways to spend 2½–3½ weeks and fly home, from wherever the trip ends. Fares were re-checked on Google Flights on 30 Sep 2026 for two adults; legs tagged 29 Sep were not re-checked.</p>
+  <p class="lede">The flight to Seoul is booked. This page compares ways to spend the next 2½–3½ weeks, and where to fly home from.</p>
   <div class="booked">
     <span class="tag">Booked</span>
-    <span><b>Wed 16 Dec</b> · Jetstar <span class="mono">AKL → SYD → ICN</span> · 06:15 → 20:15</span>
-    <span class="num">NZ$1,151 pp</span>
+    <span><b>Wed 16 Dec</b> · Jetstar Auckland → Sydney → Seoul · 06:15 → 20:15</span>
+    <span class="num">NZ$1,151 per person</span>
   </div>
 </header>
 
-<section class="controls" aria-label="View options">
-  <div class="ctl">Travellers
-    <span class="seg" role="group" aria-label="Travellers">
-      <button id="pax1" type="button" data-pax="1" aria-pressed="false">1</button>
-      <button id="pax2" type="button" data-pax="2" aria-pressed="true">2</button>
+<div class="bar" role="region" aria-label="Price settings and filters">
+  <div class="ctl"><span>Prices for</span>
+    <span class="seg" role="group" aria-label="Prices for">
+      <button id="pax1" type="button" data-pax="1" aria-pressed="false">1 person</button>
+      <button id="pax2" type="button" data-pax="2" aria-pressed="true">2 people</button>
     </span>
   </div>
-  <div class="ctl">Fares
+  <div class="ctl"><span>Fares</span>
     <span class="seg" role="group" aria-label="Fare type">
       <button id="modeCheap" type="button" data-mode="cheap" aria-pressed="true">Cheapest</button>
-      <button id="modeComfy" type="button" data-mode="comfy" aria-pressed="false">Comfortable</button>
+      <button id="modeComfy" type="button" data-mode="comfy" aria-pressed="false">Nonstop where possible</button>
     </span>
   </div>
-  <div class="ctl">Sort
-    <span class="seg" role="group" aria-label="Sort">
-      <button id="sortCost" type="button" data-sort="cost" aria-pressed="true">Cost</button>
-      <button id="sortLen" type="button" data-sort="len" aria-pressed="false">Length</button>
-      <button id="sortCities" type="button" data-sort="cities" aria-pressed="false">Cities</button>
-    </span>
+  <div class="ctl"><span>Show only</span>
+    <button class="chip" id="fNoChina" type="button" aria-pressed="false">No mainland China</button>
+    <button class="chip" id="fNonstop" type="button" aria-pressed="false">Nonstop home</button>
+    <button class="chip" id="fFit" type="button" aria-pressed="false">3½ weeks or less</button>
   </div>
-  <button class="chip" id="fNoChina" type="button" aria-pressed="false">No mainland China</button>
-  <button class="chip" id="fNonstop" type="button" aria-pressed="false">Nonstop home</button>
-  <button class="chip" id="fFit" type="button" aria-pressed="false">Within 3½ weeks</button>
-</section>
+</div>
 
-<section aria-labelledby="picksH" style="display:grid;gap:10px">
-  <h2 id="picksH">Short answer</h2>
+<section aria-labelledby="picksH" class="sec">
+  <div class="sec-head"><h2 id="picksH">Our picks</h2><p class="note">Tap one to jump to its details.</p></div>
   <div class="picks" id="picks"></div>
 </section>
 
-<section aria-labelledby="optsH" style="display:grid;gap:12px">
-  <div style="display:grid;gap:4px">
-    <h2 id="optsH">The trips</h2>
-    <p class="note">"Comfortable" swaps in a nonstop or full-service flight where one exists. The Seoul flight stays at the Jetstar fare you paid. Trains and bags are not in the totals.</p>
+<section aria-labelledby="glanceH" class="sec">
+  <div class="sec-head"><h2 id="glanceH">Side by side</h2><p class="note">Tap a column heading to sort. Tap a row for the full plan.</p></div>
+  <div class="board-wrap"><table id="glance" class="glance"><thead><tr>
+    <th scope="col">Trip</th>
+    <th scope="col"><button class="th-sort" type="button" data-sort="len">Away</button></th>
+    <th scope="col">Christmas · New Year's Eve</th>
+    <th scope="col"><button class="th-sort" type="button" data-sort="cities">Stops</button></th>
+    <th scope="col">Fly home from</th>
+    <th scope="col" class="r"><button class="th-sort" type="button" data-sort="cost">Flights total</button></th>
+  </tr></thead><tbody></tbody></table></div>
+</section>
+
+<section aria-labelledby="optsH" class="sec">
+  <div class="sec-head"><h2 id="optsH">Trip details</h2>
+    <p class="note">Totals include the Seoul flight at the Jetstar fare you paid. Trains, ferries and checked bags are extra.</p>
+    <div class="legend" aria-label="Legend">
+      <span><i class="sw c-KR"></i>Korea</span><span><i class="sw c-JP"></i>Japan</span><span><i class="sw c-CN"></i>China</span><span><i class="sw c-HK"></i>Hong Kong</span><span><i class="sw c-TW"></i>Taiwan</span>
+      <span><span class="fresh f-new">checked 30 Sep</span> re-checked today</span><span><span class="fresh f-old">29 Sep price</span> not re-checked</span>
+    </div>
   </div>
   <div class="list" id="list"></div>
 </section>
 
-<section aria-labelledby="boardH" style="display:grid;gap:10px">
-  <h2 id="boardH">Every way home we checked</h2>
-  <p class="note">One-way economy to Auckland. Per person. Arrival is the next day unless marked.</p>
-  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>From</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google says</th></tr></thead><tbody></tbody></table></div>
+<section aria-labelledby="boardH" class="sec">
+  <div class="sec-head"><h2 id="boardH">Every way home we checked</h2>
+  <p class="note">One-way economy to Auckland, per person. Most of these fly overnight and land the next day.</p></div>
+  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>From</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google's price rating</th></tr></thead><tbody></tbody></table></div>
 </section>
 
 <section aria-labelledby="notesH" class="notes">
   <h2 id="notesH">Before booking</h2>
   <ul id="notesList"></ul>
+  <h3>Terms used here</h3>
+  <dl class="terms">
+    <dt>240-hour rule</dt><dd>China lets New Zealanders in without a visa for up to 10 days if they arrive from one country and leave to a different one (for example Korea in, Hong Kong out).</dd>
+    <dt>Nonstop where possible</dt><dd>Swaps in a nonstop or full-service flight on each leg where one exists. It costs more but avoids long layovers and budget-airline bag limits.</dd>
+    <dt>Budget airlines</dt><dd>Jetstar, Zipair, Spring, Jin Air, Air Seoul, Thai Lion, Peach and Air Busan fares include a cabin bag only (often 7 kg).</dd>
+  </dl>
 </section>
 </div>
 
@@ -321,8 +376,11 @@ const $ = s=>document.querySelector(s);
 const D = s=>new Date(s+'T00:00:00Z');
 const days = (a,b)=>Math.round((D(b)-D(a))/864e5);
 const fmtD = s=>D(s).toLocaleDateString('en-NZ',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
+const fmtS = s=>D(s).toLocaleDateString('en-NZ',{day:'numeric',month:'short',timeZone:'UTC'});
 const money = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
-const START='2026-12-16', AXIS_END='2027-01-11';
+const PLACE = {AKL:'Auckland',ICN:'Seoul Incheon',GMP:'Seoul Gimpo',SEL:'Seoul',NRT:'Tokyo Narita',HND:'Tokyo Haneda',TYO:'Tokyo',KIX:'Osaka Kansai',ITM:'Osaka Itami',OSA:'Osaka',PVG:'Shanghai Pudong',SHA:'Shanghai Hongqiao',CKG:'Chongqing',SZX:'Shenzhen',HKG:'Hong Kong',CAN:'Guangzhou',TPE:'Taipei',TSA:'Taipei Songshan',PUS:'Busan',FUK:'Fukuoka',PEK:'Beijing Capital',PKX:'Beijing Daxing',BJS:'Beijing',CTU:'Chengdu Shuangliu',TFU:'Chengdu Tianfu',XIY:"Xi'an",HRB:'Harbin',CTS:'Sapporo',KWL:'Guilin',DYG:'Zhangjiajie',HGH:'Hangzhou',TAO:'Qingdao',CJU:'Jeju',XMN:'Xiamen',NGO:'Nagoya',KMQ:'Komatsu',HIJ:'Hiroshima',OKA:'Okinawa',TSN:'Tianjin',DLC:'Dalian',SYD:'Sydney',NAN:'Nadi',KMG:'Kunming',NKG:'Nanjing',CGQ:'Changchun',SHE:'Shenyang'};
+const place = c=>PLACE[c]||c;
+const START='2026-12-16';
 const store = {get(k,d){try{const v=localStorage.getItem('shh-'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('shh-'+k,JSON.stringify(v))}catch(e){}}};
 const st = {pax:store.get('pax',2),mode:store.get('mode','cheap'),sort:store.get('sort','cost'),noChina:false,nonstop:false,fit:false,hl:null};
 
@@ -330,67 +388,98 @@ TRIPS.forEach(t=>{
   t.nights = days(START,t.land);
   t.weeks = t.nights/7;
   t.tot = m=>t.legs.filter(l=>l.k==='f').reduce((s,l)=>s+l[m][0],0);
-  t.nFlights = t.legs.filter(l=>l.k==='f').length;
+  t.toBook = t.legs.filter(l=>l.k==='f'&&!l.booked).length;
   t.fits = t.nights>=17 && t.nights<=25;
+  t.homeLeg = [...t.legs].reverse().find(l=>l.k==='f');
+  const at = d=>{const s=t.stays.find(([,,a,b])=>a<=d&&d<b);return s?s[0]:'—'};
+  t.xmas = at('2026-12-25'); t.nye = at('2026-12-31');
 });
+const AXIS_END = TRIPS.reduce((m,t)=>t.land>m?t.land:m,'2027-01-09');
+const homeNonstop = t=>/nonstop/i.test(t.homeLeg[st.mode][1]) || (st.mode==='cheap'&&t.nonstop);
+const unit = ()=>st.pax===2?'for two':'per person';
 
 function lenBadge(t){
-  if(t.nights>25) return `<span class="badge b-warn">${t.weeks.toFixed(1)} weeks · over</span>`;
-  return `<span class="badge b-good">${t.weeks.toFixed(1)} weeks</span>`;
+  const w = `${t.weeks.toFixed(1)} weeks`;
+  if(t.nights>25) return `<span class="badge b-warn" title="Over your 3½-week upper limit">${w} · over 3½</span>`;
+  return `<span class="badge b-good">${w}</span>`;
+}
+function chinaBadge(t){
+  if(!t.china) return `<span class="badge b-good">No China</span>`;
+  if(t.visa) return `<span class="badge b-bad">China visa needed</span>`;
+  return `<span class="badge b-acc" title="Up to 10 days in China without a visa">China visa-free (240 h)</span>`;
 }
 function tl(t){
-  const span = days(START,AXIS_END);
+  const span = days(START,AXIS_END), pct = d=>days(START,d)/span*100;
   let html='';
-  t.stays.forEach(([c,cc,a,b])=>{const w=days(a,b)/span*100;html+=`<span class="c-${cc}" style="width:${w}%" title="${c}: ${fmtD(a)} – ${fmtD(b)}">${w>7?c:''}</span>`;});
+  t.stays.forEach(([c,cc,a,b])=>{const w=days(a,b)/span*100;html+=`<span class="c-${cc}" style="width:${w}%" title="${c}: ${fmtD(a)} – ${fmtD(b)}">${w>8?c:''}</span>`;});
   const rest = days(t.stays[t.stays.length-1][3],AXIS_END)/span*100;
   if(rest>0) html+=`<span class="gap" style="width:${rest}%"></span>`;
-  return `<div class="tl" role="img" aria-label="Timeline: ${t.stays.map(s=>s[0]).join(', ')}">${html}</div><div class="tl-axis"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>11 Jan</span></div>`;
+  const ticks=[[START,'16 Dec'],['2026-12-25','25 Dec'],['2027-01-01','1 Jan'],[AXIS_END,fmtS(AXIS_END)]];
+  return `<div class="tl-wrap"><div class="tl" role="img" aria-label="Timeline: ${t.stays.map(s=>`${s[0]} ${days(s[2],s[3])} nights`).join(', ')}">${html}</div>
+    <i class="tl-mark" style="left:${pct('2026-12-25')}%" title="Christmas"></i><i class="tl-mark" style="left:${pct('2027-01-01')}%" title="New Year"></i></div>
+    <div class="tl-axis" aria-hidden="true">${ticks.map(([d,l])=>`<span style="left:${pct(d)}%">${l}</span>`).join('')}</div>
+    <div class="staylist">${t.stays.map(([c,,a,b])=>`<b>${c}</b> ${days(a,b)}n`).join(' · ')}</div>`;
 }
 function legRow(l){
   if(l.k==='g') return `<div class="leg ground"><div class="d">${fmtD(l.d)}</div><div class="r"><b>${l.f} → ${l.t}</b><div class="x">${l.txt}</div></div><div class="p"><small>not in total</small></div></div>`;
   const [p,txt] = l[st.mode];
-  const tag = l.booked?'':(l.fresh?`<span class="fresh f-new">${PRICED}</span>`:`<span class="fresh f-old">29 Sep</span>`);
+  const tag = l.booked?'':(l.fresh?`<span class="fresh f-new">checked 30 Sep</span>`:`<span class="fresh f-old">29 Sep price</span>`);
   const link = l.booked?'':` · <a href="${gf(l.f,l.t,l.d)}" target="_blank" rel="noopener">Search ↗</a>`;
-  return `<div class="leg${l.booked?' booked-leg':''}"><div class="d">${fmtD(l.d)}</div><div class="r"><b>${l.f} → ${l.t}</b>${tag}<div class="x">${txt}${link}</div></div><div class="p num">${money(p*st.pax)}<small>${l.booked?'booked':st.pax>1?money(p)+' pp':''}</small></div></div>`;
+  return `<div class="leg${l.booked?' booked-leg':''}"><div class="d">${fmtD(l.d)}</div><div class="r"><b>${l.f} → ${l.t}</b> <span class="place">${place(l.f)} → ${place(l.t)}</span>${tag}<div class="x">${txt}${link}</div></div><div class="p num">${money(p*st.pax)}<small>${l.booked?'booked':st.pax>1?money(p)+' each':''}</small></div></div>`;
 }
 function card(t){
   const tot = t.tot(st.mode)*st.pax;
-  const cn = t.china?`<span class="badge b-acc">China: 240-hour rule</span>`:`<span class="badge b-good">No China</span>`;
-  const home = t.legs[t.legs.length-1];
   return `<article class="card${st.hl===t.id?' hl':''}" id="trip-${t.id}">
    <div class="card-top"><div>
-     <div class="title-row"><h3>${t.name}</h3>${lenBadge(t)}${cn}</div>
-     <div class="cities">${t.cities.join(' · ')}</div>
-     <div class="stats"><span>Home <b>${fmtD(t.homeDate)}</b> from <b class="mono">${t.home}</b></span><span>Land AKL <b>${fmtD(t.land)}</b></span><span><b>${t.nFlights}</b> flights</span><span>${t.nonstop||st.mode==='comfy'?'Nonstop home':'1 stop home'}</span></div>
+     <div class="title-row"><h3>${t.name}</h3>${lenBadge(t)}${chinaBadge(t)}</div>
+     <div class="stats"><span>${fmtS(START)} – ${fmtS(t.land)}</span><span>Fly home <b>${fmtD(t.homeDate)}</b> from <b>${place(t.home)}</b></span><span>${homeNonstop(t)?'Nonstop':'1 stop'}</span><span><b>${t.toBook}</b> flights still to book</span></div>
+     <div class="keydays"><span>Christmas: <b>${t.xmas}</b></span><span>New Year's Eve: <b>${t.nye}</b></span></div>
+     ${t.casper&&t.casper!=='none'?`<div class="casper">With Casper: ${t.casper}</div>`:''}
    </div>
-   <div class="total"><div class="big num">${money(tot)}</div><div class="sub">flights, ${st.pax===2?'for two':'per person'}${st.pax===2?' · '+money(t.tot(st.mode))+' pp':''}</div></div></div>
+   <div class="total"><div class="big num">${money(tot)}</div><div class="sub">all flights ${unit()}${st.pax===2?'<br>'+money(t.tot(st.mode))+' each':''}</div></div></div>
    ${tl(t)}
-   <div class="why"><div><h4>Good</h4><ul>${t.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>Watch</h4><ul>${t.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
-   <details><summary>Flights and trains</summary><div class="legs">${t.legs.map(legRow).join('')}</div></details>
+   <div class="why"><div><h4>Good</h4><ul>${t.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>Watch out for</h4><ul>${t.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+   <details><summary>Show every flight and train</summary><div class="legs">${t.legs.map(legRow).join('')}</div></details>
   </article>`;
 }
+function filtered(){
+  const ts = TRIPS.filter(t=>(!st.noChina||!t.china)&&(!st.nonstop||homeNonstop(t))&&(!st.fit||t.fits));
+  const key = {cost:t=>t.tot(st.mode),len:t=>t.nights,cities:t=>-t.stays.length}[st.sort];
+  return ts.sort((a,b)=>key(a)-key(b));
+}
 function render(){
-  let ts = TRIPS.filter(t=>(!st.noChina||!t.china)&&(!st.nonstop||t.nonstop||st.mode==='comfy')&&(!st.fit||t.fits));
-  const key = {cost:t=>t.tot(st.mode),len:t=>t.nights,cities:t=>-t.cities.length}[st.sort];
-  ts.sort((a,b)=>key(a)-key(b));
-  $('#list').innerHTML = ts.length?ts.map(card).join(''):`<div class="empty">No trip matches these filters. Turn one off to see more.</div>`;
-  // picks
+  const ts = filtered();
+  $('#list').innerHTML = ts.length?ts.map(card).join(''):`<div class="empty">No trip matches these filters. Turn one off under “Show only”.</div>`;
+  $('#glance tbody').innerHTML = ts.length?ts.map(t=>`<tr tabindex="0" data-row="${t.id}">
+    <td><div class="tname">${t.name}</div><div class="tsub">${t.stays.map(s=>s[0]).filter((c,i,a)=>a.indexOf(c)===i).join(' · ')}</div></td>
+    <td class="num">${t.weeks.toFixed(1)} wks<div class="tsub">home ${fmtS(t.land)}</div></td>
+    <td>${t.xmas} · ${t.nye}</td>
+    <td class="num">${t.stays.length}</td>
+    <td>${place(t.home)}<div class="tsub">${homeNonstop(t)?'nonstop':'1 stop'}</div></td>
+    <td class="r num"><b>${money(t.tot(st.mode)*st.pax)}</b><div class="tsub">${unit()}</div></td></tr>`).join(''):`<tr><td colspan="6" class="note">No trip matches these filters.</td></tr>`;
   const by = id=>TRIPS.find(t=>t.id===id);
-  const P = [['S1','Cheapest, nonstop home','Seoul, then Tokyo over New Year'],['S2a','Best value','Five cities with China, home from Hong Kong on Fiji'],['S4','Most time with Casper','Seoul, Suzhou, then Taipei'],['P3s','Everything in 3½ weeks','All six cities, home 8 Jan']];
-  $('#picks').innerHTML = P.map(([id,h,s])=>{const t=by(id);return `<button class="pick" type="button" data-go="${id}"><span class="eyebrow">${h}</span><span class="big num">${money(t.tot(st.mode)*st.pax)}</span><span class="sub">${s} · ${t.weeks.toFixed(1)} wks</span></button>`}).join('');
+  const P = (window.PICKS || [['S1','Cheapest, nonstop home','Seoul, then Tokyo over New Year'],['S2a','Best value','Five cities with China, home from Hong Kong on Fiji'],['S4','Most time with Casper','Seoul, Suzhou, then Taipei'],['P3s','Everything in 3½ weeks','All six cities, home 8 Jan']]).filter(p=>by(p[0]));
+  $('#picks').innerHTML = P.map(([id,h,s])=>{const t=by(id);return `<button class="pick" type="button" data-go="${id}"><span class="eyebrow">${h}</span><span class="big num">${money(t.tot(st.mode)*st.pax)}</span><span class="sub">${unit()} · ${t.weeks.toFixed(1)} weeks · home from ${place(t.home)}</span><span class="sub">${s}</span></button>`}).join('');
   document.querySelectorAll('[data-pax]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pax===st.pax));
   document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===st.mode));
   document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===st.sort));
   $('#fNoChina').setAttribute('aria-pressed',st.noChina);$('#fNonstop').setAttribute('aria-pressed',st.nonstop);$('#fFit').setAttribute('aria-pressed',st.fit);
 }
 function board(){
-  const rows=[...BOARD].sort((a,b)=>a[1].localeCompare(b[1])||a[0].localeCompare(b[0]));
+  $('#notesList').innerHTML = NOTES.map(n=>`<li>${n}</li>`).join('');
+  if(!$('#board')) return;
+  const rows=[...BOARD].sort((a,b)=>place(a[1]).localeCompare(place(b[1]))||a[0].localeCompare(b[0]));
   $('#board tbody').innerHTML = rows.map(r=>{
     const lv = r[5]==='Low'?'b-good':r[5]==='High'?'b-bad':'b-acc';
-    return `<tr><td class="num">${fmtD(r[0])}</td><td class="mono"><a href="${gf(r[1],'AKL',r[0])}" target="_blank" rel="noopener">${r[1]}</a></td><td class="pr num">${r[2]}</td><td class="num">${r[3]}</td><td>${r[4]}${r[6]?'':' <span class="fresh f-old">29 Sep</span>'}</td><td>${r[5]?`<span class="badge ${lv}">${r[5]}</span>`:'<span class="note">not shown</span>'}</td></tr>`}).join('');
-  $('#notesList').innerHTML = NOTES.map(n=>`<li>${n}</li>`).join('');
+    return `<tr><td class="num">${fmtD(r[0])}</td><td><a href="${gf(r[1],'AKL',r[0])}" target="_blank" rel="noopener">${place(r[1])}</a> <span class="mono note">${r[1]}</span></td><td class="pr num">NZ$${r[2]}</td><td class="num">${/^\d/.test(r[3])?'NZ$'+r[3]:r[3]}</td><td>${r[4]}${r[6]?'':' <span class="fresh f-old">29 Sep price</span>'}</td><td>${r[5]?`<span class="badge ${lv}">${r[5]}</span>`:'<span class="note">not shown</span>'}</td></tr>`}).join('');
+}
+function go(id){
+  st.hl=id; st.noChina=st.nonstop=st.fit=false; render();
+  const el=document.getElementById('trip-'+id);
+  if(el){el.querySelector('details').open=true;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
 }
 document.addEventListener('click',e=>{
+  const row=e.target.closest('tr[data-row]'); if(row){go(row.dataset.row);return}
   const b=e.target.closest('button'); if(!b) return;
   if(b.dataset.pax){st.pax=+b.dataset.pax;store.set('pax',st.pax)}
   else if(b.dataset.mode){st.mode=b.dataset.mode;store.set('mode',st.mode)}
@@ -398,10 +487,11 @@ document.addEventListener('click',e=>{
   else if(b.id==='fNoChina') st.noChina=!st.noChina;
   else if(b.id==='fNonstop') st.nonstop=!st.nonstop;
   else if(b.id==='fFit') st.fit=!st.fit;
-  else if(b.dataset.go){st.hl=b.dataset.go;st.noChina=st.nonstop=st.fit=false;render();const el=document.getElementById('trip-'+b.dataset.go);if(el){el.querySelector('details').open=true;el.scrollIntoView({behavior:'smooth',block:'start'})}return}
+  else if(b.dataset.go){go(b.dataset.go);return}
   else return;
   render();
 });
+document.addEventListener('keydown',e=>{const row=e.target.closest&&e.target.closest('tr[data-row]');if(row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go(row.dataset.row)}});
 board(); render();
 </script>
 
