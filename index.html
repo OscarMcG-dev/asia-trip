@@ -205,6 +205,7 @@ td.pr{font-weight:600;white-space:nowrap}
   </div>
   <div class="ctl ctl-row"><span title="Tap once to require a country, again to leave it out, again to clear">Countries</span>
     <span id="ctyChips" class="chips"></span>
+    <button class="chip" id="fAll3" type="button" aria-pressed="false">All three: Korea + China + Japan</button>
     <span class="hint">Tap: must include → leave out → any</span>
   </div>
   <div class="ctl ctl-row"><span>Fly home from</span>
@@ -491,6 +492,7 @@ function render(){
   document.querySelectorAll('[data-pax]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pax===st.pax));
   document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===st.mode));
   document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===st.sort));
+  $('#fAll3').setAttribute('aria-pressed',['KR','CN','JP'].every(c=>st.cty[c]==='need'));
   $('#fNonstop').setAttribute('aria-pressed',st.nonstop);$('#fFit').setAttribute('aria-pressed',st.fit);
   const present = Object.keys(CTY).filter(c=>TRIPS.some(t=>t.ctys.includes(c)));
   const lbl = {need:'must include',skip:'left out'};
@@ -521,6 +523,7 @@ document.addEventListener('click',e=>{
   else if(b.dataset.sort){st.sort=b.dataset.sort;store.set('sort',st.sort)}
   else if(b.dataset.cty){const c=b.dataset.cty, v=st.cty[c]; st.cty[c] = !v?'need':v==='need'?'skip':''; if(!st.cty[c]) delete st.cty[c];}
   else if('home' in b.dataset) st.homeCty=b.dataset.home;
+  else if(b.id==='fAll3'){const on=['KR','CN','JP'].every(c=>st.cty[c]==='need'); if(on){['KR','CN','JP'].forEach(c=>delete st.cty[c])} else {['KR','CN','JP'].forEach(c=>st.cty[c]='need')}}
   else if(b.id==='fReset'){st.cty={};st.homeCty='';st.nonstop=st.fit=false}
   else if(b.id==='fNonstop') st.nonstop=!st.nonstop;
   else if(b.id==='fFit') st.fit=!st.fit;
