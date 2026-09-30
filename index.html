@@ -16,7 +16,7 @@
 :root{
   --bg:#f3f5f8; --surface:#ffffff; --ink:#18202d; --muted:#5b6475; --line:#dde2ea;
   --accent:#2c56c9; --accent-soft:#e6ecfb; --good:#1f7a4d; --good-soft:#e3f3ea; --warn:#9a5b00; --warn-soft:#fbf0dc; --bad:#a3302a; --bad-soft:#f8e3e1;
-  --kr:#3a6fd8; --jp:#d0506a; --cn:#e0a02a; --hk:#1f9c8f; --tw:#6a9a2c;
+  --on-strong:#ffffff; --kr:#3a6fd8; --jp:#d0506a; --cn:#e0a02a; --hk:#1f9c8f; --tw:#6a9a2c;
   --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
@@ -24,11 +24,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#10141c; --surface:#181e29; --ink:#e7ebf2; --muted:#9aa3b4; --line:#2a3242;
   --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#f08b83; --bad-soft:#3a1c1a;
-  --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}}
+  --on-strong:#10141c; --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#10141c; --surface:#181e29; --ink:#e7ebf2; --muted:#9aa3b4; --line:#2a3242;
   --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#f08b83; --bad-soft:#3a1c1a;
-  --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}
+  --on-strong:#10141c; --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);padding-inline:16px;padding-block:28px 60px}
 .wrap{max-width:980px;margin:0 auto;display:grid;gap:28px}
@@ -102,6 +102,19 @@ summary::before{content:"▸ ";} details[open] summary::before{content:"▾ ";}
 .fresh{font:500 10px var(--body);text-transform:uppercase;letter-spacing:.05em;padding:2px 5px;border-radius:4px;margin-left:6px;vertical-align:1px}
 .f-new{background:var(--good-soft);color:var(--good)} .f-old{background:var(--warn-soft);color:var(--warn)}
 .sec{display:grid;gap:12px}
+.ctl-row{flex-basis:100%}
+.chips{display:inline-flex;flex-wrap:wrap;gap:6px}
+.hint{font-size:12px;color:var(--muted)}
+.chip .sw{margin-right:5px;vertical-align:-1px}
+.chip[data-state="need"]{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.chip[data-state="skip"]{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
+.chip.reset{border-style:dashed}
+.homefrom{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.cty{display:inline-flex;align-items:center;gap:5px;font:600 11px/1 var(--body);letter-spacing:.04em;text-transform:uppercase;padding:4px 7px;border-radius:5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);white-space:nowrap}
+.tl .c-CN,.tl .c-TW,.tl .c-HK{color:#14181f}
+.tl .c-KR,.tl .c-JP{color:var(--on-strong)}
+.wayhome{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.wayhome .lbl{font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .sec-head{display:grid;gap:4px}
 .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding-block:10px;border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
 .ctl{flex-wrap:wrap}
@@ -135,7 +148,7 @@ summary::before{content:"▸ ";} details[open] summary::before{content:"▾ ";}
 .terms{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0}
 .terms dt{font-weight:600} .terms dd{margin:0;color:var(--muted)}
 .notes h3{font-size:16px;margin-top:8px}
-@media (max-width:640px){.terms{grid-template-columns:1fr}.terms dd{margin-bottom:6px}.glance{min-width:640px}.bar{gap:8px 14px}}
+@media (max-width:640px){.terms{grid-template-columns:1fr}.terms dd{margin-bottom:6px}.glance{min-width:640px}.bar{gap:8px 14px;position:static}}
 .board-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
 table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
 th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -187,10 +200,17 @@ td.pr{font-weight:600;white-space:nowrap}
     </span>
   </div>
   <div class="ctl"><span>Show only</span>
-    <button class="chip" id="fNoChina" type="button" aria-pressed="false">No mainland China</button>
     <button class="chip" id="fNonstop" type="button" aria-pressed="false">Nonstop home</button>
     <button class="chip" id="fFit" type="button" aria-pressed="false">3½ weeks or less</button>
   </div>
+  <div class="ctl ctl-row"><span title="Tap once to require a country, again to leave it out, again to clear">Countries</span>
+    <span id="ctyChips" class="chips"></span>
+    <span class="hint">Tap: must include → leave out → any</span>
+  </div>
+  <div class="ctl ctl-row"><span>Fly home from</span>
+    <span class="seg" role="group" aria-label="Fly home from" id="homeSeg"></span>
+  </div>
+  <button class="chip reset" id="fReset" type="button" hidden>Clear filters</button>
 </div>
 
 <section aria-labelledby="picksH" class="sec">
@@ -224,7 +244,7 @@ td.pr{font-weight:600;white-space:nowrap}
 <section aria-labelledby="boardH" class="sec">
   <div class="sec-head"><h2 id="boardH">Every way home we checked</h2>
   <p class="note">One-way economy to Auckland, per person. Most of these fly overnight and land the next day.</p></div>
-  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>From</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google's price rating</th></tr></thead><tbody></tbody></table></div>
+  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>Leaving from</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google's price rating</th></tr></thead><tbody></tbody></table></div>
 </section>
 
 <section aria-labelledby="notesH" class="notes">
@@ -380,9 +400,12 @@ const fmtS = s=>D(s).toLocaleDateString('en-NZ',{day:'numeric',month:'short',tim
 const money = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
 const PLACE = {AKL:'Auckland',ICN:'Seoul Incheon',GMP:'Seoul Gimpo',SEL:'Seoul',NRT:'Tokyo Narita',HND:'Tokyo Haneda',TYO:'Tokyo',KIX:'Osaka Kansai',ITM:'Osaka Itami',OSA:'Osaka',PVG:'Shanghai Pudong',SHA:'Shanghai Hongqiao',CKG:'Chongqing',SZX:'Shenzhen',HKG:'Hong Kong',CAN:'Guangzhou',TPE:'Taipei',TSA:'Taipei Songshan',PUS:'Busan',FUK:'Fukuoka',PEK:'Beijing Capital',PKX:'Beijing Daxing',BJS:'Beijing',CTU:'Chengdu Shuangliu',TFU:'Chengdu Tianfu',XIY:"Xi'an",HRB:'Harbin',CTS:'Sapporo',KWL:'Guilin',DYG:'Zhangjiajie',HGH:'Hangzhou',TAO:'Qingdao',CJU:'Jeju',XMN:'Xiamen',NGO:'Nagoya',KMQ:'Komatsu',HIJ:'Hiroshima',OKA:'Okinawa',TSN:'Tianjin',DLC:'Dalian',SYD:'Sydney',NAN:'Nadi',KMG:'Kunming',NKG:'Nanjing',CGQ:'Changchun',SHE:'Shenyang'};
 const place = c=>PLACE[c]||c;
+const CTY = {KR:'Korea',JP:'Japan',CN:'China',HK:'Hong Kong',TW:'Taiwan'};
+const APT_CTY = {ICN:'KR',GMP:'KR',SEL:'KR',PUS:'KR',CJU:'KR',NRT:'JP',HND:'JP',TYO:'JP',KIX:'JP',ITM:'JP',OSA:'JP',FUK:'JP',CTS:'JP',NGO:'JP',KMQ:'JP',HIJ:'JP',OKA:'JP',HKG:'HK',TPE:'TW',TSA:'TW'};
+const ctyTag = cc=>`<span class="cty"><i class="sw c-${cc}"></i>${CTY[cc]}</span>`;
 const START='2026-12-16';
 const store = {get(k,d){try{const v=localStorage.getItem('shh-'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('shh-'+k,JSON.stringify(v))}catch(e){}}};
-const st = {pax:store.get('pax',2),mode:store.get('mode','cheap'),sort:store.get('sort','cost'),noChina:false,nonstop:false,fit:false,hl:null};
+const st = {pax:store.get('pax',2),mode:store.get('mode','cheap'),sort:store.get('sort','cost'),cty:{},homeCty:'',nonstop:false,fit:false,hl:null};
 
 TRIPS.forEach(t=>{
   t.nights = days(START,t.land);
@@ -393,6 +416,8 @@ TRIPS.forEach(t=>{
   t.homeLeg = [...t.legs].reverse().find(l=>l.k==='f');
   const at = d=>{const s=t.stays.find(([,,a,b])=>a<=d&&d<b);return s?s[0]:'—'};
   t.xmas = at('2026-12-25'); t.nye = at('2026-12-31');
+  t.ctys = [...new Set(t.stays.map(s=>s[1]))];
+  t.homeCC = APT_CTY[t.home] || (t.home.length===3 && !APT_CTY[t.home] ? 'CN' : t.stays[t.stays.length-1][1]);
 });
 const AXIS_END = TRIPS.reduce((m,t)=>t.land>m?t.land:m,'2027-01-09');
 const homeNonstop = t=>/nonstop/i.test(t.homeLeg[st.mode][1]) || (st.mode==='cheap'&&t.nonstop);
@@ -432,30 +457,33 @@ function card(t){
   return `<article class="card${st.hl===t.id?' hl':''}" id="trip-${t.id}">
    <div class="card-top"><div>
      <div class="title-row"><h3>${t.name}</h3>${lenBadge(t)}${chinaBadge(t)}</div>
-     <div class="stats"><span>${fmtS(START)} – ${fmtS(t.land)}</span><span>Fly home <b>${fmtD(t.homeDate)}</b> from <b>${place(t.home)}</b></span><span>${homeNonstop(t)?'Nonstop':'1 stop'}</span><span><b>${t.toBook}</b> flights still to book</span></div>
+     <div class="stats"><span>${fmtS(START)} – ${fmtS(t.land)}</span><span>Countries: <b>${t.ctys.map(c=>CTY[c]).join(', ')}</b></span><span><b>${t.toBook}</b> flights still to book</span></div>
      <div class="keydays"><span>Christmas: <b>${t.xmas}</b></span><span>New Year's Eve: <b>${t.nye}</b></span></div>
      ${t.casper&&t.casper!=='none'?`<div class="casper">With Casper: ${t.casper}</div>`:''}
    </div>
    <div class="total"><div class="big num">${money(tot)}</div><div class="sub">all flights ${unit()}${st.pax===2?'<br>'+money(t.tot(st.mode))+' each':''}</div></div></div>
+   <div class="wayhome" style="margin-inline:18px"><span class="lbl">Way home</span>${ctyTag(t.homeCC)}<b>${place(t.home)}</b><span>${fmtD(t.homeDate)} → Auckland ${fmtD(t.land)}</span><span class="note">${homeNonstop(t)?'nonstop':'1 stop'} · ${t.homeLeg[st.mode][1]}</span></div>
    ${tl(t)}
    <div class="why"><div><h4>Good</h4><ul>${t.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>Watch out for</h4><ul>${t.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
    <details><summary>Show every flight and train</summary><div class="legs">${t.legs.map(legRow).join('')}</div></details>
   </article>`;
 }
 function filtered(){
-  const ts = TRIPS.filter(t=>(!st.noChina||!t.china)&&(!st.nonstop||homeNonstop(t))&&(!st.fit||t.fits));
+  const need = Object.keys(st.cty).filter(c=>st.cty[c]==='need'), skip = Object.keys(st.cty).filter(c=>st.cty[c]==='skip');
+  const ts = TRIPS.filter(t=>need.every(c=>t.ctys.includes(c)) && !skip.some(c=>t.ctys.includes(c)) && (!st.homeCty||t.homeCC===st.homeCty) && (!st.nonstop||homeNonstop(t)) && (!st.fit||t.fits));
   const key = {cost:t=>t.tot(st.mode),len:t=>t.nights,cities:t=>-t.stays.length}[st.sort];
   return ts.sort((a,b)=>key(a)-key(b));
 }
 function render(){
   const ts = filtered();
-  $('#list').innerHTML = ts.length?ts.map(card).join(''):`<div class="empty">No trip matches these filters. Turn one off under “Show only”.</div>`;
+  const need = Object.keys(st.cty).filter(c=>st.cty[c]==='need'), skip = Object.keys(st.cty).filter(c=>st.cty[c]==='skip');
+  $('#list').innerHTML = ts.length?ts.map(card).join(''):`<div class="empty">No trip matches these filters. Clear a filter to see more.</div>`;
   $('#glance tbody').innerHTML = ts.length?ts.map(t=>`<tr tabindex="0" data-row="${t.id}">
     <td><div class="tname">${t.name}</div><div class="tsub">${t.stays.map(s=>s[0]).filter((c,i,a)=>a.indexOf(c)===i).join(' · ')}</div></td>
     <td class="num">${t.weeks.toFixed(1)} wks<div class="tsub">home ${fmtS(t.land)}</div></td>
     <td>${t.xmas} · ${t.nye}</td>
     <td class="num">${t.stays.length}</td>
-    <td>${place(t.home)}<div class="tsub">${homeNonstop(t)?'nonstop':'1 stop'}</div></td>
+    <td>${ctyTag(t.homeCC)}<div class="tsub" style="margin-top:4px">${place(t.home)} · ${homeNonstop(t)?'nonstop':'1 stop'}</div></td>
     <td class="r num"><b>${money(t.tot(st.mode)*st.pax)}</b><div class="tsub">${unit()}</div></td></tr>`).join(''):`<tr><td colspan="6" class="note">No trip matches these filters.</td></tr>`;
   const by = id=>TRIPS.find(t=>t.id===id);
   const P = (window.PICKS || [['S1','Cheapest, nonstop home','Seoul, then Tokyo over New Year'],['S2a','Best value','Five cities with China, home from Hong Kong on Fiji'],['S4','Most time with Casper','Seoul, Suzhou, then Taipei'],['P3s','Everything in 3½ weeks','All six cities, home 8 Jan']]).filter(p=>by(p[0]));
@@ -463,18 +491,25 @@ function render(){
   document.querySelectorAll('[data-pax]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pax===st.pax));
   document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===st.mode));
   document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===st.sort));
-  $('#fNoChina').setAttribute('aria-pressed',st.noChina);$('#fNonstop').setAttribute('aria-pressed',st.nonstop);$('#fFit').setAttribute('aria-pressed',st.fit);
+  $('#fNonstop').setAttribute('aria-pressed',st.nonstop);$('#fFit').setAttribute('aria-pressed',st.fit);
+  const present = Object.keys(CTY).filter(c=>TRIPS.some(t=>t.ctys.includes(c)));
+  const lbl = {need:'must include',skip:'left out'};
+  $('#ctyChips').innerHTML = present.map(c=>{const v=st.cty[c]||'';return `<button class="chip" type="button" data-cty="${c}" data-state="${v}" aria-label="${CTY[c]}${v?': '+lbl[v]:': any'}"><i class="sw c-${c}"></i>${CTY[c]}${v==='need'?' ✓':''}</button>`}).join('');
+  const homes = Object.keys(CTY).filter(c=>TRIPS.some(t=>t.homeCC===c));
+  $('#homeSeg').innerHTML = ['',...homes].map(c=>`<button type="button" data-home="${c}" aria-pressed="${st.homeCty===c}">${c?'<i class="sw c-'+c+'"></i> '+CTY[c]:'Anywhere'}</button>`).join('');
+  $('#fReset').hidden = !(need.length||skip.length||st.homeCty||st.nonstop||st.fit);
 }
 function board(){
   $('#notesList').innerHTML = NOTES.map(n=>`<li>${n}</li>`).join('');
   if(!$('#board')) return;
-  const rows=[...BOARD].sort((a,b)=>place(a[1]).localeCompare(place(b[1]))||a[0].localeCompare(b[0]));
+  const ord=['KR','JP','CN','HK','TW'], cc=r=>ord.indexOf(APT_CTY[r[1]]||'CN');
+  const rows=[...BOARD].sort((a,b)=>cc(a)-cc(b)||place(a[1]).localeCompare(place(b[1]))||a[0].localeCompare(b[0]));
   $('#board tbody').innerHTML = rows.map(r=>{
     const lv = r[5]==='Low'?'b-good':r[5]==='High'?'b-bad':'b-acc';
-    return `<tr><td class="num">${fmtD(r[0])}</td><td><a href="${gf(r[1],'AKL',r[0])}" target="_blank" rel="noopener">${place(r[1])}</a> <span class="mono note">${r[1]}</span></td><td class="pr num">NZ$${r[2]}</td><td class="num">${/^\d/.test(r[3])?'NZ$'+r[3]:r[3]}</td><td>${r[4]}${r[6]?'':' <span class="fresh f-old">29 Sep price</span>'}</td><td>${r[5]?`<span class="badge ${lv}">${r[5]}</span>`:'<span class="note">not shown</span>'}</td></tr>`}).join('');
+    return `<tr><td class="num">${fmtD(r[0])}</td><td>${ctyTag(APT_CTY[r[1]]||'CN')} <a href="${gf(r[1],'AKL',r[0])}" target="_blank" rel="noopener">${place(r[1])}</a> <span class="mono note">${r[1]}</span></td><td class="pr num">NZ$${r[2]}</td><td class="num">${/^\d/.test(r[3])?'NZ$'+r[3]:r[3]}</td><td>${r[4]}${r[6]?'':' <span class="fresh f-old">29 Sep price</span>'}</td><td>${r[5]?`<span class="badge ${lv}">${r[5]}</span>`:'<span class="note">not shown</span>'}</td></tr>`}).join('');
 }
 function go(id){
-  st.hl=id; st.noChina=st.nonstop=st.fit=false; render();
+  st.hl=id; st.cty={}; st.homeCty=''; st.nonstop=st.fit=false; render();
   const el=document.getElementById('trip-'+id);
   if(el){el.querySelector('details').open=true;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
 }
@@ -484,7 +519,9 @@ document.addEventListener('click',e=>{
   if(b.dataset.pax){st.pax=+b.dataset.pax;store.set('pax',st.pax)}
   else if(b.dataset.mode){st.mode=b.dataset.mode;store.set('mode',st.mode)}
   else if(b.dataset.sort){st.sort=b.dataset.sort;store.set('sort',st.sort)}
-  else if(b.id==='fNoChina') st.noChina=!st.noChina;
+  else if(b.dataset.cty){const c=b.dataset.cty, v=st.cty[c]; st.cty[c] = !v?'need':v==='need'?'skip':''; if(!st.cty[c]) delete st.cty[c];}
+  else if('home' in b.dataset) st.homeCty=b.dataset.home;
+  else if(b.id==='fReset'){st.cty={};st.homeCty='';st.nonstop=st.fit=false}
   else if(b.id==='fNonstop') st.nonstop=!st.nonstop;
   else if(b.id==='fFit') st.fit=!st.fit;
   else if(b.dataset.go){go(b.dataset.go);return}
