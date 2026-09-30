@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#2c56c9">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232c56c9'/%3E%3Cpath d='M14 38l36-14-8 22-8-8-8 6 2-10z' fill='white'/%3E%3C/svg%3E">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Seoul and Home Again</title>
+<title>Seoul Trip Ideas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
@@ -174,11 +174,11 @@ td.pr{font-weight:600;white-space:nowrap}
 
 
 <div class="wrap">
-<nav class="nav" aria-label="Pages"><a href="index.html" data-page="home" aria-current="page">Flights home</a><a href="ideas.html" data-page="ideas">More trip ideas</a></nav>
+<nav class="nav" aria-label="Pages"><a href="index.html" data-page="home">Flights home</a><a href="ideas.html" data-page="ideas" aria-current="page">More trip ideas</a></nav>
 <header>
   <span class="eyebrow">Christmas 2026 · Korea, Japan, China</span>
-  <h1>Seoul and home again</h1>
-  <p class="lede">The flight to Seoul is booked. This page compares ways to spend the next 2½–3½ weeks, and where to fly home from.</p>
+  <h1>More ways to spend the trip</h1>
+  <p class="lede">Six more 2½–3½ week plans after the booked Seoul flight: Beijing and Xi’an, Harbin ice, Chengdu, Hokkaido snow, a slow Kyoto stay, and Zhangjiajie to Hong Kong. Fares were checked on Google Flights on 30 Sep 2026 for two adults.</p>
   <div class="booked">
     <span class="tag">Booked</span>
     <span><b>Wed 16 Dec</b> · Jetstar Auckland → Sydney → Seoul · 06:15 → 20:15</span>
@@ -241,11 +241,7 @@ td.pr{font-weight:600;white-space:nowrap}
   <div class="list" id="list"></div>
 </section>
 
-<section aria-labelledby="boardH" class="sec">
-  <div class="sec-head"><h2 id="boardH">Every way home we checked</h2>
-  <p class="note">One-way economy to Auckland, per person. Most of these fly overnight and land the next day.</p></div>
-  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>Leaving from</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google's price rating</th></tr></thead><tbody></tbody></table></div>
-</section>
+
 
 <section aria-labelledby="notesH" class="notes">
   <h2 id="notesH">Before booking</h2>
@@ -261,6 +257,7 @@ td.pr{font-weight:600;white-space:nowrap}
 
 <script>
 /* ---------- data ---------- */
+window.PICKS = [["zhangjiajie-guilin-hk", "Cheapest", "Mountains, Li River, New Year in Hong Kong"], ["kyoto-slow", "Slow and easy", "Seoul, then ten nights in Kyoto"], ["beijing-xian-shanghai", "Most time with Casper", "Beijing, Xi’an, New Year in Suzhou"], ["hokkaido-tokyo", "Snow", "Sapporo and onsen, then Tokyo"]];
 const PRICED = '30 Sep';
 const gf = (f,t,d)=>`https://www.google.com/travel/flights?q=${encodeURIComponent(`Flights from ${f} to ${t} on ${d} one way`)}&curr=NZD&hl=en`;
 // leg: [date, from, to, cheap[price, text], comfy[price, text], fresh(bool)]
@@ -268,99 +265,7 @@ const F = (d,f,t,cheap,comfy,fresh=true)=>({k:'f',d,f,t,cheap,comfy:comfy||cheap
 const G = (d,f,t,txt)=>({k:'g',d,f,t,txt});
 const OUT = {k:'f',d:'2026-12-16',f:'AKL',t:'ICN',cheap:[1151,'Jetstar via Sydney, 06:15 → 20:15'],comfy:[1151,'Jetstar via Sydney, 06:15 → 20:15'],fresh:true,booked:true};
 
-const TRIPS = [
- {id:'S2a',name:'Seoul, then China to Hong Kong',cities:['Seoul','Shanghai','Suzhou','Chongqing','Shenzhen'],china:true,
-  home:'HKG',homeDate:'2027-01-05',land:'2027-01-06',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-27'],['Shanghai','CN','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-02'],['Chongqing','CN','2027-01-02','2027-01-04'],['Shenzhen','CN','2027-01-04','2027-01-05']],
-  legs:[OUT,F('2026-12-27','ICN','PVG',[309,'China Southern 21:00 → 22:25'],[393,'Korean Air Gimpo → Hongqiao 08:25 → 09:45']),
-        G('2026-12-30','Shanghai','Suzhou','Train, about 30 min. New Year with Casper'),
-        F('2027-01-02','SHA','CKG',[167,'Spring 16:05 from Hongqiao. Cabin bag only'],[573,'China Southern 12:00'],false),
-        F('2027-01-04','CKG','SZX',[167,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-05','Shenzhen','Hong Kong airport','Train to West Kowloon, then Airport Express'),
-        F('2027-01-05','HKG','AKL',[1140.5,'Fiji Airways via Nadi (2h55), 16:10 → 13:35'],[1710,'Air NZ nonstop, 17:50 → 09:45'])],
-  pros:['Five cities for about NZ$40 pp more than the cheapest trip','11 nights in Seoul, New Year in Suzhou with Casper','Fiji fare rated low by Google'],
-  cons:['Only one night in Shenzhen, after a fog-prone morning flight','No Japan']},
- {id:'S2h',name:'Seoul, China, then Hong Kong',cities:['Seoul','Shanghai','Suzhou','Chongqing','Shenzhen','Hong Kong'],china:true,
-  home:'HKG',homeDate:'2027-01-08',land:'2027-01-09',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-27'],['Shanghai','CN','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-02'],['Chongqing','CN','2027-01-02','2027-01-04'],['Shenzhen','CN','2027-01-04','2027-01-06'],['Hong Kong','HK','2027-01-06','2027-01-08']],
-  legs:[OUT,F('2026-12-27','ICN','PVG',[309,'China Southern 21:00 → 22:25'],[393,'Korean Air Gimpo → Hongqiao 08:25 → 09:45']),
-        G('2026-12-30','Shanghai','Suzhou','Train, about 30 min. New Year with Casper'),
-        F('2027-01-02','SHA','CKG',[167,'Spring 16:05 from Hongqiao. Cabin bag only'],[573,'China Southern 12:00'],false),
-        F('2027-01-04','CKG','SZX',[167,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-06','Shenzhen','Hong Kong','Train Futian → West Kowloon, about 15 min. Must leave the mainland by 6 Jan'),
-        F('2027-01-08','HKG','AKL',[1308,'Air Niugini via Port Moresby (4h40), 20:25 → 18:30'],[2115.5,'Cathay nonstop, 14:55 → 06:55'])],
-  pros:['Same as the one above, plus two nights each in Shenzhen and Hong Kong','Leaves the mainland on 6 Jan, the last day the 240-hour rule allows'],
-  cons:['No slack on the 240-hour rule','Air Niugini via Port Moresby is the cheap way home; Fiji\'s good connection costs more on 8 Jan']},
- {id:'S6',name:'Seoul, China, nonstop home from Guangzhou',cities:['Seoul','Shanghai','Chongqing','Shenzhen','Guangzhou'],china:true,
-  home:'CAN',homeDate:'2027-01-04',land:'2027-01-05',nonstop:true,
-  stays:[['Seoul','KR','2026-12-16','2026-12-27'],['Shanghai','CN','2026-12-27','2026-12-29'],['Chongqing','CN','2026-12-29','2027-01-01'],['Shenzhen','CN','2027-01-01','2027-01-03'],['Guangzhou','CN','2027-01-03','2027-01-04']],
-  legs:[OUT,F('2026-12-27','ICN','PVG',[309,'China Southern 21:00 → 22:25'],[393,'Korean Air Gimpo → Hongqiao 08:25 → 09:45']),
-        F('2026-12-29','PVG','CKG',[135,'Spring 17:55. Cabin bag only'],[217,'China Southern 12:00'],false),
-        F('2027-01-01','CKG','SZX',[167,'Spring 09:55. Public holiday: book early'],[278,'Hainan 07:55 or 12:55'],false),
-        G('2027-01-03','Shenzhen','Guangzhou','High-speed train, 30–40 min'),
-        F('2027-01-04','CAN','AKL',[1382,'China Southern nonstop, 14:55 → 07:00'],[1382,'China Southern nonstop, 14:55 → 07:00'])],
-  pros:['Cheapest nonstop home we found','No Hong Kong border to fit in'],
-  cons:['Tied to 4 Jan: the fare jumps the next day','New Year in Chongqing, not Suzhou with Casper','Shortest option']},
- {id:'S1',name:'Seoul and Tokyo, nonstop home',cities:['Seoul','Tokyo'],china:false,
-  home:'NRT',homeDate:'2027-01-03',land:'2027-01-04',nonstop:true,
-  stays:[['Seoul','KR','2026-12-16','2026-12-27'],['Tokyo','JP','2026-12-27','2027-01-03']],
-  legs:[OUT,F('2026-12-27','ICN','NRT',[222,'Jeju Air 07:15 → 09:40. Cabin bag only'],[415,'Korean Air 14:45 → 17:20'],false),
-        F('2027-01-03','NRT','AKL',[1521,'Air NZ nonstop, 14:30 → 05:00'],[1609,'Air NZ nonstop, 18:30 → 09:00'])],
-  pros:['Cheapest trip with a nonstop home: the Tokyo fare fell NZ$229 since yesterday','Simplest: two flights, no China rules','Room to add Osaka by train and still fly home from Tokyo'],
-  cons:['Only two cities','Tokyo over New Year, when much of it shuts','The cheaper nonstop lands at 05:00']},
- {id:'E3',name:'Korea and Japan by train',cities:['Seoul','Busan','Fukuoka','Osaka','Tokyo'],china:false,
-  home:'NRT',homeDate:'2027-01-07',land:'2027-01-08',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-24'],['Busan','KR','2026-12-24','2026-12-27'],['Fukuoka','JP','2026-12-27','2026-12-29'],['Osaka','JP','2026-12-29','2027-01-02'],['Tokyo','JP','2027-01-02','2027-01-07']],
-  legs:[OUT,G('2026-12-24','Seoul','Busan','KTX, about 2h30'),
-        F('2026-12-27','PUS','FUK',[199,'Air Busan 07:30, 1h. Cabin bag only'],[212,'Air Busan 14:00'],false),
-        G('2026-12-29','Fukuoka','Osaka','Shinkansen, about 2h30'),
-        G('2027-01-02','Osaka','Tokyo','Shinkansen, 2h30'),
-        F('2027-01-07','NRT','AKL',[1639,'Cathay + Fiji from Haneda via Hong Kong and Nadi, 23h25'],[1903,'Air NZ nonstop, 18:30 → 09:00'])],
-  pros:['Best trip with no China and no visa questions','Fewest flights: mostly trains','Tokyo after New Year, when it reopens'],
-  cons:['No time with Casper after Seoul','Cheap way home takes 23 hours; the nonstop costs about NZ$260 more']},
- {id:'E2',name:'Seoul, Japan, then Taipei with Casper',cities:['Seoul','Tokyo','Osaka','Taipei'],china:false,
-  home:'TPE',homeDate:'2027-01-08',land:'2027-01-09',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-26'],['Tokyo','JP','2026-12-26','2027-01-01'],['Osaka','JP','2027-01-01','2027-01-05'],['Taipei','TW','2027-01-05','2027-01-08']],
-  legs:[OUT,F('2026-12-26','ICN','NRT',[221,'Jin Air 17:05 → 19:25. Cabin bag only'],[407,'Korean Air 14:45 → 17:20'],false),
-        G('2027-01-01','Tokyo','Osaka','Shinkansen, 2h30. Book seats ahead over New Year'),
-        F('2027-01-05','KIX','TPE',[212,'Thai Lion 13:40 → 15:40'],[420,'Starlux 12:20 → 14:40']),
-        F('2027-01-08','TPE','AKL',[1654,'Korean Air via Seoul (2h35), 12:25 → 09:55'],[2004,'Air NZ / EVA nonstop, 20:25 → 12:05'],false)],
-  pros:['No China','Casper at both ends: Seoul and Taipei','Taipei fare is the same most days, so the date is flexible'],
-  cons:['New Year\'s Eve in Tokyo, when much is shut','Dearer flight home than Hong Kong']},
- {id:'S4',name:'Seoul, Shanghai, then Taipei',cities:['Seoul','Shanghai','Suzhou','Taipei'],china:true,
-  home:'TPE',homeDate:'2027-01-08',land:'2027-01-09',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-27'],['Shanghai','CN','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-02'],['Shanghai','CN','2027-01-02','2027-01-03'],['Taipei','TW','2027-01-03','2027-01-08']],
-  legs:[OUT,F('2026-12-27','ICN','PVG',[309,'China Southern 21:00 → 22:25'],[393,'Korean Air Gimpo → Hongqiao 08:25 → 09:45']),
-        G('2026-12-30','Shanghai','Suzhou','Train, about 30 min. New Year with Casper'),
-        F('2027-01-03','PVG','TPE',[182,'Spring 08:25 → 10:30. Cabin bag only'],[352,'Uni Air Pudong → Songshan 11:15']),
-        F('2027-01-08','TPE','AKL',[1654,'Korean Air via Seoul (2h35), 12:25 → 09:55'],[2004,'Air NZ / EVA nonstop, 20:25 → 12:05'],false)],
-  pros:['Most nights with Casper of any option','Only two flights within Asia','Short, easy China stay'],
-  cons:['Relies on Taiwan counting as the onward stop for the 240-hour rule: confirm first','Skips Chongqing and Japan']},
- {id:'P3s',name:'All six, home from Hong Kong on 8 Jan',cities:['Seoul','Tokyo','Osaka','Shanghai','Suzhou','Chongqing','Shenzhen','Hong Kong'],china:true,
-  home:'HKG',homeDate:'2027-01-08',land:'2027-01-09',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-23'],['Tokyo','JP','2026-12-23','2026-12-27'],['Osaka','JP','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-01'],['Shanghai','CN','2027-01-01','2027-01-03'],['Chongqing','CN','2027-01-03','2027-01-05'],['Shenzhen','CN','2027-01-05','2027-01-07'],['Hong Kong','HK','2027-01-07','2027-01-08']],
-  legs:[OUT,F('2026-12-23','ICN','NRT',[160,'Air Seoul 08:10 → 10:25. Cabin bag only (Zipair 13:05 is 212)'],[347,'Korean Air / Asiana to Haneda, evening']),
-        G('2026-12-27','Tokyo','Osaka','Shinkansen, 2h30. Book seats about 27 Nov'),
-        F('2026-12-30','KIX','PVG',[519,'Spring 15:00 → 16:50. Cabin bag only'],[538,'Nonstop on Trip.com'],true),
-        F('2027-01-03','SHA','CKG',[167,'Spring 16:05 from Hongqiao'],[573,'China Southern 12:00'],false),
-        F('2027-01-05','CKG','SZX',[140,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-07','Shenzhen','Hong Kong','Train Futian → West Kowloon. Book before the Osaka flight'),
-        F('2027-01-08','HKG','AKL',[1308,'Air Niugini via Port Moresby (4h40), 20:25 → 18:30'],[2115.5,'Cathay nonstop, 14:55 → 06:55'])],
-  pros:['Every city on the list, in 3½ weeks','Japan before New Year, China over it'],
-  cons:['Dearest trip: about NZ$84 pp more than the 10 Jan version, because the 8 Jan fare home is higher','Only one night in Hong Kong','Flies home via Port Moresby; Fiji\'s short connection is NZ$1,607 that day']},
- {id:'P3a',name:'All six, as planned (home 10 Jan)',cities:['Seoul','Tokyo','Osaka','Shanghai','Suzhou','Chongqing','Shenzhen','Hong Kong'],china:true,
-  home:'HKG',homeDate:'2027-01-10',land:'2027-01-11',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-23'],['Tokyo','JP','2026-12-23','2026-12-27'],['Osaka','JP','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-01'],['Shanghai','CN','2027-01-01','2027-01-03'],['Chongqing','CN','2027-01-03','2027-01-05'],['Shenzhen','CN','2027-01-05','2027-01-08'],['Hong Kong','HK','2027-01-08','2027-01-10']],
-  legs:[OUT,F('2026-12-23','ICN','NRT',[160,'Air Seoul 08:10 → 10:25. Cabin bag only (Zipair 13:05 is 212)'],[347,'Korean Air / Asiana to Haneda, evening']),
-        G('2026-12-27','Tokyo','Osaka','Shinkansen, 2h30. Book seats about 27 Nov'),
-        F('2026-12-30','KIX','PVG',[519,'Spring 15:00 → 16:50. Cabin bag only'],[538,'Nonstop on Trip.com'],true),
-        F('2027-01-03','SHA','CKG',[167,'Spring 16:05 from Hongqiao'],[573,'China Southern 12:00'],false),
-        F('2027-01-05','CKG','SZX',[140,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-08','Shenzhen','Hong Kong','Train Futian → West Kowloon. Book before the Osaka flight'),
-        F('2027-01-10','HKG','AKL',[1224,'Fiji Airways via Nadi (2h55), 16:10 → 13:35'],[1890,'Air NZ nonstop, 17:50 → 09:45'])],
-  pros:['Every city, with more time in Shenzhen and Hong Kong','Cheaper than coming home on 8 Jan: the Fiji fare is rated low'],
-  cons:['About 3¾ weeks: two days over your upper limit','Most flights of any option']}
-];
+const TRIPS = [{"id": "beijing-xian-shanghai", "name": "Beijing, Xi'an, Suzhou, Shanghai", "cities": ["Seoul", "Beijing", "Xi'an", "Suzhou", "Shanghai"], "china": true, "visa": false, "home": "PVG", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-24"], ["Beijing", "CN", "2026-12-24", "2026-12-27"], ["Xi'an", "CN", "2026-12-27", "2026-12-30"], ["Suzhou", "CN", "2026-12-30", "2027-01-02"], ["Shanghai", "CN", "2027-01-02", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-24", "f": "ICN", "t": "PEK", "cheap": [291, "Asiana nonstop 12:50 → 14:10. Also 08:20 and 15:00 at the same price"], "comfy": [330, "Korean Air nonstop 07:55 → 09:25"], "fresh": true}, {"k": "g", "d": "2026-12-27", "f": "Beijing", "t": "Xi'an", "txt": "High-speed train, about 4h10 to 6h, second class about CNY 470-590 (about NZ$100-125, estimate). Source travelchinaguide.com"}, {"k": "f", "d": "2026-12-30", "f": "XIY", "t": "PVG", "cheap": [434, "China Southern nonstop 15:35 → 18:00, Google says prices high"], "comfy": [558, "Hainan nonstop 09:30 → 11:55"], "fresh": true}, {"k": "g", "d": "2026-12-30", "f": "Shanghai", "t": "Suzhou", "txt": "Metro from Pudong to Hongqiao, then a 30-minute train, about 2h door to door. Not priced"}, {"k": "g", "d": "2027-01-02", "f": "Suzhou", "t": "Shanghai", "txt": "30-minute train to Shanghai Hongqiao. Holiday 1-3 Jan: book early. Not priced"}, {"k": "f", "d": "2027-01-03", "f": "PVG", "t": "AKL", "cheap": [1482, "Air NZ nonstop 14:15 → 06:45+1. Only nonstop priced. Lands 4 Jan"], "comfy": [1482, "Same Air NZ nonstop. Korean Air via ICN is 1,639"], "fresh": true}], "pros": ["Longest overlap with Casper: Beijing 24-27 Dec and Suzhou 30 Dec-2 Jan", "Great Wall, terracotta army and New Year in Suzhou in one trip", "Air NZ nonstop home from Shanghai at 1,482 pp", "All trains in the 240-hour zone, no visa"], "cons": ["No slack: day 10 of the transit window is 3 Jan, the day you fly. A cancelled flight means overstay", "Chinese holiday 1-3 Jan: trains to Suzhou and Shanghai may sell out", "Xi'an to Shanghai flight is high at 434 pp", "Seoul is 8 nights, then Korea is over"], "casper": "Beijing 24-27 Dec and Suzhou 30 Dec-2 Jan, about 6 days together"}, {"id": "beijing-harbin-tokyo", "name": "Beijing, Harbin ice, Tokyo", "cities": ["Seoul", "Beijing", "Harbin", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Beijing", "CN", "2026-12-23", "2026-12-27"], ["Harbin", "CN", "2026-12-27", "2026-12-30"], ["Tokyo", "JP", "2026-12-30", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "PEK", "cheap": [291, "Asiana nonstop 12:50 → 14:10 or 15:00 → 16:25"], "comfy": [330, "Korean Air nonstop 07:55 → 09:25"], "fresh": true}, {"k": "g", "d": "2026-12-27", "f": "Beijing", "t": "Harbin", "txt": "High-speed train, about 4h33 to 8h, second class about CNY 595-655 (about NZ$130-145, estimate). Flight is worse: Hainan 22:30, 566 pp. Source chinahighlights.com"}, {"k": "f", "d": "2026-12-30", "f": "HRB", "t": "NRT", "cheap": [372, "Spring Japan nonstop 09:55 → 14:55. Budget, bags not seen, Google says prices high"], "comfy": [541, "China Southern nonstop 08:05 → 11:50"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ/ANA nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ/ANA nonstop 18:30 → 09:00+1"], "fresh": true}], "pros": ["Full overlap with Casper in Beijing, 23-27 Dec", "Harbin Ice and Snow World with only 7 days in China", "Air NZ nonstop from Tokyo", "Soft landing in Tokyo at the end"], "cons": ["Harbin ice opening date is unofficial (expected 20-24 Dec); check in early December", "Harbin is -20 C or colder; heavy kit needed", "Transit area for Heilongjiang is Harbin city only, so no Yabuli skiing", "Japanese New Year closures 30 Dec-3 Jan; Spring Japan bags are extra"], "casper": "Beijing 23-27 Dec, full overlap (4 nights)"}, {"id": "xian-chengdu-taipei", "name": "Xi'an, Chengdu, Taipei", "cities": ["Seoul", "Xi'an", "Chengdu", "Taipei"], "china": true, "visa": false, "home": "TPE", "homeDate": "2027-01-08", "land": "2027-01-09", "nonstop": false, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-25"], ["Xi'an", "CN", "2026-12-25", "2026-12-28"], ["Chengdu", "CN", "2026-12-28", "2027-01-04"], ["Taipei", "TW", "2027-01-04", "2027-01-08"]], "legs": [{"k": "f", "d": "2026-12-25", "f": "ICN", "t": "XIY", "cheap": [233, "Shandong via Qingdao 15:25 → 22:05, 3h40 layover"], "comfy": [447, "Asiana nonstop 10:10 → 12:25. Korean Air nonstop 09:15 → 11:45 is 899"], "fresh": true}, {"k": "g", "d": "2026-12-28", "f": "Xi'an", "t": "Chengdu", "txt": "High-speed train, about 3h07 to 5h, second class CNY 263 (about NZ$55, estimate). Source chinahighlights.com"}, {"k": "f", "d": "2027-01-04", "f": "CTU", "t": "TPE", "cheap": [341, "Cathay via Hong Kong 08:15 → 14:35, 1h45 layover, Google says prices low"], "comfy": [463, "EVA nonstop 19:20 → 22:40"], "fresh": true}, {"k": "f", "d": "2027-01-08", "f": "TPE", "t": "AKL", "cheap": [1656, "Korean Air via ICN 12:25 → 09:55+1. Lands 9 Jan"], "comfy": [2007, "Air NZ/EVA nonstop 20:25 → 12:05+1"], "fresh": true}], "pros": ["Follows the end of Casper's route: Chengdu then Taipei", "Xi'an, pandas, Leshan Buddha and Taipei", "Nine nights in Seoul leaves room for Gyeongju, Busan or skiing", "Taipei end is visa-free and easy"], "cons": ["Lands 9 Jan, the last day of the window", "Window ends 4 Jan, the day of the CTU to TPE flight; no slack", "Seven nights in Chengdu is long; Leshan, Emei and Dujiangyan fill it", "Nonstop home costs 2,007 pp; cheap option goes back through Seoul"], "casper": "Chengdu 2-4 Jan, then Taipei 5-8 Jan, about 6 days together"}, {"id": "hokkaido-tokyo", "name": "Hokkaido snow, then Tokyo", "cities": ["Seoul", "Sapporo", "Tokyo"], "china": false, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-22"], ["Sapporo", "JP", "2026-12-22", "2026-12-27"], ["Tokyo", "JP", "2026-12-27", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-22", "f": "ICN", "t": "CTS", "cheap": [395, "Jin Air nonstop 14:10 → 17:00. Jeju Air 07:15 → 10:00 is 798. Budget, bags not seen"], "comfy": [612, "Korean Air/Asiana/JAL nonstop 10:05 → 12:50"], "fresh": true}, {"k": "f", "d": "2026-12-27", "f": "CTS", "t": "HND", "cheap": [127, "Air Do nonstop 08:00 → 09:35. Budget, bags not seen"], "comfy": [163, "JAL nonstop 07:40 → 09:25"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ/ANA nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ/ANA nonstop 18:30 → 09:00+1"], "fresh": true}], "pros": ["Real snow and onsen: Sapporo, Otaru, Noboribetsu, Niseko day trips", "No China, no visa or transit clock", "Tokyo week ends with the Air NZ nonstop", "Cheap domestic hop, Sapporo to Tokyo 127 pp"], "cons": ["Cold: Noboribetsu highs about 1 C; snow can delay flights at CTS", "ICN to Sapporo is 395 pp on a budget carrier", "Sapporo Odori lights end 25 Dec; Otaru Snow Light Path is in February", "Shops and restaurants close 30 Dec-3 Jan in Tokyo and Hokkaido"], "casper": "none"}, {"id": "kyoto-slow", "name": "Slow: Kyoto base, one night Tokyo", "cities": ["Seoul", "Kyoto", "Tokyo"], "china": false, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Kyoto", "JP", "2026-12-23", "2027-01-02"], ["Tokyo", "JP", "2027-01-02", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "KIX", "cheap": [118, "Air Seoul nonstop 13:10 → 15:00. 24 Dec is 222 pp. Budget, bags not seen"], "comfy": [194, "Jin Air nonstop 14:50 → 16:35, still budget"], "fresh": true}, {"k": "g", "d": "2027-01-02", "f": "Kyoto", "t": "Tokyo", "txt": "Nozomi shinkansen, about 2h15, reserved seat about JPY 14,170 (about NZ$150, estimate). Book early for New Year. Source ekitan.com"}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ/ANA nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ/ANA nonstop 18:30 → 09:00+1; lets you take the shinkansen on 3 Jan"], "fresh": true}], "pros": ["Fewest moves: two long stays, one flight, one shinkansen", "Lowest flight total of the six at 1,639 pp", "Kyoto is a base for Nara, Osaka, Himeji and Kanazawa day trips", "Temple New Year in Kyoto"], "cons": ["Many small restaurants and some museums close about 30 Dec-3 Jan", "Only one night in Tokyo before the flight home", "KIX home is poor (1,875 pp or a 32-hour trip), so Tokyo is needed", "Air Seoul and Jin Air bags are extra"], "casper": "none"}, {"id": "zhangjiajie-guilin-hk", "name": "Zhangjiajie, Guilin, Hong Kong", "cities": ["Seoul", "Zhangjiajie", "Guilin", "Hong Kong"], "china": true, "visa": false, "home": "HKG", "homeDate": "2027-01-05", "land": "2027-01-06", "nonstop": false, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-22"], ["Zhangjiajie", "CN", "2026-12-22", "2026-12-26"], ["Guilin", "CN", "2026-12-26", "2026-12-31"], ["Hong Kong", "HK", "2026-12-31", "2027-01-05"]], "legs": [{"k": "f", "d": "2026-12-22", "f": "ICN", "t": "CSX", "cheap": [190, "Shandong via Jinan 08:45 → 14:30, 2h40 layover"], "comfy": [397, "Korean Air nonstop 20:20 → 22:55; sleep in Changsha. Direct ICN to Zhangjiajie Korean Air 19:15 is 465 pp"], "fresh": true}, {"k": "g", "d": "2026-12-22", "f": "Changsha", "t": "Zhangjiajie", "txt": "High-speed train Changsha South to Zhangjiajie West, about 1h45 to 3h, second class CNY 135-310 (about NZ$28-65, estimate). Source chinahighlights.com"}, {"k": "g", "d": "2026-12-26", "f": "Zhangjiajie", "t": "Guilin", "txt": "High-speed train, about 6h50, 1-2 a day, second class about CNY 342-345 (about NZ$70, estimate). Source chinahighlights.com"}, {"k": "g", "d": "2026-12-31", "f": "Guilin", "t": "Hong Kong", "txt": "Direct high-speed train to West Kowloon, about 3h, three a day, second class about US$58 (about NZ$100, estimate). Source chinahighlights.com"}, {"k": "f", "d": "2027-01-05", "f": "HKG", "t": "AKL", "cheap": [1142, "Fiji Airways via Nadi 16:10 → 13:35+1, 2h55 at Nadi, Google says prices low"], "comfy": [1712, "Air NZ/Cathay nonstop 17:50 → 09:45+1"], "fresh": true}], "pros": ["Cheapest flights of the six: 1,332 pp", "Zhangjiajie and Li River scenery, not on Casper's list", "New Year's Eve in Hong Kong", "All trains, only two flights"], "cons": ["Zhangjiajie to Guilin train is about 7 hours with few departures", "Window ends 1 Jan; the Guilin to Hong Kong train is 31 Dec, one day spare", "Fiji route to Auckland takes about 19 hours door to door", "Needs West Kowloon to count as a listed port; re-check the NIA list before booking"], "casper": "none"}].map(t=>({...t,legs:[OUT,...t.legs]}));
 
 // ways home: [date, from, cheapest, nonstop, notes, level, fresh]
 const BOARD = [
