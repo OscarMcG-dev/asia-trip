@@ -56,7 +56,8 @@ p{margin:0}
 .bar{display:flex;height:34px;border-radius:8px;overflow:hidden;gap:2px}
 .seg{display:flex;align-items:center;justify-content:center;color:var(--seg-ink);font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;min-width:0;padding:0 4px}
 .KR{background:var(--kr)} .JP{background:var(--jp)} .CN{background:var(--cn)} .HK{background:var(--hk)}
-.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:-4px}
+.ticks{position:relative;height:16px;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:-4px}
+.ticks span{position:absolute;top:0}
 .opt ul{margin:0;padding-left:20px;color:var(--ink)}
 .opt li{margin:2px 0}
 .opt li::marker{color:var(--muted)}
@@ -111,7 +112,7 @@ footer{color:var(--muted);font-size:14px}
       <div class="bar">
         <div class="seg KR" style="flex:7">Seoul</div><div class="seg JP" style="flex:4">Tokyo</div><div class="seg JP" style="flex:3">Kyoto</div><div class="seg CN" style="flex:1"></div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:2">HK</div>
       </div>
-      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <div class="ticks"><span style="left:0">16 Dec</span><span style="left:45%;transform:translateX(-50%)">25 Dec</span><span style="left:80%;transform:translateX(-50%)">1 Jan</span><span style="right:0">5 Jan</span></div>
       <ul>
         <li>A full week in Seoul with Casper, then fly to Tokyo on 23 Dec for Christmas.</li>
         <li>Bullet train to Kyoto on 27 Dec, then fly to China on 30 Dec (a night's stop in Qingdao on the way).</li>
@@ -125,7 +126,7 @@ footer{color:var(--muted);font-size:14px}
       <div class="bar">
         <div class="seg KR" style="flex:3">Seoul</div><div class="seg JP" style="flex:5">Tokyo</div><div class="seg CN" style="flex:4">Beijing</div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:5">Hong Kong</div>
       </div>
-      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <div class="ticks"><span style="left:0">16 Dec</span><span style="left:45%;transform:translateX(-50%)">25 Dec</span><span style="left:80%;transform:translateX(-50%)">1 Jan</span><span style="right:0">5 Jan</span></div>
       <ul>
         <li>Three nights in Seoul, then five in Tokyo.</li>
         <li>Fly to Beijing on Christmas Eve and spend Christmas there with Casper.</li>
@@ -139,7 +140,7 @@ footer{color:var(--muted);font-size:14px}
       <div class="bar">
         <div class="seg KR" style="flex:7">Seoul</div><div class="seg JP" style="flex:4">Tokyo</div><div class="seg JP" style="flex:3">Osaka</div><div class="seg CN" style="flex:3">Shanghai</div><div class="seg CN" style="flex:2">Shenzhen</div><div class="seg HK" style="flex:1"></div>
       </div>
-      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <div class="ticks"><span style="left:0">16 Dec</span><span style="left:45%;transform:translateX(-50%)">25 Dec</span><span style="left:80%;transform:translateX(-50%)">1 Jan</span><span style="right:0">5 Jan</span></div>
       <ul>
         <li>A week in Seoul, Christmas in Tokyo, then bullet train to Osaka.</li>
         <li>Fly to Shanghai on 30 Dec and see in the New Year with Casper in Suzhou.</li>
@@ -153,7 +154,7 @@ footer{color:var(--muted);font-size:14px}
       <div class="bar">
         <div class="seg KR" style="flex:5">Seoul</div><div class="seg JP" style="flex:5">Tokyo</div><div class="seg HK" style="flex:6">Hong Kong</div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:1"></div>
       </div>
-      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <div class="ticks"><span style="left:0">16 Dec</span><span style="left:45%;transform:translateX(-50%)">25 Dec</span><span style="left:80%;transform:translateX(-50%)">1 Jan</span><span style="right:0">5 Jan</span></div>
       <ul>
         <li>Five nights in Seoul, then five in Tokyo over Christmas.</li>
         <li>Fly to Hong Kong on Boxing Day and stay six nights, over New Year's Eve.</li>
