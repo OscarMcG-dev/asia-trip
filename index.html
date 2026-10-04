@@ -61,6 +61,10 @@ p{margin:0}
 .opt ul{margin:0;padding-left:20px;color:var(--ink)}
 .opt li{margin:2px 0}
 .opt li::marker{color:var(--muted)}
+.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;border-top:1px solid var(--line);padding-top:10px}
+.price strong{font-family:var(--display);font-size:20px;font-weight:700}
+.price small{color:var(--muted);font-size:13.5px}
+.fare{grid-column:1/-1;font-size:14px;color:var(--muted)}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--muted);margin-bottom:14px}
 .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
 footer{color:var(--muted);font-size:14px}
@@ -89,12 +93,14 @@ footer{color:var(--muted);font-size:14px}
       <div class="route">AKL <span>→</span> ICN</div>
       <div class="badge">✓ Booked</div>
       <p class="detail">Auckland to <b>Seoul Incheon</b> · Jetstar via Sydney · departs <b>06:15</b>, arrives <b>20:15</b> the same day</p>
+      <p class="fare">NZ$1,151 per person</p>
     </article>
     <article class="card flight">
       <div class="date">Tue 5 Jan 2027 · Home</div>
       <div class="route">HKG <span>→</span> AKL</div>
       <div class="badge">✓ Booked</div>
       <p class="detail"><b>Hong Kong</b> to Auckland · Fiji Airways via Nadi · departs <b>16:10</b>, lands <b>13:35 Wed 6 Jan</b></p>
+      <p class="fare">About NZ$1,140 per person</p>
     </article>
   </div>
   <p class="total">That's 20 nights away: we start in Seoul and finish in Hong Kong.</p>
@@ -102,7 +108,7 @@ footer{color:var(--muted);font-size:14px}
 
 <section>
   <h2>What we might do in between</h2>
-  <p class="sub">A few routes that fit those flights. Nothing in the middle is booked yet.</p>
+  <p class="sub">A few routes that fit those flights. Nothing in the middle is booked yet. Prices are rough, per person, for the flights and trains between cities, based on cheapest fares seen in late September and early October. Bags are often extra and hotels aren't included.</p>
   <div class="legend"><span><i class="KR"></i>Korea</span><span><i class="JP"></i>Japan</span><span><i class="CN"></i>China</span><span><i class="HK"></i>Hong Kong</span></div>
   <div class="opts">
 
@@ -118,6 +124,7 @@ footer{color:var(--muted);font-size:14px}
         <li>Bullet train to Kyoto on 27 Dec, then fly to China on 30 Dec (a night's stop in Qingdao on the way).</li>
         <li>New Year in Shenzhen, then a 15-minute train into Hong Kong for the last two nights.</li>
       </ul>
+      <p class="price"><strong>about NZ$800</strong><small>Seoul–Tokyo flight 160 · bullet train ~150 · Osaka–Shenzhen flight 476 · train to Hong Kong ~16</small></p>
     </article>
 
     <article class="card opt">
@@ -132,6 +139,7 @@ footer{color:var(--muted);font-size:14px}
         <li>Fly to Beijing on Christmas Eve and spend Christmas there with Casper.</li>
         <li>Train south to Shenzhen, then New Year's Eve fireworks in Hong Kong and five nights there.</li>
       </ul>
+      <p class="price"><strong>about NZ$950</strong><small>Seoul–Tokyo flight 144 · Tokyo–Beijing flight 557 · train to Shenzhen ~230 · train to Hong Kong ~15</small></p>
     </article>
 
     <article class="card opt">
@@ -146,6 +154,7 @@ footer{color:var(--muted);font-size:14px}
         <li>Fly to Shanghai on 30 Dec and see in the New Year with Casper in Suzhou.</li>
         <li>On to Shenzhen on 2 Jan, and a last night in Hong Kong before the flight home.</li>
       </ul>
+      <p class="price"><strong>about NZ$970</strong><small>Seoul–Tokyo flight 160 · bullet train ~150 · Osaka–Shanghai flight 519 · Shanghai–Shenzhen flight 128 · train to Hong Kong ~16</small></p>
     </article>
 
     <article class="card opt">
@@ -160,12 +169,13 @@ footer{color:var(--muted);font-size:14px}
         <li>Fly to Hong Kong on Boxing Day and stay six nights, over New Year's Eve.</li>
         <li>Short trip into Shenzhen and Guangzhou, then back to Hong Kong to fly home.</li>
       </ul>
+      <p class="price"><strong>about NZ$770</strong><small>Seoul–Tokyo flight 144 · Tokyo–Hong Kong flight 543 · local trains around Shenzhen, Guangzhou and back ~85</small></p>
     </article>
 
   </div>
 </section>
 
-<footer>Last updated 4 October 2026.</footer>
+<footer>Last updated 4 October 2026. Prices in New Zealand dollars.</footer>
 </main>
 </body>
 </html>
