@@ -4,477 +4,167 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Nine 2½–3½ week trip options after the 16 Dec flight to Seoul, with flights home compared.">
+<meta name="description" content="Booked flights for the December 2026 Asia trip, and the routes we're considering in between.">
 <meta name="theme-color" content="#2c56c9">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232c56c9'/%3E%3Cpath d='M14 38l36-14-8 22-8-8-8 6 2-10z' fill='white'/%3E%3C/svg%3E">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
-<title>Seoul and Home Again</title>
+<title>Asia Trip</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: a single column of itinerary "tickets", a summary picks row on top, a fares board below. */
 :root{
   --bg:#f3f5f8; --surface:#ffffff; --ink:#18202d; --muted:#5b6475; --line:#dde2ea;
-  --accent:#2c56c9; --accent-soft:#e6ecfb; --good:#1f7a4d; --good-soft:#e3f3ea; --warn:#9a5b00; --warn-soft:#fbf0dc; --bad:#a3302a; --bad-soft:#f8e3e1;
-  --on-strong:#ffffff; --kr:#3a6fd8; --jp:#d0506a; --cn:#e0a02a; --hk:#1f9c8f; --tw:#6a9a2c;
+  --accent:#2c56c9; --accent-soft:#e6ecfb; --good:#1f7a4d; --good-soft:#e3f3ea;
+  --kr:#3a6fd8; --jp:#d0506a; --cn:#e0a02a; --hk:#1f9c8f; --seg-ink:#ffffff;
   --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --body:"Figtree",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#10141c; --surface:#181e29; --ink:#e7ebf2; --muted:#9aa3b4; --line:#2a3242;
-  --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#f08b83; --bad-soft:#3a1c1a;
-  --on-strong:#10141c; --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}}
+  --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f;
+  --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --seg-ink:#10141c; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#10141c; --surface:#181e29; --ink:#e7ebf2; --muted:#9aa3b4; --line:#2a3242;
-  --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f; --warn:#f0b75a; --warn-soft:#33270f; --bad:#f08b83; --bad-soft:#3a1c1a;
-  --on-strong:#10141c; --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --tw:#95c255; color-scheme:dark}
+  --accent:#86a5ff; --accent-soft:#1f2a45; --good:#6fd29d; --good-soft:#15301f;
+  --kr:#6d97f0; --jp:#e97a91; --cn:#eab44e; --hk:#45c0b2; --seg-ink:#10141c; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);padding-inline:16px;padding-block:28px 60px}
-.wrap{max-width:980px;margin:0 auto;display:grid;gap:28px}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
-h1{font-size:clamp(28px,5vw,42px);font-weight:700;letter-spacing:-.01em}
-h2{font-size:22px;font-weight:700}
-h3{font-size:18px;font-weight:700}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--body);padding:32px 16px 64px}
+.wrap{max-width:820px;margin:0 auto;display:grid;gap:36px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
+h1{font-size:clamp(34px,7vw,52px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:24px;font-weight:700;margin-bottom:6px}
+h3{font-size:19px;font-weight:700}
 p{margin:0}
-a{color:var(--accent)}
-.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.num{font-variant-numeric:tabular-nums}
-.eyebrow{font:600 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.lede{color:var(--muted);max-width:65ch}
-header{display:grid;gap:12px}
-.nav{display:flex;gap:6px;flex-wrap:wrap}
-.nav a{font:600 13px var(--body);text-decoration:none;color:var(--muted);padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:var(--surface)}
-.nav a[aria-current="page"]{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
-.casper{font-size:13px;color:var(--muted);margin-top:6px}
-.booked{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.booked .tag{background:var(--good-soft);color:var(--good);font-weight:600;font-size:12px;padding:3px 8px;border-radius:99px}
-.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
-.seg button{font:500 14px var(--body);color:var(--ink);background:none;border:0;padding:7px 12px;cursor:pointer}
-.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
-.seg button:focus-visible,.chip:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.ctl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
-.chip{font:500 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:6px 11px;cursor:pointer}
-.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
-.picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.pick{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;gap:6px;cursor:pointer;text-align:left;font:inherit;color:inherit}
-.pick:hover{border-color:var(--accent)}
-.pick .big{font:700 26px/1 var(--display)}
-.pick .sub{color:var(--muted);font-size:13px}
-.list{display:grid;gap:14px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.card.hl{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
-.card-top{display:grid;grid-template-columns:1fr auto;gap:10px 18px;padding:16px 18px 12px}
-.card-top>div{min-width:0}
-.title-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
-.badge{font:600 11px/1 var(--body);letter-spacing:.04em;text-transform:uppercase;padding:4px 7px;border-radius:5px;white-space:nowrap}
-.b-good{background:var(--good-soft);color:var(--good)} .b-warn{background:var(--warn-soft);color:var(--warn)} .b-bad{background:var(--bad-soft);color:var(--bad)} .b-acc{background:var(--accent-soft);color:var(--accent)}
-.cities{color:var(--muted);font-size:14px;margin-top:4px}
-.total{text-align:right}
-.total .big{font:700 28px/1 var(--display)}
-.total .sub{font-size:12px;color:var(--muted)}
-.stats{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin-top:8px}
-.stats b{color:var(--ink);font-weight:600}
-.tl{position:relative;height:30px;border-radius:6px;overflow:hidden;display:flex;background:var(--line)}
-.tl span{height:100%;display:flex;align-items:center;justify-content:center;font:600 11px var(--body);color:#fff;white-space:nowrap;overflow:hidden;border-right:1px solid var(--surface);min-width:0;text-overflow:clip}
-.tl .gap{background:transparent}
-.tl-axis{font:500 11px var(--mono);color:var(--muted)}
-.c-KR{background:var(--kr)} .c-JP{background:var(--jp)} .c-CN{background:var(--cn)} .c-HK{background:var(--hk)} .c-TW{background:var(--tw)}
-.why{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;padding:12px 18px;font-size:14px}
-.why ul{margin:0;padding-left:18px;display:grid;gap:3px}
-.why h4{margin:0 0 4px;font:600 12px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-details{border-top:1px solid var(--line)}
-summary{cursor:pointer;padding:10px 18px;font-weight:600;font-size:14px;color:var(--accent);list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"▸ ";} details[open] summary::before{content:"▾ ";}
-.legs{display:grid;padding:0 18px 14px}
-.leg{display:grid;grid-template-columns:78px 1fr auto;gap:4px 12px;padding:9px 0;border-top:1px dashed var(--line);align-items:start}
-.leg:first-child{border-top:0}
-.leg>div{min-width:0}
-.leg .d{font:500 12px var(--mono);color:var(--muted);padding-top:2px}
-.leg .r b{font-family:var(--mono);font-weight:500}
-.leg .x{font-size:13px;color:var(--muted)}
-.leg .p{text-align:right;font-weight:600;white-space:nowrap}
-.leg .p small{display:block;font-weight:400;color:var(--muted);font-size:11px}
-.leg.ground .r b{font-family:var(--body);font-weight:600}
-.leg.booked-leg .p{color:var(--good)}
-.fresh{font:500 10px var(--body);text-transform:uppercase;letter-spacing:.05em;padding:2px 5px;border-radius:4px;margin-left:6px;vertical-align:1px}
-.f-new{background:var(--good-soft);color:var(--good)} .f-old{background:var(--warn-soft);color:var(--warn)}
-.sec{display:grid;gap:12px}
-.ctl-row{flex-basis:100%}
-.chips{display:inline-flex;flex-wrap:wrap;gap:6px}
-.hint{font-size:12px;color:var(--muted)}
-.chip .sw{margin-right:5px;vertical-align:-1px}
-.chip[data-state="need"]{border-color:var(--good);background:var(--good-soft);color:var(--good)}
-.chip[data-state="skip"]{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
-.chip.reset{border-style:dashed}
-.homefrom{display:inline-flex;align-items:center;gap:6px;font-weight:600}
-.cty{display:inline-flex;align-items:center;gap:5px;font:600 11px/1 var(--body);letter-spacing:.04em;text-transform:uppercase;padding:4px 7px;border-radius:5px;color:var(--ink);background:var(--surface);border:1px solid var(--line);white-space:nowrap}
-.tl .c-CN,.tl .c-TW,.tl .c-HK{color:#14181f}
-.tl .c-KR,.tl .c-JP{color:var(--on-strong)}
-.wayhome{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px}
-.wayhome .lbl{font:600 11px var(--body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.sec-head{display:grid;gap:4px}
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;padding-block:10px;border-bottom:1px solid var(--line);margin-inline:-16px;padding-inline:16px}
-.ctl{flex-wrap:wrap}
-.card{scroll-margin-top:120px}
-.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);align-items:center}
-.legend>span{display:inline-flex;align-items:center;gap:5px}
-.sw{display:inline-block;width:12px;height:12px;border-radius:3px}
-.leg .r .fresh{margin-left:6px}
-.glance td,.glance th{vertical-align:middle}
-.glance tbody tr{cursor:pointer}
-.glance tbody tr:hover td{background:var(--accent-soft)}
-.glance .r{text-align:right}
-.glance .tname{font-weight:600}
-.glance .tsub{font-size:12px;color:var(--muted)}
-.th-sort{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
-.th-sort::after{content:" ↕";opacity:.5}
-.th-sort[aria-pressed="true"]{color:var(--accent)}
-.th-sort[aria-pressed="true"]::after{content:" ↑";opacity:1}
-.th-sort:focus-visible,.glance tr:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.tl-wrap{position:relative;margin:4px 18px 0}
-.tl-mark{position:absolute;top:-4px;bottom:-4px;border-left:2px dashed var(--ink);opacity:.55;pointer-events:none}
-.tl-axis{position:relative;height:16px;margin:3px 18px 0}
-.tl-axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
-.tl-axis span:first-child{transform:none}
-.tl-axis span:last-child{transform:translateX(-100%)}
-.staylist{font-size:13px;color:var(--muted);margin:6px 18px 0}
-.staylist b{color:var(--ink);font-weight:600}
-.keydays{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;margin-top:6px}
-.keydays span{color:var(--muted)} .keydays b{color:var(--ink);font-weight:600}
-.leg .r .place{font-size:13px;color:var(--muted);font-family:var(--body)}
-.terms{display:grid;grid-template-columns:max-content 1fr;gap:6px 16px;margin:0}
-.terms dt{font-weight:600} .terms dd{margin:0;color:var(--muted)}
-.notes h3{font-size:16px;margin-top:8px}
-@media (max-width:640px){.terms{grid-template-columns:1fr}.terms dd{margin-bottom:6px}.glance{min-width:640px}.bar{gap:8px 14px;position:static}}
-.board-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
-table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
-th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{font:600 12px var(--body);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
-tr:last-child td{border-bottom:0}
-td.pr{font-weight:600;white-space:nowrap}
-.note{font-size:13px;color:var(--muted)}
-.notes{display:grid;gap:8px;font-size:14px;max-width:75ch}
-.notes li{margin-bottom:4px}
-.empty{padding:20px;text-align:center;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:12px}
-@media (max-width:640px){
-  .card-top{grid-template-columns:1fr}
-  .total{text-align:left}
-  .why{grid-template-columns:1fr}
-  .leg{grid-template-columns:62px 1fr;}
-  .leg .p{grid-column:2;text-align:left}
-  .leg .p small{display:inline;margin-left:6px}
+.lede{color:var(--muted);font-size:17px;margin-top:8px;max-width:60ch}
+.sub{color:var(--muted);margin-bottom:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+/* booked flights */
+.flights{display:grid;gap:14px}
+.flight{display:grid;grid-template-columns:auto 1fr auto;gap:6px 20px;align-items:center}
+.date{font-family:var(--mono);font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;grid-column:1/-1}
+.route{font-family:var(--display);font-size:28px;font-weight:700;grid-column:1/3}
+.route span{color:var(--muted);font-weight:500}
+.badge{grid-column:3;grid-row:1/3;align-self:start;background:var(--good-soft);color:var(--good);font-weight:600;font-size:13px;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.detail{grid-column:1/-1;color:var(--muted)}
+.detail b{color:var(--ink);font-weight:600}
+.total{margin-top:2px;color:var(--muted);font-size:15px}
+/* options */
+.opts{display:grid;gap:16px}
+.opt{display:grid;gap:10px}
+.opt .tag{font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:999px;justify-self:start}
+.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;gap:2px}
+.seg{display:flex;align-items:center;justify-content:center;color:var(--seg-ink);font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;min-width:0;padding:0 4px}
+.KR{background:var(--kr)} .JP{background:var(--jp)} .CN{background:var(--cn)} .HK{background:var(--hk)}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:-4px}
+.opt ul{margin:0;padding-left:20px;color:var(--ink)}
+.opt li{margin:2px 0}
+.opt li::marker{color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;color:var(--muted);margin-bottom:14px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+footer{color:var(--muted);font-size:14px}
+@media (max-width:520px){
+  .route{font-size:23px}
+  .flight{grid-template-columns:1fr auto}
+  .route{grid-column:1/2}.badge{grid-column:2}
+  .seg{font-size:0}
 }
-@media (prefers-reduced-motion:no-preference){.card,.pick{transition:border-color .15s}}
 </style>
 </head>
 <body>
+<main class="wrap">
 
-
-<div class="wrap">
 <header>
-  <span class="eyebrow">Christmas 2026 · Korea, Japan, China</span>
-  <h1>Seoul and home again</h1>
-  <p class="lede">The flight to Seoul is booked. Every plan here covers Korea, China and Japan, includes Tokyo, and visits Beijing or Shenzhen. All but one last 2½–3½ weeks.</p>
-  <div class="booked">
-    <span class="tag">Booked</span>
-    <span><b>Wed 16 Dec</b> · Jetstar Auckland → Sydney → Seoul · 06:15 → 20:15</span>
-    <span class="num">NZ$1,151 per person</span>
-  </div>
+  <h1>Asia Trip</h1>
+  <p class="lede">Wednesday 16 December to Wednesday 6 January. Flights there and back are booked; what we do in between is still being decided.</p>
 </header>
 
-<div class="bar" role="region" aria-label="Price settings and filters">
-  <div class="ctl"><span>Prices for</span>
-    <span class="seg" role="group" aria-label="Prices for">
-      <button id="pax1" type="button" data-pax="1" aria-pressed="false">1 person</button>
-      <button id="pax2" type="button" data-pax="2" aria-pressed="true">2 people</button>
-    </span>
+<section>
+  <h2>Booked flights</h2>
+  <p class="sub">Times are local.</p>
+  <div class="flights">
+    <article class="card flight">
+      <div class="date">Wed 16 Dec 2026 · There</div>
+      <div class="route">AKL <span>→</span> ICN</div>
+      <div class="badge">✓ Booked</div>
+      <p class="detail">Auckland to <b>Seoul Incheon</b> · Jetstar via Sydney · departs <b>06:15</b>, arrives <b>20:15</b> the same day</p>
+    </article>
+    <article class="card flight">
+      <div class="date">Tue 5 Jan 2027 · Home</div>
+      <div class="route">HKG <span>→</span> AKL</div>
+      <div class="badge">✓ Booked</div>
+      <p class="detail"><b>Hong Kong</b> to Auckland · Fiji Airways via Nadi · departs <b>16:10</b>, lands <b>13:35 Wed 6 Jan</b></p>
+    </article>
   </div>
-  <div class="ctl"><span>Fares</span>
-    <span class="seg" role="group" aria-label="Fare type">
-      <button id="modeCheap" type="button" data-mode="cheap" aria-pressed="true">Cheapest</button>
-      <button id="modeComfy" type="button" data-mode="comfy" aria-pressed="false">Nonstop where possible</button>
-    </span>
-  </div>
-  <div class="ctl"><span>Show only</span>
-    <button class="chip" id="fNonstop" type="button" aria-pressed="false">Nonstop home</button>
-    <button class="chip" id="fFit" type="button" aria-pressed="false">3½ weeks or less</button>
-  </div>
-  <div class="ctl ctl-row"><span>Includes</span>
-    <span id="cityChips" class="chips"></span>
-  </div>
-  <div class="ctl ctl-row" id="ctyRow"><span title="Tap once to require a country, again to leave it out, again to clear">Countries</span>
-    <span id="ctyChips" class="chips"></span>
-    <button class="chip" id="fAll3" type="button" aria-pressed="false">All three: Korea + China + Japan</button>
-    <span class="hint">Tap: must include → leave out → any</span>
-  </div>
-  <div class="ctl ctl-row"><span>Fly home from</span>
-    <span class="seg" role="group" aria-label="Fly home from" id="homeSeg"></span>
-  </div>
-  <button class="chip reset" id="fReset" type="button" hidden>Clear filters</button>
-</div>
-
-<section aria-labelledby="picksH" class="sec">
-  <div class="sec-head"><h2 id="picksH">Our picks</h2><p class="note">Tap one to jump to its details.</p></div>
-  <div class="picks" id="picks"></div>
+  <p class="total">That's 20 nights away: we start in Seoul and finish in Hong Kong.</p>
 </section>
 
-<section aria-labelledby="glanceH" class="sec">
-  <div class="sec-head"><h2 id="glanceH">Side by side</h2><p class="note">Tap a column heading to sort. Tap a row for the full plan.</p></div>
-  <div class="board-wrap"><table id="glance" class="glance"><thead><tr>
-    <th scope="col">Trip</th>
-    <th scope="col"><button class="th-sort" type="button" data-sort="len">Away</button></th>
-    <th scope="col">Christmas · New Year's Eve</th>
-    <th scope="col"><button class="th-sort" type="button" data-sort="cities">Stops</button></th>
-    <th scope="col">Fly home from</th>
-    <th scope="col" class="r"><button class="th-sort" type="button" data-sort="cost">Flights total</button></th>
-  </tr></thead><tbody></tbody></table></div>
-</section>
+<section>
+  <h2>What we might do in between</h2>
+  <p class="sub">A few routes that fit those flights. Nothing in the middle is booked yet.</p>
+  <div class="legend"><span><i class="KR"></i>Korea</span><span><i class="JP"></i>Japan</span><span><i class="CN"></i>China</span><span><i class="HK"></i>Hong Kong</span></div>
+  <div class="opts">
 
-<section aria-labelledby="optsH" class="sec">
-  <div class="sec-head"><h2 id="optsH">Trip details</h2>
-    <p class="note">Totals include the Seoul flight at the Jetstar fare you paid. Trains, ferries and checked bags are extra.</p>
-    <div class="legend" aria-label="Legend">
-      <span><i class="sw c-KR"></i>Korea</span><span><i class="sw c-JP"></i>Japan</span><span><i class="sw c-CN"></i>China</span><span><i class="sw c-HK"></i>Hong Kong</span><span><i class="sw c-TW"></i>Taiwan</span>
-      <span><span class="fresh f-new">checked 30 Sep</span> re-checked today</span><span><span class="fresh f-old">29 Sep price</span> not re-checked</span>
-    </div>
+    <article class="card opt">
+      <span class="tag">Christmas in Japan</span>
+      <h3>Seoul, Tokyo, Kyoto, then Shenzhen and Hong Kong</h3>
+      <div class="bar">
+        <div class="seg KR" style="flex:7">Seoul</div><div class="seg JP" style="flex:4">Tokyo</div><div class="seg JP" style="flex:3">Kyoto</div><div class="seg CN" style="flex:1"></div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:2">HK</div>
+      </div>
+      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <ul>
+        <li>A full week in Seoul with Casper, then fly to Tokyo on 23 Dec for Christmas.</li>
+        <li>Bullet train to Kyoto on 27 Dec, then fly to China on 30 Dec (a night's stop in Qingdao on the way).</li>
+        <li>New Year in Shenzhen, then a 15-minute train into Hong Kong for the last two nights.</li>
+      </ul>
+    </article>
+
+    <article class="card opt">
+      <span class="tag">Beijing with Casper</span>
+      <h3>Seoul, Tokyo, Beijing, Shenzhen, Hong Kong</h3>
+      <div class="bar">
+        <div class="seg KR" style="flex:3">Seoul</div><div class="seg JP" style="flex:5">Tokyo</div><div class="seg CN" style="flex:4">Beijing</div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:5">Hong Kong</div>
+      </div>
+      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <ul>
+        <li>Three nights in Seoul, then five in Tokyo.</li>
+        <li>Fly to Beijing on Christmas Eve and spend Christmas there with Casper.</li>
+        <li>Train south to Shenzhen, then New Year's Eve fireworks in Hong Kong and five nights there.</li>
+      </ul>
+    </article>
+
+    <article class="card opt">
+      <span class="tag">Most places</span>
+      <h3>Seoul, Tokyo, Osaka, Shanghai, Shenzhen, Hong Kong</h3>
+      <div class="bar">
+        <div class="seg KR" style="flex:7">Seoul</div><div class="seg JP" style="flex:4">Tokyo</div><div class="seg JP" style="flex:3">Osaka</div><div class="seg CN" style="flex:3">Shanghai</div><div class="seg CN" style="flex:2">Shenzhen</div><div class="seg HK" style="flex:1"></div>
+      </div>
+      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <ul>
+        <li>A week in Seoul, Christmas in Tokyo, then bullet train to Osaka.</li>
+        <li>Fly to Shanghai on 30 Dec and see in the New Year with Casper in Suzhou.</li>
+        <li>On to Shenzhen on 2 Jan, and a last night in Hong Kong before the flight home.</li>
+      </ul>
+    </article>
+
+    <article class="card opt">
+      <span class="tag">New Year in Hong Kong</span>
+      <h3>Seoul, Tokyo, Hong Kong, Shenzhen and Guangzhou</h3>
+      <div class="bar">
+        <div class="seg KR" style="flex:5">Seoul</div><div class="seg JP" style="flex:5">Tokyo</div><div class="seg HK" style="flex:6">Hong Kong</div><div class="seg CN" style="flex:3">Shenzhen</div><div class="seg HK" style="flex:1"></div>
+      </div>
+      <div class="ticks"><span>16 Dec</span><span>25 Dec</span><span>1 Jan</span><span>5 Jan</span></div>
+      <ul>
+        <li>Five nights in Seoul, then five in Tokyo over Christmas.</li>
+        <li>Fly to Hong Kong on Boxing Day and stay six nights, over New Year's Eve.</li>
+        <li>Short trip into Shenzhen and Guangzhou, then back to Hong Kong to fly home.</li>
+      </ul>
+    </article>
+
   </div>
-  <div class="list" id="list"></div>
 </section>
 
-<section aria-labelledby="boardH" class="sec">
-  <div class="sec-head"><h2 id="boardH">Every way home we checked</h2>
-  <p class="note">One-way economy to Auckland, per person. Most of these fly overnight and land the next day.</p></div>
-  <div class="board-wrap"><table id="board"><thead><tr><th>Leave</th><th>Leaving from</th><th>Cheapest</th><th>Nonstop</th><th>Notes</th><th>Google's price rating</th></tr></thead><tbody></tbody></table></div>
-</section>
-
-<section aria-labelledby="notesH" class="notes">
-  <h2 id="notesH">Before booking</h2>
-  <ul id="notesList"></ul>
-  <h3>Terms used here</h3>
-  <dl class="terms">
-    <dt>240-hour rule</dt><dd>China lets New Zealanders in without a visa for up to 10 days if they arrive from one country and leave to a different one (for example Korea in, Hong Kong out).</dd>
-    <dt>Nonstop where possible</dt><dd>Swaps in a nonstop or full-service flight on each leg where one exists. It costs more but avoids long layovers and budget-airline bag limits.</dd>
-    <dt>Budget airlines</dt><dd>Jetstar, Zipair, Spring, Jin Air, Air Seoul, Thai Lion, Peach and Air Busan fares include a cabin bag only (often 7 kg).</dd>
-  </dl>
-</section>
-</div>
-
-<script>
-/* ---------- data ---------- */
-window.PICKS = [["sz-tokyo-kyoto-qingdao-shenzhen-hk", "Cheapest", "Tokyo and Kyoto, then Shenzhen and Hong Kong"], ["bj-shenzhen-hk", "Beijing and Shenzhen", "Tokyo, then Beijing, Shenzhen, Hong Kong"], ["bj-casper-ny", "Most time with Casper", "Beijing and Shanghai with him, Tokyo for New Year"], ["bj-slow", "Slow and simple", "Seoul, Beijing, Tokyo: three bases, nonstop home"], ["sz-tokyo-christmas-hk-newyear-guangzhou", "New Year in Hong Kong", "Christmas in Tokyo, then Hong Kong and Shenzhen"]];
-const PRICED = '30 Sep';
-const gf = (f,t,d)=>`https://www.google.com/travel/flights?q=${encodeURIComponent(`Flights from ${f} to ${t} on ${d} one way`)}&curr=NZD&hl=en`;
-// leg: [date, from, to, cheap[price, text], comfy[price, text], fresh(bool)]
-const F = (d,f,t,cheap,comfy,fresh=true)=>({k:'f',d,f,t,cheap,comfy:comfy||cheap,fresh});
-const G = (d,f,t,txt)=>({k:'g',d,f,t,txt});
-const OUT = {k:'f',d:'2026-12-16',f:'AKL',t:'ICN',cheap:[1151,'Jetstar via Sydney, 06:15 → 20:15'],comfy:[1151,'Jetstar via Sydney, 06:15 → 20:15'],fresh:true,booked:true};
-
-const TRIPS = [
- {id:'P3s',name:'All six, home from Hong Kong on 8 Jan',cities:['Seoul','Tokyo','Osaka','Shanghai','Suzhou','Chongqing','Shenzhen','Hong Kong'],china:true,
-  home:'HKG',homeDate:'2027-01-08',land:'2027-01-09',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-23'],['Tokyo','JP','2026-12-23','2026-12-27'],['Osaka','JP','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-01'],['Shanghai','CN','2027-01-01','2027-01-03'],['Chongqing','CN','2027-01-03','2027-01-05'],['Shenzhen','CN','2027-01-05','2027-01-07'],['Hong Kong','HK','2027-01-07','2027-01-08']],
-  legs:[OUT,F('2026-12-23','ICN','NRT',[160,'Air Seoul 08:10 → 10:25. Cabin bag only (Zipair 13:05 is 212)'],[347,'Korean Air / Asiana to Haneda, evening']),
-        G('2026-12-27','Tokyo','Osaka','Shinkansen, 2h30. Book seats about 27 Nov'),
-        F('2026-12-30','KIX','PVG',[519,'Spring 15:00 → 16:50. Cabin bag only'],[538,'Nonstop on Trip.com'],true),
-        F('2027-01-03','SHA','CKG',[167,'Spring 16:05 from Hongqiao'],[573,'China Southern 12:00'],false),
-        F('2027-01-05','CKG','SZX',[140,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-07','Shenzhen','Hong Kong','Train Futian → West Kowloon. Book before the Osaka flight'),
-        F('2027-01-08','HKG','AKL',[1308,'Air Niugini via Port Moresby (4h40), 20:25 → 18:30'],[2115.5,'Cathay nonstop, 14:55 → 06:55'])],
-  pros:['Every city on the list, in 3½ weeks','Japan before New Year, China over it'],
-  cons:['Dearest trip: about NZ$84 pp more than the 10 Jan version, because the 8 Jan fare home is higher','Only one night in Hong Kong','Flies home via Port Moresby; Fiji\'s short connection is NZ$1,607 that day']},
- {id:'P3a',name:'All six, as planned (home 10 Jan)',cities:['Seoul','Tokyo','Osaka','Shanghai','Suzhou','Chongqing','Shenzhen','Hong Kong'],china:true,
-  home:'HKG',homeDate:'2027-01-10',land:'2027-01-11',nonstop:false,
-  stays:[['Seoul','KR','2026-12-16','2026-12-23'],['Tokyo','JP','2026-12-23','2026-12-27'],['Osaka','JP','2026-12-27','2026-12-30'],['Suzhou','CN','2026-12-30','2027-01-01'],['Shanghai','CN','2027-01-01','2027-01-03'],['Chongqing','CN','2027-01-03','2027-01-05'],['Shenzhen','CN','2027-01-05','2027-01-08'],['Hong Kong','HK','2027-01-08','2027-01-10']],
-  legs:[OUT,F('2026-12-23','ICN','NRT',[160,'Air Seoul 08:10 → 10:25. Cabin bag only (Zipair 13:05 is 212)'],[347,'Korean Air / Asiana to Haneda, evening']),
-        G('2026-12-27','Tokyo','Osaka','Shinkansen, 2h30. Book seats about 27 Nov'),
-        F('2026-12-30','KIX','PVG',[519,'Spring 15:00 → 16:50. Cabin bag only'],[538,'Nonstop on Trip.com'],true),
-        F('2027-01-03','SHA','CKG',[167,'Spring 16:05 from Hongqiao'],[573,'China Southern 12:00'],false),
-        F('2027-01-05','CKG','SZX',[140,'Spring 09:55. Cabin bag only'],[544,'China Southern, several daily']),
-        G('2027-01-08','Shenzhen','Hong Kong','Train Futian → West Kowloon. Book before the Osaka flight'),
-        F('2027-01-10','HKG','AKL',[1224,'Fiji Airways via Nadi (2h55), 16:10 → 13:35'],[1890,'Air NZ nonstop, 17:50 → 09:45'])],
-  pros:['Every city, with more time in Shenzhen and Hong Kong','Cheaper than coming home on 8 Jan: the Fiji fare is rated low'],
-  cons:['About 3¾ weeks: two days over your upper limit','Most flights of any option']},
- ...[{"id": "beijing-harbin-tokyo", "name": "Beijing, Harbin ice, Tokyo", "cities": ["Seoul", "Beijing", "Harbin", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Beijing", "CN", "2026-12-23", "2026-12-27"], ["Harbin", "CN", "2026-12-27", "2026-12-30"], ["Tokyo", "JP", "2026-12-30", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "PEK", "cheap": [291, "Asiana nonstop 12:50 → 14:10 or 15:00 → 16:25"], "comfy": [330, "Korean Air nonstop 07:55 → 09:25"], "fresh": true}, {"k": "g", "d": "2026-12-27", "f": "Beijing", "t": "Harbin", "txt": "High-speed train, about 4h33 to 8h, second class about CNY 595-655 (about NZ$130-145, estimate). Flight is worse: Hainan 22:30, 566 pp. Source chinahighlights.com"}, {"k": "f", "d": "2026-12-30", "f": "HRB", "t": "NRT", "cheap": [372, "Spring Japan nonstop 09:55 → 14:55. Budget, bags not seen, Google says prices high"], "comfy": [541, "China Southern nonstop 08:05 → 11:50"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ/ANA nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ/ANA nonstop 18:30 → 09:00+1"], "fresh": true}], "pros": ["Full overlap with Casper in Beijing, 23-27 Dec", "Harbin Ice and Snow World with only 7 days in China", "Air NZ nonstop from Tokyo", "Soft landing in Tokyo at the end"], "cons": ["Harbin ice opening date is unofficial (expected 20-24 Dec); check in early December", "Harbin is -20 C or colder; heavy kit needed", "Transit area for Heilongjiang is Harbin city only, so no Yabuli skiing", "Japanese New Year closures 30 Dec-3 Jan; Spring Japan bags are extra"], "casper": "Beijing 23-27 Dec, full overlap (4 nights)"}, {"id": "cj-busan-qingdao-beijing-hiroshima", "name": "Seoul, Busan, Qingdao, Beijing, Osaka, Hiroshima, Tokyo", "cities": ["Seoul", "Busan", "Qingdao", "Beijing", "Osaka", "Hiroshima", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-20"], ["Busan", "KR", "2026-12-20", "2026-12-22"], ["Qingdao", "CN", "2026-12-22", "2026-12-24"], ["Beijing", "CN", "2026-12-24", "2026-12-28"], ["Osaka", "JP", "2026-12-28", "2026-12-30"], ["Hiroshima", "JP", "2026-12-30", "2027-01-01"], ["Tokyo", "JP", "2027-01-01", "2027-01-03"]], "legs": [{"k": "g", "d": "2026-12-20", "f": "Seoul", "t": "Busan", "txt": "KTX, about 2h30, roughly 60,000 won (about NZ$70) each. Approximate, not checked."}, {"k": "f", "d": "2026-12-22", "f": "PUS", "t": "TAO", "cheap": [154, "Air Busan 10:30 → 11:35, nonstop, budget fare"], "comfy": [206, "Korean Air 10:45 → 11:55, nonstop"], "fresh": true}, {"k": "g", "d": "2026-12-24", "f": "Qingdao", "t": "Beijing", "txt": "High-speed train, about 3h30 to 4h, roughly 320 yuan (about NZ$75) each. Approximate, not checked."}, {"k": "f", "d": "2026-12-28", "f": "PEK", "t": "KIX", "cheap": [392, "Cathay Pacific 07:30 → 17:40 via Hong Kong (2h10 stop)"], "comfy": [453, "Korean Air 14:15 → 20:45 via Seoul (1h20 stop)"], "fresh": true}, {"k": "g", "d": "2026-12-30", "f": "Osaka", "t": "Hiroshima", "txt": "Shinkansen, about 1h30, roughly 10,000 yen (about NZ$110) each. Approximate, not checked."}, {"k": "g", "d": "2027-01-01", "f": "Hiroshima", "t": "Tokyo", "txt": "Shinkansen, about 4h, roughly 19,000 yen (about NZ$200) each. Reserve early. Approximate, not checked."}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ nonstop, lands Auckland 4 Jan"], "comfy": [1609, "Air NZ nonstop, 18:30 departure"], "fresh": false}], "pros": ["Cheapest flight total of the three: Seoul-side legs are very low (Busan to Qingdao NZ$154 each).", "Qingdao (beer, coast, German-era old town) is a rare stop; Beijing gives the classic sights.", "Three Japanese bases: Osaka (Nara or Kyoto day trips), Hiroshima and Miyajima, then Tokyo.", "Beijing overlaps with Casper, and everything ends with the nonstop from Narita."], "cons": ["Busiest itinerary: seven bases in 18 days, with four shinkansen or train hops.", "Beijing to Osaka has no nonstop (NZ$783 to 905 total for two, one stop). 9-hour day with a Hong Kong stop.", "The Hiroshima to Tokyo shinkansen on 1 Jan is about 4 hours and seats may be scarce.", "Air Busan is a budget carrier: bags cost extra.", "Kyushu was checked and dropped: Beijing to Fukuoka and Qingdao to Fukuoka have no nonstop, and Fukuoka to Auckland on 3 Jan is NZ$3,057 total (about NZ$1,529 each) with an airport change in Tokyo."], "casper": "Beijing overlap 24 to 27 Dec (Casper is there 23 to 27 Dec)."}, {"id": "bj-casper-ny", "name": "Beijing and Shanghai with Casper, Tokyo for New Year", "cities": ["Seoul", "Beijing", "Shanghai", "Suzhou", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-24"], ["Beijing", "CN", "2026-12-24", "2026-12-27"], ["Shanghai", "CN", "2026-12-27", "2026-12-30"], ["Suzhou", "CN", "2026-12-30", "2026-12-31"], ["Tokyo", "JP", "2026-12-31", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-24", "f": "ICN", "t": "PEK", "cheap": [291, "Asiana nonstop 12:50 → 14:10. Also 08:20 and 15:00 at the same price"], "comfy": [330, "Korean Air nonstop 07:55 → 09:25"], "fresh": false}, {"k": "g", "d": "2026-12-27", "f": "Beijing", "t": "Shanghai", "txt": "High-speed train, about 4h20 to 5h, second class CNY 576-697 (about NZ$125-155, estimate). Source chinahighlights.com"}, {"k": "g", "d": "2026-12-30", "f": "Shanghai", "t": "Suzhou", "txt": "High-speed train from Hongqiao, 21-30 minutes, CNY 21-52 (about NZ$5-12). Source chinatravel.com"}, {"k": "g", "d": "2026-12-31", "f": "Suzhou", "t": "Shanghai", "txt": "Train to Hongqiao then metro to Pudong, about 2h door to door, under NZ$20. Leave Suzhou by 13:00 for the 17:30 flight"}, {"k": "f", "d": "2026-12-31", "f": "PVG", "t": "NRT", "cheap": [470, "Spring Japan nonstop 17:30 → 21:30 (also 08:55 → 13:00). Budget, bags not seen"], "comfy": [938, "China Southern nonstop 09:15 → 13:15"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ nonstop 18:30 → 09:00+1"], "fresh": false}], "pros": ["Most time with Casper: Beijing 24-27 Dec, Shanghai 27-30 Dec and Suzhou 30-31 Dec", "Air NZ nonstop home from Tokyo at 1,521 pp", "Three spare days on the 240-hour clock", "Only two flights in Asia plus the Seoul arrival"], "cons": ["Tokyo arrival is 31 Dec night: shops, restaurants and many sights closed to 3 Jan", "1 Jan PVG to Tokyo is very high (969 pp best stop, 1,265 pp nonstop), so the plan leaves on 31 Dec and misses Casper's Suzhou New Year", "Spring Japan bags are extra", "Seoul is 8 nights, then Korea is over"], "casper": "Beijing 24-27 Dec, Shanghai 27-30 Dec and Suzhou 30-31 Dec, about 7 nights together"}, {"id": "bj-japan-first-shanghai", "name": "Tokyo and Kyoto first, then Beijing and Shanghai, home from China", "cities": ["Seoul", "Tokyo", "Kyoto", "Beijing", "Shanghai"], "china": true, "visa": false, "home": "PVG", "homeDate": "2027-01-04", "land": "2027-01-05", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-20"], ["Tokyo", "JP", "2026-12-20", "2026-12-24"], ["Kyoto", "JP", "2026-12-24", "2026-12-29"], ["Beijing", "CN", "2026-12-29", "2027-01-01"], ["Shanghai", "CN", "2027-01-01", "2027-01-04"]], "legs": [{"k": "f", "d": "2026-12-20", "f": "ICN", "t": "NRT", "cheap": [228, "Air Premia nonstop 08:45 → 11:20. Hybrid budget carrier"], "comfy": [243, "Korean Air/Asiana/JAL nonstop to Haneda 20:40 → 22:50"], "fresh": true}, {"k": "g", "d": "2026-12-24", "f": "Tokyo", "t": "Kyoto", "txt": "Nozomi shinkansen, about 2h15, reserved seat about JPY 14,170 (about NZ$150, estimate). Source ekitan.com"}, {"k": "f", "d": "2026-12-29", "f": "KIX", "t": "PEK", "cheap": [369, "Shandong via Qingdao 12:30 → 20:15, 4h layover. Checked bags not seen"], "comfy": [851, "Korean Air/Asiana via Seoul 11:55 → 16:25, 1h layover. Air China nonstop 13:50 → 16:15 had no price"], "fresh": true}, {"k": "g", "d": "2027-01-01", "f": "Beijing", "t": "Shanghai", "txt": "High-speed train, about 4h20 to 5h, second class CNY 576-697 (about NZ$125-155, estimate). 1 Jan is a holiday: book the day tickets open. Source chinahighlights.com"}, {"k": "f", "d": "2027-01-04", "f": "PVG", "t": "AKL", "cheap": [1480, "Air NZ nonstop. Lands 5 Jan. Times not re-checked"], "comfy": [1480, "Same Air NZ nonstop"], "fresh": false}], "pros": ["Nine nights in Japan before the New Year closures, and Christmas in Kyoto", "Beijing New Year 29 Dec-1 Jan, then three nights in Shanghai", "Air NZ nonstop home from Shanghai at 1,480 pp", "Four spare days on the 240-hour clock"], "cons": ["Japan to Beijing is dear: 369 pp with a 4-hour stop in Qingdao, 851 pp for a better routing", "Shandong is a Chinese budget routing: China entry would be at Qingdao, so check it is a 240-hour port before booking", "Beijing to Shanghai train on 1 Jan may sell out", "Does not overlap Casper: he is in Beijing 23-27 Dec and Suzhou to 2 Jan"], "casper": "none"}, {"id": "bj-slow", "name": "Slow: long Seoul, five nights Beijing, long Tokyo", "cities": ["Seoul", "Beijing", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-22"], ["Beijing", "CN", "2026-12-22", "2026-12-27"], ["Tokyo", "JP", "2026-12-27", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-22", "f": "ICN", "t": "PEK", "cheap": [292, "Asiana nonstop 12:50 → 14:10. Also 08:20 and 15:00 at the same price"], "comfy": [330, "Korean Air nonstop 07:55 → 09:25"], "fresh": true}, {"k": "f", "d": "2026-12-27", "f": "PEK", "t": "NRT", "cheap": [345, "Spring Japan nonstop 11:20 → 16:00. Budget, bags not seen"], "comfy": [723, "ANA nonstop to Haneda 08:25 → 12:40"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ nonstop 14:30 → 05:00+1. Lands 4 Jan"], "comfy": [1609, "Air NZ nonstop 18:30 → 09:00+1"], "fresh": false}], "pros": ["Only three bases and three flights: the gentlest pace of the four", "Five nights in Beijing: Forbidden City, Temple of Heaven, Great Wall at Mutianyu, hutongs", "Seven nights in Tokyo, with day trips to Nikko, Kamakura or Hakone", "Five spare days on the 240-hour clock"], "cons": ["Tokyo is closed or quiet 30 Dec-3 Jan, and that is most of the Tokyo week", "Japan is one city only, no Kyoto", "Spring Japan bags are extra; comfy PEK to Tokyo is 723 pp", "No Shanghai or New Year in China"], "casper": "Beijing 23-27 Dec, four nights together"}, {"id": "bj-shenzhen-hk", "name": "Tokyo, Beijing, Shenzhen, home from Hong Kong", "cities": ["Seoul", "Tokyo", "Beijing", "Shenzhen", "Hong Kong"], "china": true, "visa": false, "home": "HKG", "homeDate": "2027-01-05", "land": "2027-01-06", "nonstop": false, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-19"], ["Tokyo", "JP", "2026-12-19", "2026-12-24"], ["Beijing", "CN", "2026-12-24", "2026-12-28"], ["Shenzhen", "CN", "2026-12-28", "2026-12-31"], ["Hong Kong", "HK", "2026-12-31", "2027-01-05"]], "legs": [{"k": "f", "d": "2026-12-19", "f": "ICN", "t": "NRT", "cheap": [144, "ZIPAIR Tokyo nonstop 17:15 → 19:40. Budget, bags extra"], "comfy": [254, "Air Premia nonstop 08:45 → 11:20"], "fresh": true}, {"k": "f", "d": "2026-12-24", "f": "NRT", "t": "PEK", "cheap": [557, "Spring Japan nonstop 18:00 → 21:30. Budget, bags not seen"], "comfy": [706, "Hainan nonstop 13:55 → 17:25"], "fresh": true}, {"k": "g", "d": "2026-12-28", "f": "Beijing", "t": "Shenzhen", "txt": "High-speed train, about 8h10 to 10h30, second class CNY 1,000-1,110 (about NZ$220-245, estimate). Flight instead: Shenzhen Airlines nonstop 11:30 → 14:55, 563 pp. Source chinahighlights.com, travelchinaguide.com"}, {"k": "g", "d": "2026-12-31", "f": "Shenzhen", "t": "Hong Kong", "txt": "Futian to West Kowloon high-speed train, about 15 minutes, CNY 68-75 (about NZ$15). Source travelchinaguide.com"}, {"k": "f", "d": "2027-01-05", "f": "HKG", "t": "AKL", "cheap": [1141, "Fiji Airways via Nadi. Lands 6 Jan"], "comfy": [1712, "Air NZ/Cathay nonstop 17:50 → 09:45+1"], "fresh": false}], "pros": ["Cheapest flights of the four at 1,842 pp, using the train for Beijing to Shenzhen", "Tokyo before the New Year closures, with Beijing 24-27 Dec shared with Casper", "Shenzhen for three nights and New Year's Eve in Hong Kong", "Three spare days on the 240-hour clock"], "cons": ["Beijing to Shenzhen is 8 hours by train or 563 pp by air", "Japan to Beijing costs 557 pp on a budget carrier, 706 pp on Hainan", "Fiji route home takes about 19 hours and lands 6 Jan; nonstop is 1,712 pp", "Only three nights in Seoul"], "casper": "Beijing 24-27 Dec, three nights together"}, {"id": "sz-tokyo-kyoto-qingdao-shenzhen-hk", "name": "Tokyo, Kyoto, Shenzhen, Hong Kong", "cities": ["Seoul", "Tokyo", "Kyoto", "Qingdao", "Shenzhen", "Hong Kong"], "china": true, "visa": false, "home": "HKG", "homeDate": "2027-01-05", "land": "2027-01-06", "nonstop": false, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Tokyo", "JP", "2026-12-23", "2026-12-27"], ["Kyoto", "JP", "2026-12-27", "2026-12-30"], ["Qingdao", "CN", "2026-12-30", "2026-12-31"], ["Shenzhen", "CN", "2026-12-31", "2027-01-03"], ["Hong Kong", "HK", "2027-01-03", "2027-01-05"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "NRT", "cheap": [160, "Air Seoul 08:10 → 10:25, nonstop, no checked bag"], "fresh": true}, {"k": "g", "d": "2026-12-27", "f": "Tokyo", "t": "Kyoto", "txt": "Nozomi shinkansen, about 2h20, about 14,000 yen (about NZ$150) each. Busy period: reserve early. Approximate."}, {"k": "f", "d": "2026-12-30", "f": "KIX", "t": "SZX", "cheap": [476, "Shandong 12:30 → 12:30 next day via Qingdao, 18h35 stop (a night in Qingdao)"], "comfy": [1371, "Shenzhen Airlines nonstop 15:00 → 18:50"], "fresh": true}, {"k": "g", "d": "2027-01-03", "f": "Shenzhen", "t": "Hong Kong", "txt": "High-speed rail Futian to West Kowloon, about 15 min, about 68 yuan (about NZ$16) each. Approximate."}, {"k": "f", "d": "2027-01-05", "f": "HKG", "t": "AKL", "cheap": [1143, "Fiji Airways via Nadi 16:10 → 13:35 next day"], "comfy": [1713, "Air NZ/Cathay nonstop 17:50 → 09:45 next day"], "fresh": true}], "pros": ["Cheapest Japan to China leg found (NZ$476 each) and the cheapest home fare of the set with a stop (NZ$1,143 each).", "New Year falls in Shenzhen and Hong Kong, where nothing shuts (Japan is mostly closed 31 Dec to 3 Jan).", "Christmas in Tokyo, three nights in Kyoto, then a clean finish in Hong Kong.", "Six days spare on the China clock (in 30 Dec, out 3 Jan).", "The Qingdao night is a free extra stop on the cheap ticket."], "cons": ["The cheap ticket has an 18h35 stop at Qingdao: you must clear immigration there under the 240-hour rule and find a hotel.", "Shandong, Air Seoul and Fiji carry extras: budget fares exclude checked bags.", "Nonstop Osaka to Shenzhen (NZ$1,371 each) removes the stop but costs NZ$895 more each.", "Hong Kong to Auckland on 5 Jan has a stop in Nadi and lands 6 Jan; the nonstop costs NZ$570 more each.", "Kyoto has only 3 nights and shinkansen on 27 Dec is busy."], "casper": "Seoul overlap 16 to 23 Dec only."}, {"id": "sz-shenzhen-hk-tokyo", "name": "Shenzhen, Hong Kong, then Tokyo", "cities": ["Seoul", "Shenzhen", "Hong Kong", "Tokyo"], "china": true, "visa": false, "home": "NRT", "homeDate": "2027-01-03", "land": "2027-01-04", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Shenzhen", "CN", "2026-12-23", "2026-12-27"], ["Hong Kong", "HK", "2026-12-27", "2026-12-29"], ["Tokyo", "JP", "2026-12-29", "2027-01-03"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "SZX", "cheap": [253, "Shandong 12:20 → 19:10 via Qingdao, 2h50 stop"], "comfy": [404, "China Southern nonstop 13:45 → 17:00"], "fresh": true}, {"k": "g", "d": "2026-12-25", "f": "Shenzhen", "t": "Guangzhou", "txt": "Optional day trip by high-speed rail, 30 to 45 min, about 80 yuan (about NZ$19) each way each. Approximate."}, {"k": "g", "d": "2026-12-27", "f": "Shenzhen", "t": "Hong Kong", "txt": "High-speed rail Futian to West Kowloon, about 15 min, about 68 yuan (about NZ$16) each. Approximate."}, {"k": "f", "d": "2026-12-29", "f": "HKG", "t": "NRT", "cheap": [331, "Hong Kong Express 14:00 → 19:05, nonstop, no checked bag"], "comfy": [403, "Greater Bay Airlines 10:00 → 15:05, nonstop"], "fresh": true}, {"k": "f", "d": "2027-01-03", "f": "NRT", "t": "AKL", "cheap": [1521, "Air NZ nonstop 14:30 → 05:00 next day"], "comfy": [1609, "Air NZ nonstop 18:30 → 09:00 next day"], "fresh": true}], "pros": ["All of China comes first and is short: in 23 Dec, out 27 Dec, six days spare on the clock.", "Seoul to Shenzhen is cheap (NZ$253 each) and Hong Kong to Tokyo is cheap (NZ$331 each).", "Five nights in Tokyo for New Year with the nonstop Air NZ flight home.", "Hong Kong adds a second, non-China stop for Christmas week; Guangzhou is an easy day trip.", "Same Seoul dates as Casper (16 to 23 Dec)."], "cons": ["Tokyo is quiet 1 to 3 Jan: many restaurants and shops are shut.", "The cheap Seoul to Shenzhen flight has a Qingdao connection; the nonstop is NZ$151 more each.", "Hong Kong Express is a budget carrier with no checked bag on the base fare.", "Japan is Tokyo only (day trips such as Kamakura, Nikko, Hakone).", "Shenzhen and Guangzhou fill the Christmas days, so no Japan Christmas."], "casper": "Seoul together 16 to 23 Dec; no overlap after."}, {"id": "sz-tokyo-christmas-hk-newyear-guangzhou", "name": "Christmas in Tokyo, New Year in Hong Kong, Shenzhen, home from Guangzhou", "cities": ["Seoul", "Tokyo", "Hong Kong", "Shenzhen", "Guangzhou"], "china": true, "visa": false, "home": "CAN", "homeDate": "2027-01-04", "land": "2027-01-05", "nonstop": true, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-21"], ["Tokyo", "JP", "2026-12-21", "2026-12-26"], ["Hong Kong", "HK", "2026-12-26", "2027-01-01"], ["Shenzhen", "CN", "2027-01-01", "2027-01-03"], ["Guangzhou", "CN", "2027-01-03", "2027-01-04"]], "legs": [{"k": "f", "d": "2026-12-21", "f": "ICN", "t": "NRT", "cheap": [144, "ZIPAIR 17:15 → 19:40, nonstop, no checked bag"], "comfy": [228, "Air Premia 08:45 → 11:20, nonstop"], "fresh": true}, {"k": "f", "d": "2026-12-26", "f": "NRT", "t": "HKG", "cheap": [543, "Jetstar 19:30 → 23:45, nonstop, no checked bag"], "comfy": [1272, "Cathay Pacific 08:50 → 13:25, nonstop"], "fresh": true}, {"k": "g", "d": "2027-01-01", "f": "Hong Kong", "t": "Shenzhen", "txt": "High-speed rail West Kowloon to Futian, about 15 min, about 68 yuan (about NZ$16) each. Approximate."}, {"k": "g", "d": "2027-01-03", "f": "Shenzhen", "t": "Guangzhou", "txt": "High-speed rail, 30 to 45 min, about 80 yuan (about NZ$19) each. Approximate."}, {"k": "f", "d": "2027-01-04", "f": "CAN", "t": "AKL", "cheap": [1384, "China Southern nonstop 18:30 → 10:35 next day (also 14:55 → 07:00)"], "fresh": true}], "pros": ["Five Tokyo nights over Christmas and six Hong Kong nights over New Year, with the harbour fireworks on 31 Dec.", "Only one real flight between regions, and Hong Kong is open on every holiday.", "Nonstop home from Guangzhou for NZ$1,384 each.", "Fewer hotel changes over the holidays: Hong Kong for six nights straight.", "Mainland China is only three nights (clock ends 4 Jan, seven days spare)."], "cons": ["Mainland China is short and falls on 1 to 3 Jan (Chinese holiday): expect crowds and dearer hotels.", "Tokyo to Hong Kong on 26 Dec is NZ$543 each on Jetstar (late arrival, no bag); the same day on Hong Kong Express is NZ$612 each and Cathay NZ$1,272.", "Seoul is only five nights, so Casper overlap is short.", "Entering Shenzhen by land from Hong Kong must be checked at the border: confirm Futian or Luohu is a 240-hour port.", "Only Shenzhen and Guangzhou in China, so no Beijing."], "casper": "Seoul overlap 16 to 21 Dec."}, {"id": "sz-japan-newyear-shenzhen-hk8", "name": "Japan for New Year, then Shenzhen and Hong Kong", "cities": ["Seoul", "Tokyo", "Kyoto", "Osaka", "Qingdao", "Shenzhen", "Hong Kong"], "china": true, "visa": false, "home": "HKG", "homeDate": "2027-01-08", "land": "2027-01-09", "nonstop": false, "stays": [["Seoul", "KR", "2026-12-16", "2026-12-23"], ["Tokyo", "JP", "2026-12-23", "2026-12-28"], ["Kyoto", "JP", "2026-12-28", "2027-01-01"], ["Osaka", "JP", "2027-01-01", "2027-01-03"], ["Qingdao", "CN", "2027-01-03", "2027-01-04"], ["Shenzhen", "CN", "2027-01-04", "2027-01-07"], ["Hong Kong", "HK", "2027-01-07", "2027-01-08"]], "legs": [{"k": "f", "d": "2026-12-23", "f": "ICN", "t": "NRT", "cheap": [160, "Air Seoul 08:10 → 10:25, nonstop, no checked bag"], "fresh": true}, {"k": "g", "d": "2026-12-28", "f": "Tokyo", "t": "Kyoto", "txt": "Nozomi shinkansen, about 2h20, about 14,000 yen (about NZ$150) each. Busy period: reserve early. Approximate."}, {"k": "g", "d": "2027-01-01", "f": "Kyoto", "t": "Osaka", "txt": "JR rapid train, about 30 min, about 600 yen (about NZ$6) each. Approximate, not checked."}, {"k": "f", "d": "2027-01-03", "f": "KIX", "t": "SZX", "cheap": [476, "Shandong 17:20 → 12:30 next day via Qingdao, 13h45 stop (a night in Qingdao)"], "comfy": [1271, "Shenzhen Airlines nonstop 15:00 → 18:50"], "fresh": true}, {"k": "g", "d": "2027-01-07", "f": "Shenzhen", "t": "Hong Kong", "txt": "High-speed rail Futian to West Kowloon, about 15 min, about 68 yuan (about NZ$16) each. Approximate."}, {"k": "f", "d": "2027-01-08", "f": "HKG", "t": "AKL", "cheap": [1311, "Air Niugini via Port Moresby 20:25 → 18:30 next day (lands 9 Jan)"], "comfy": [2119, "Cathay/Air NZ nonstop 21:25 → 13:25 next day"], "fresh": true}], "pros": ["Japan gets 10 nights including Christmas and New Year; China comes after the closures, when Shenzhen is fully open.", "Cheapest Japan to China leg found (NZ$476 each), same as the 30 Dec plan.", "Leaves Japan on 3 Jan, the last closure day, and uses only three flights including home.", "Three nights in Shenzhen plus a Hong Kong night before the flight home.", "Six days spare on the China clock (in 3 Jan, out 7 Jan)."], "cons": ["Longest of the set: lands Auckland 9 Jan, right at the edge of the window (3.4 weeks).", "Japan is mostly closed 31 Dec to 3 Jan and Kyoto is very crowded for New Year shrine visits.", "The home fare is NZ$1,311 each with a long Port Moresby connection; the nonstop is NZ$2,119 each.", "The cheap 3 Jan ticket has a 13h45 stop at Qingdao overnight: immigration and a hotel are needed there.", "No overlap with Casper after 23 Dec."], "casper": "Seoul overlap 16 to 23 Dec only."}].map(t=>({...t,legs:[OUT,...t.legs]}))
-];
-
-// ways home: [date, from, cheapest, nonstop, notes, level, fresh]
-const BOARD = [
- ['2027-01-03','HKG','1,484 Fiji via Nadi','1,710 Air NZ','Fiji now has a 13h35 layover; the 1,142 fare has gone','Typical',true],
- ['2027-01-05','HKG','1,141 Fiji via Nadi','1,710 Air NZ','2h55 in Nadi, lands 13:35. Best value','Low',true],
- ['2027-01-07','HKG','1,141 Fiji via Nadi','2,116 Air NZ','14h15 layover; the short connection is 1,402','Low',true],
- ['2027-01-08','HKG','1,308 Air Niugini via Port Moresby','2,116 Cathay','4h40 layover. Fiji short connection 1,607','Typical',true],
- ['2027-01-10','HKG','1,224 Fiji via Nadi','1,890 Air NZ','2h55 in Nadi','Low',true],
- ['2027-01-04','CAN','1,382 China Southern','1,382','Nonstops at 00:10, 14:55 and 18:30','Typical',true],
- ['2027-01-05','CAN','1,486 Cathay via Hong Kong','1,743 China Southern','05:45 start, 10h45 layover. Via Sydney 1,577','Typical',true],
- ['2027-01-03','PVG','1,480 Air NZ','1,480','14:15 → 06:45','Typical',true],
- ['2027-01-04','PVG','1,480 Air NZ','1,480','14:15 → 06:45','Typical',true],
- ['2027-01-03','NRT','1,521 Air NZ','1,521','14:30 → 05:00. Down 229 since 29 Sep. The 18:30 is 1,609','Typical',true],
- ['2027-01-07','TYO','1,639 Cathay + Fiji from Haneda','1,903 Air NZ','Cheapest takes 23h25. Jetstar via Brisbane 1,783','Typical',true],
- ['2027-01-05','ICN','1,628 Jetstar via Sydney, Christchurch','2,045 Korean Air','China Southern via Guangzhou 1,646 is the better one','Typical',true],
- ['2027-01-10','ICN','1,566 Jetstar via Sydney, Christchurch','2,045 Korean Air','Two stops, 19h. China Southern 1,804','Typical',true],
-];
-
-const NOTES = [
- 'Book the flight home as a separate one-way. Your Jetstar ticket is one-way, so there is no return discount to lose.',
- 'Budget airlines (Zipair, Spring, Jin Air, Thai Lion, Air Busan) exclude checked bags. With the 7 kg cabin limit, add a bag to each of those bookings.',
- 'China entry uses the 240-hour visa-free transit rule. The clock starts at midnight after you land and you must leave the mainland by 24:00 on day 10. Arriving 27 Dec means leaving by 6 Jan. Arriving 30 Dec means leaving by 9 Jan.',
- 'For the transit rule you need an onward ticket booked before check-in. Keep the Hong Kong train ticket and the flight home printed.',
- 'Separate tickets do not protect each other. Leave a night between a flight within Asia and the flight home.',
- 'Osaka Castle is closed 28 Dec – 1 Jan, and much of Japan shuts 31 Dec – 3 Jan.',
- 'Prices move NZ$30–40 between page loads. Book through the airline Google Flights lists.'
-];
-
-/* ---------- helpers ---------- */
-const $ = s=>document.querySelector(s);
-const D = s=>new Date(s+'T00:00:00Z');
-const days = (a,b)=>Math.round((D(b)-D(a))/864e5);
-const fmtD = s=>D(s).toLocaleDateString('en-NZ',{weekday:'short',day:'numeric',month:'short',timeZone:'UTC'});
-const fmtS = s=>D(s).toLocaleDateString('en-NZ',{day:'numeric',month:'short',timeZone:'UTC'});
-const money = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
-const PLACE = {AKL:'Auckland',ICN:'Seoul Incheon',GMP:'Seoul Gimpo',SEL:'Seoul',NRT:'Tokyo Narita',HND:'Tokyo Haneda',TYO:'Tokyo',KIX:'Osaka Kansai',ITM:'Osaka Itami',OSA:'Osaka',PVG:'Shanghai Pudong',SHA:'Shanghai Hongqiao',CKG:'Chongqing',SZX:'Shenzhen',HKG:'Hong Kong',CAN:'Guangzhou',TPE:'Taipei',TSA:'Taipei Songshan',PUS:'Busan',FUK:'Fukuoka',PEK:'Beijing Capital',PKX:'Beijing Daxing',BJS:'Beijing',CTU:'Chengdu Shuangliu',TFU:'Chengdu Tianfu',XIY:"Xi'an",HRB:'Harbin',CTS:'Sapporo',KWL:'Guilin',DYG:'Zhangjiajie',HGH:'Hangzhou',TAO:'Qingdao',CJU:'Jeju',XMN:'Xiamen',NGO:'Nagoya',KMQ:'Komatsu',HIJ:'Hiroshima',OKA:'Okinawa',TSN:'Tianjin',DLC:'Dalian',SYD:'Sydney',NAN:'Nadi',KMG:'Kunming',NKG:'Nanjing',CGQ:'Changchun',SHE:'Shenyang',CSX:'Changsha'};
-const place = c=>PLACE[c]||c;
-const CTY = {KR:'Korea',JP:'Japan',CN:'China',HK:'Hong Kong',TW:'Taiwan'};
-const APT_CTY = {ICN:'KR',GMP:'KR',SEL:'KR',PUS:'KR',CJU:'KR',NRT:'JP',HND:'JP',TYO:'JP',KIX:'JP',ITM:'JP',OSA:'JP',FUK:'JP',CTS:'JP',NGO:'JP',KMQ:'JP',HIJ:'JP',OKA:'JP',HKG:'HK',TPE:'TW',TSA:'TW'};
-const ctyTag = cc=>`<span class="cty"><i class="sw c-${cc}"></i>${CTY[cc]}</span>`;
-const START='2026-12-16';
-const store = {get(k,d){try{const v=localStorage.getItem('shh-'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('shh-'+k,JSON.stringify(v))}catch(e){}}};
-const st = {pax:store.get('pax',2),mode:store.get('mode','cheap'),sort:store.get('sort','cost'),city:{},cty:{},homeCty:'',nonstop:false,fit:false,hl:null};
-
-TRIPS.forEach(t=>{
-  t.nights = days(START,t.land);
-  t.weeks = t.nights/7;
-  t.tot = m=>t.legs.filter(l=>l.k==='f').reduce((s,l)=>s+l[m][0],0);
-  t.toBook = t.legs.filter(l=>l.k==='f'&&!l.booked).length;
-  t.fits = t.nights>=17 && t.nights<=25;
-  t.homeLeg = [...t.legs].reverse().find(l=>l.k==='f');
-  const at = d=>{const s=t.stays.find(([,,a,b])=>a<=d&&d<b);return s?s[0]:'—'};
-  t.xmas = at('2026-12-25'); t.nye = at('2026-12-31');
-  t.ctys = [...new Set(t.stays.map(s=>s[1]))];
-  t.homeCC = APT_CTY[t.home] || (t.home.length===3 && !APT_CTY[t.home] ? 'CN' : t.stays[t.stays.length-1][1]);
-});
-const AXIS_END = TRIPS.reduce((m,t)=>t.land>m?t.land:m,'2027-01-09');
-const homeNonstop = t=>/nonstop/i.test(t.homeLeg[st.mode][1]) || (st.mode==='cheap'&&t.nonstop);
-const unit = ()=>st.pax===2?'for two':'per person';
-
-function lenBadge(t){
-  const w = `${t.weeks.toFixed(1)} weeks`;
-  if(t.nights>25) return `<span class="badge b-warn" title="Over your 3½-week upper limit">${w} · over 3½</span>`;
-  return `<span class="badge b-good">${w}</span>`;
-}
-function chinaBadge(t){
-  if(!t.china) return `<span class="badge b-good">No China</span>`;
-  if(t.visa) return `<span class="badge b-bad">China visa needed</span>`;
-  return `<span class="badge b-acc" title="Up to 10 days in China without a visa">China visa-free (240 h)</span>`;
-}
-function tl(t){
-  const span = days(START,AXIS_END), pct = d=>days(START,d)/span*100;
-  let html='';
-  t.stays.forEach(([c,cc,a,b])=>{const w=days(a,b)/span*100;html+=`<span class="c-${cc}" style="width:${w}%" title="${c}: ${fmtD(a)} – ${fmtD(b)}">${w>8?c:''}</span>`;});
-  const rest = days(t.stays[t.stays.length-1][3],AXIS_END)/span*100;
-  if(rest>0) html+=`<span class="gap" style="width:${rest}%"></span>`;
-  const ticks=[[START,'16 Dec'],['2026-12-25','25 Dec'],['2027-01-01','1 Jan'],[AXIS_END,fmtS(AXIS_END)]];
-  return `<div class="tl-wrap"><div class="tl" role="img" aria-label="Timeline: ${t.stays.map(s=>`${s[0]} ${days(s[2],s[3])} nights`).join(', ')}">${html}</div>
-    <i class="tl-mark" style="left:${pct('2026-12-25')}%" title="Christmas"></i><i class="tl-mark" style="left:${pct('2027-01-01')}%" title="New Year"></i></div>
-    <div class="tl-axis" aria-hidden="true">${ticks.map(([d,l])=>`<span style="left:${pct(d)}%">${l}</span>`).join('')}</div>
-    <div class="staylist">${t.stays.map(([c,,a,b])=>`<b>${c}</b> ${days(a,b)}n`).join(' · ')}</div>`;
-}
-function legRow(l){
-  if(l.k==='g') return `<div class="leg ground"><div class="d">${fmtD(l.d)}</div><div class="r"><b>${l.f} → ${l.t}</b><div class="x">${l.txt}</div></div><div class="p"><small>not in total</small></div></div>`;
-  const [p,txt] = l[st.mode];
-  const tag = l.booked?'':(l.fresh?`<span class="fresh f-new">checked 30 Sep</span>`:`<span class="fresh f-old">29 Sep price</span>`);
-  const link = l.booked?'':` · <a href="${gf(l.f,l.t,l.d)}" target="_blank" rel="noopener">Search ↗</a>`;
-  return `<div class="leg${l.booked?' booked-leg':''}"><div class="d">${fmtD(l.d)}</div><div class="r"><b>${l.f} → ${l.t}</b> <span class="place">${place(l.f)} → ${place(l.t)}</span>${tag}<div class="x">${txt}${link}</div></div><div class="p num">${money(p*st.pax)}<small>${l.booked?'booked':st.pax>1?money(p)+' each':''}</small></div></div>`;
-}
-function card(t){
-  const tot = t.tot(st.mode)*st.pax;
-  return `<article class="card${st.hl===t.id?' hl':''}" id="trip-${t.id}">
-   <div class="card-top"><div>
-     <div class="title-row"><h3>${t.name}</h3>${lenBadge(t)}${chinaBadge(t)}</div>
-     <div class="stats"><span>${fmtS(START)} – ${fmtS(t.land)}</span><span>Countries: <b>${t.ctys.map(c=>CTY[c]).join(', ')}</b></span><span><b>${t.toBook}</b> flights still to book</span></div>
-     <div class="keydays"><span>Christmas: <b>${t.xmas}</b></span><span>New Year's Eve: <b>${t.nye}</b></span></div>
-     ${t.casper&&t.casper!=='none'?`<div class="casper">With Casper: ${t.casper}</div>`:''}
-   </div>
-   <div class="total"><div class="big num">${money(tot)}</div><div class="sub">all flights ${unit()}${st.pax===2?'<br>'+money(t.tot(st.mode))+' each':''}</div></div></div>
-   <div class="wayhome" style="margin-inline:18px"><span class="lbl">Way home</span>${ctyTag(t.homeCC)}<b>${place(t.home)}</b><span>${fmtD(t.homeDate)} → Auckland ${fmtD(t.land)}</span><span class="note">${homeNonstop(t)?'nonstop':'1 stop'} · ${t.homeLeg[st.mode][1]}</span></div>
-   ${tl(t)}
-   <div class="why"><div><h4>Good</h4><ul>${t.pros.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>Watch out for</h4><ul>${t.cons.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
-   <details><summary>Show every flight and train</summary><div class="legs">${t.legs.map(legRow).join('')}</div></details>
-  </article>`;
-}
-function filtered(){
-  const need = Object.keys(st.cty).filter(c=>st.cty[c]==='need'), skip = Object.keys(st.cty).filter(c=>st.cty[c]==='skip');
-  const ts = TRIPS.filter(t=>need.every(c=>t.ctys.includes(c)) && !skip.some(c=>t.ctys.includes(c)) && (!st.homeCty||t.homeCC===st.homeCty) && Object.keys(st.city).every(c=>t.stays.some(x=>x[0]===c)) && (!st.nonstop||homeNonstop(t)) && (!st.fit||t.fits));
-  const key = {cost:t=>t.tot(st.mode),len:t=>t.nights,cities:t=>-t.stays.length}[st.sort];
-  return ts.sort((a,b)=>key(a)-key(b));
-}
-function render(){
-  const ts = filtered();
-  const need = Object.keys(st.cty).filter(c=>st.cty[c]==='need'), skip = Object.keys(st.cty).filter(c=>st.cty[c]==='skip');
-  $('#list').innerHTML = ts.length?ts.map(card).join(''):`<div class="empty">No trip matches these filters. Clear a filter to see more.</div>`;
-  $('#glance tbody').innerHTML = ts.length?ts.map(t=>`<tr tabindex="0" data-row="${t.id}">
-    <td><div class="tname">${t.name}</div><div class="tsub">${t.stays.map(s=>s[0]).filter((c,i,a)=>a.indexOf(c)===i).join(' · ')}</div></td>
-    <td class="num">${t.weeks.toFixed(1)} wks<div class="tsub">home ${fmtS(t.land)}</div></td>
-    <td>${t.xmas} · ${t.nye}</td>
-    <td class="num">${t.stays.length}</td>
-    <td>${ctyTag(t.homeCC)}<div class="tsub" style="margin-top:4px">${place(t.home)} · ${homeNonstop(t)?'nonstop':'1 stop'}</div></td>
-    <td class="r num"><b>${money(t.tot(st.mode)*st.pax)}</b><div class="tsub">${unit()}</div></td></tr>`).join(''):`<tr><td colspan="6" class="note">No trip matches these filters.</td></tr>`;
-  const by = id=>TRIPS.find(t=>t.id===id);
-  const P = (window.PICKS || [['S1','Cheapest, nonstop home','Seoul, then Tokyo over New Year'],['S2a','Best value','Five cities with China, home from Hong Kong on Fiji'],['S4','Most time with Casper','Seoul, Suzhou, then Taipei'],['P3s','Everything in 3½ weeks','All six cities, home 8 Jan']]).filter(p=>by(p[0]));
-  $('#picks').innerHTML = P.map(([id,h,s])=>{const t=by(id);return `<button class="pick" type="button" data-go="${id}"><span class="eyebrow">${h}</span><span class="big num">${money(t.tot(st.mode)*st.pax)}</span><span class="sub">${unit()} · ${t.weeks.toFixed(1)} weeks · home from ${place(t.home)}</span><span class="sub">${s}</span></button>`}).join('');
-  document.querySelectorAll('[data-pax]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.pax===st.pax));
-  document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===st.mode));
-  document.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sort===st.sort));
-  $('#fAll3').setAttribute('aria-pressed',['KR','CN','JP'].every(c=>st.cty[c]==='need'));
-  $('#fNonstop').setAttribute('aria-pressed',st.nonstop);$('#fFit').setAttribute('aria-pressed',st.fit);
-  const present = Object.keys(CTY).filter(c=>TRIPS.some(t=>t.ctys.includes(c)) && !TRIPS.every(t=>t.ctys.includes(c)));
-  $('#ctyRow').hidden = !present.length;
-  $('#fAll3').hidden = TRIPS.every(t=>['KR','CN','JP'].every(c=>t.ctys.includes(c)));
-  const KEY = ['Beijing','Shenzhen','Hong Kong','Shanghai','Suzhou','Kyoto','Osaka','Busan'];
-  const cities = KEY.filter(c=>TRIPS.some(t=>t.stays.some(x=>x[0]===c)) && !TRIPS.every(t=>t.stays.some(x=>x[0]===c)));
-  $('#cityChips').innerHTML = cities.map(c=>`<button class="chip" type="button" data-city="${c}" aria-pressed="${!!st.city[c]}">${c}</button>`).join('');
-  const lbl = {need:'must include',skip:'left out'};
-  $('#ctyChips').innerHTML = present.map(c=>{const v=st.cty[c]||'';return `<button class="chip" type="button" data-cty="${c}" data-state="${v}" aria-label="${CTY[c]}${v?': '+lbl[v]:': any'}"><i class="sw c-${c}"></i>${CTY[c]}${v==='need'?' ✓':''}</button>`}).join('');
-  const homes = Object.keys(CTY).filter(c=>TRIPS.some(t=>t.homeCC===c));
-  $('#homeSeg').innerHTML = ['',...homes].map(c=>`<button type="button" data-home="${c}" aria-pressed="${st.homeCty===c}">${c?'<i class="sw c-'+c+'"></i> '+CTY[c]:'Anywhere'}</button>`).join('');
-  $('#fReset').hidden = !(need.length||skip.length||st.homeCty||st.nonstop||st.fit||Object.keys(st.city).length);
-}
-function board(){
-  $('#notesList').innerHTML = NOTES.map(n=>`<li>${n}</li>`).join('');
-  if(!$('#board')) return;
-  const ord=['KR','JP','CN','HK','TW'], cc=r=>ord.indexOf(APT_CTY[r[1]]||'CN');
-  const rows=[...BOARD].sort((a,b)=>cc(a)-cc(b)||place(a[1]).localeCompare(place(b[1]))||a[0].localeCompare(b[0]));
-  $('#board tbody').innerHTML = rows.map(r=>{
-    const lv = r[5]==='Low'?'b-good':r[5]==='High'?'b-bad':'b-acc';
-    return `<tr><td class="num">${fmtD(r[0])}</td><td>${ctyTag(APT_CTY[r[1]]||'CN')} <a href="${gf(r[1],'AKL',r[0])}" target="_blank" rel="noopener">${place(r[1])}</a> <span class="mono note">${r[1]}</span></td><td class="pr num">NZ$${r[2]}</td><td class="num">${/^\d/.test(r[3])?'NZ$'+r[3]:r[3]}</td><td>${r[4]}${r[6]?'':' <span class="fresh f-old">29 Sep price</span>'}</td><td>${r[5]?`<span class="badge ${lv}">${r[5]}</span>`:'<span class="note">not shown</span>'}</td></tr>`}).join('');
-}
-function go(id){
-  st.hl=id; st.city={}; st.cty={}; st.homeCty=''; st.nonstop=st.fit=false; render();
-  const el=document.getElementById('trip-'+id);
-  if(el){el.querySelector('details').open=true;el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
-}
-document.addEventListener('click',e=>{
-  const row=e.target.closest('tr[data-row]'); if(row){go(row.dataset.row);return}
-  const b=e.target.closest('button'); if(!b) return;
-  if(b.dataset.pax){st.pax=+b.dataset.pax;store.set('pax',st.pax)}
-  else if(b.dataset.mode){st.mode=b.dataset.mode;store.set('mode',st.mode)}
-  else if(b.dataset.sort){st.sort=b.dataset.sort;store.set('sort',st.sort)}
-  else if(b.dataset.cty){const c=b.dataset.cty, v=st.cty[c]; st.cty[c] = !v?'need':v==='need'?'skip':''; if(!st.cty[c]) delete st.cty[c];}
-  else if('home' in b.dataset) st.homeCty=b.dataset.home;
-  else if(b.id==='fAll3'){const on=['KR','CN','JP'].every(c=>st.cty[c]==='need'); if(on){['KR','CN','JP'].forEach(c=>delete st.cty[c])} else {['KR','CN','JP'].forEach(c=>st.cty[c]='need')}}
-  else if(b.dataset.city){const c=b.dataset.city; if(st.city[c]) delete st.city[c]; else st.city[c]=1;}
-  else if(b.id==='fReset'){st.city={};st.cty={};st.homeCty='';st.nonstop=st.fit=false}
-  else if(b.id==='fNonstop') st.nonstop=!st.nonstop;
-  else if(b.id==='fFit') st.fit=!st.fit;
-  else if(b.dataset.go){go(b.dataset.go);return}
-  else return;
-  render();
-});
-document.addEventListener('keydown',e=>{const row=e.target.closest&&e.target.closest('tr[data-row]');if(row&&(e.key==='Enter'||e.key===' ')){e.preventDefault();go(row.dataset.row)}});
-board(); render();
-</script>
-
+<footer>Last updated 4 October 2026.</footer>
+</main>
 </body>
 </html>
