@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Everything to book for the With Casper, then Hong Kong route, in the order to book it.">
+<meta name="theme-color" content="#1f4fd1">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<title>Booking Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column, grouped by when to book. Each row is a checkbox you tick once it's booked. */
+:root{
+  --bg:#f7f8fa; --fg:#151a22; --muted:#5e6673; --line:#e1e4ea; --tint:#edf0f5;
+  --accent:#1f4fd1; --ok:#1d7a46; --warn:#9a5600; --warn-bg:#fdf1dc;
+  --display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
+  --accent:#8fb0ff; --ok:#6fd39a; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
+  --accent:#8fb0ff; --ok:#6fd39a; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
+  padding-top:calc(28px + env(safe-area-inset-top,0px));padding-bottom:calc(64px + env(safe-area-inset-bottom,0px));
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:760px;margin:0 auto;display:grid;gap:34px}
+h1,h2{font-family:var(--display);margin:0;line-height:1.15;text-wrap:balance}
+h1{font-size:clamp(26px,5.5vw,36px);font-weight:700}
+h2{font-size:20px;font-weight:700}
+p{margin:0}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.muted{color:var(--muted)}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13.5px}
+.label{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+header{display:grid;gap:10px}
+.back{font-size:14px}
+.progress{display:flex;flex-wrap:wrap;gap:4px 20px;align-items:baseline;padding:12px 14px;background:var(--tint);border-radius:8px}
+.progress strong{font-family:var(--mono);font-size:15px}
+section{display:grid;gap:8px}
+.when{color:var(--muted);max-width:62ch}
+.list{display:grid;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:22px 1fr auto;gap:2px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.row input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--ok);cursor:pointer}
+.row .main{min-width:0;display:grid;gap:2px}
+.row .t{font-weight:600}
+.row .d{font-size:12.5px;color:var(--muted);font-family:var(--mono)}
+.row ul{margin:4px 0 0;padding-left:18px;font-size:14px;color:var(--muted)}
+.row ul li{margin:1px 0}
+.row ul b{color:var(--fg);font-weight:500}
+.row .go{font-size:14px;font-weight:600}
+.row .p{text-align:right;white-space:nowrap}
+.row.done .t{text-decoration:line-through;text-decoration-color:var(--muted)}
+.row.done .main > :not(.t):not(.d){opacity:.55}
+.flag{background:var(--warn-bg);padding:8px 10px;border-radius:6px;font-size:14px;margin-top:4px;color:var(--fg)}
+.prep{display:grid;gap:6px;padding-left:18px;margin:0}
+.totals{display:grid;grid-template-columns:1fr auto;gap:4px 16px;max-width:420px}
+.totals .sum{font-weight:600;border-top:1px solid var(--line);padding-top:6px}
+footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
+@media (max-width:540px){.row{grid-template-columns:22px 1fr}.row .p{grid-column:2;text-align:left}}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <a class="back" href="./#v1">← All routes</a>
+    <h1>Booking plan: with Casper, then Hong Kong</h1>
+    <p class="muted">For you and Ina, budget rooms. Seoul 16–23 Dec, Beijing 23–27, Shanghai 27–30, Suzhou 30 Dec–2 Jan, Hong Kong 2–5 Jan. Grouped by when to book. Tick each one off as you book it; the ticks are saved on this device only.</p>
+    <div class="progress"><span><strong id="done-n">0</strong> of <span id="all-n">0</span> booked</span><span><strong id="done-p">NZ$0</strong> of <span id="all-p">NZ$0</span></span></div>
+  </header>
+
+  <section>
+    <h2>Before you start</h2>
+    <ul class="prep">
+      <li>Both passports to hand. Enter names exactly as printed, given names and surname. China and Korea check passports against every ticket and hotel.</li>
+      <li>Passports must be valid for at least 6 months after 5 Jan.</li>
+      <li>Install the <b>12306</b> app (China Railway, English version), register with your passport and add Ina as a passenger. Verification can take a day, so do it before 13 Dec.</li>
+      <li>Install <b>Alipay</b> and link a Visa or Mastercard. Metro, taxis and most shops in China use it.</li>
+      <li>Tell Casper which flight and trains you're booking so you end up on the same ones.</li>
+    </ul>
+  </section>
+
+  <div id="groups" style="display:grid;gap:34px"></div>
+
+  <section>
+    <h2>Before you fly</h2>
+    <ul class="prep">
+      <li><b>Korea:</b> fill in the e-Arrival card online before landing on 16 Dec. New Zealanders don't need a K-ETA until 31 Dec 2026.</li>
+      <li><b>China (23 Dec):</b> you enter on 240-hour visa-free transit. At check-in in Seoul and at Beijing immigration, say "240-hour transit" and show the Futian → West Kowloon train ticket for 2 Jan as your onward ticket. Keep the HKG → AKL booking and hotel bookings handy too. Print them as well as having them on your phone.</li>
+      <li><b>China exit (2 Jan):</b> you must be across the border into Hong Kong by midnight on 2 Jan.</li>
+      <li>An eSIM that covers Korea, mainland China and Hong Kong (a foreign eSIM in China gives normal internet).</li>
+      <li>Travel insurance for both of you.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Totals for two</h2>
+    <div class="totals num" id="totals"></div>
+    <p class="muted">Not counting the flights you've already booked, food or activities.</p>
+  </section>
+
+  <footer>
+    <p>Prices checked 15 Nov 2026 for 2 adults, taxes included. China train fares are fixed 12306 prices; train numbers and times can change when tickets open, so pick the nearest equivalent. ≈ marks an estimate.</p>
+  </footer>
+</main>
+
+<script>
+const T = (from,to,date)=>`https://nz.trip.com/m/flights/${from}-to-${to}/tickets-${from}-${to}/?dcitycode=${from}&acitycode=${to}&ddate=${date}&triptype=0&classtype=0&adult=2&nonstoponly=off&locale=en-NZ&curr=NZD`;
+const TH = (city,id,a,b)=>`https://www.trip.com/hotels/detail/?cityId=${city}&hotelId=${id}&checkIn=${a}&checkOut=${b}&adult=2&crn=1&curr=NZD`;
+const BK = (slug,a,b)=>`https://www.booking.com/hotel/${slug}.en-gb.html?checkin=${a}&checkout=${b}&group_adults=2&no_rooms=1&selected_currency=NZD`;
+const R12306 = 'https://www.12306.cn/en/index.html';
+
+const G = [
+{h:'Book now', w:'Refundable rooms and the two flights. Flight prices around Christmas usually rise from here.', items:[
+ {id:'ca138',cat:'Flights',t:'Flight: Seoul Gimpo → Beijing',d:'Wed 23 Dec · CA138 · 14:25 → 15:45',p:568,
+  li:['<b>Air China CA138</b>, Gimpo (GMP) to Beijing Capital (PEK), 2 adults, economy','23 kg checked bag each on the fare seen','Casper is on this flight: book the same one and choose seats together if the site lets you'],
+  go:[['Search on Trip.com',T('sel','bjs','2026-12-23')],['Air China','https://www.airchina.com.cn/en/']]},
+ {id:'9c8775',cat:'Flights',t:'Flight: Shanghai Hongqiao → Shenzhen',d:'Sat 2 Jan · Spring Airlines 9C8775 · 13:05 → 15:50',p:310,
+  li:['<b>9C8775</b>, Shanghai Hongqiao (SHA) to Shenzhen Bao’an (SZX), 2 adults','Make sure a 20 kg checked bag is included for each of you; Spring’s cheapest fares are carry-on only (7 kg)','Leaves from the same airport an hour after Casper’s 13:00 flight to Chengdu'],
+  go:[['Search on Trip.com',T('sha','szx','2027-01-02')],['Spring Airlines','https://en.ch.com/']]},
+ {id:'seoul',cat:'Rooms',t:'Seoul: BlueBird Guesthouse, Daeheung',d:'16–23 Dec · 7 nights',p:474,
+  li:['Double room, private bathroom, 2 adults · rated 8.7','Free cancellation until 2 Dec','Foreign guests only. You land at 20:15, so message the host with your arrival time (about 22:00)','Getting there: AREX all-stop train from Incheon to Gongdeok, then Line 6 one stop to Daeheung'],
+  go:[['Book on Booking.com',BK('kr/bluebird-guesthouse','2026-12-16','2026-12-23')]]},
+ {id:'beijing',cat:'Rooms',t:'Beijing: Pod Inn, Panjiayuan',d:'23–27 Dec · 4 nights',p:140,
+  li:['Double, 2 adults · rated 8.5 · by Panjiayuan subway (Line 10)','Free cancellation until 18:00 on 23 Dec','Trip.com says foreign guests are welcome. Bring both passports to check in'],
+  go:[['Book on Trip.com',TH(1,1085209,'2026-12-23','2026-12-27')]]},
+ {id:'shanghai',cat:'Rooms',t:'Shanghai: Pod Inn, Dapuqiao',d:'27–30 Dec · 3 nights',p:116,
+  li:['Double, 2 adults · rated 8.5 · near Tianzifang, Line 9','Free cancellation until 18:00 on 27 Dec'],
+  go:[['Book on Trip.com',TH(2,6426537,'2026-12-27','2026-12-30')]]},
+ {id:'suzhou',cat:'Rooms',t:'Suzhou: Selected Hotel, Guanqian Street',d:'30 Dec – 2 Jan · 3 nights',p:140,
+  li:['Double, 2 adults · rated 9.2 (5.4k reviews) · old town centre','Free cancellation until 18:00 on 27 Dec'],
+  go:[['Book on Trip.com',TH(14,107536821,'2026-12-30','2027-01-02')]]}
+]},
+{h:'Book once you’re sure', w:'Cheapest rate is non-refundable.', items:[
+ {id:'hk',cat:'Rooms',t:'Hong Kong: Good Fortune Inn, Mong Kok',d:'2–5 Jan · 3 nights',p:362,
+  li:['Double, 2 adults · rated 8.6','Non-refundable, but dates can be changed','You arrive the evening of 2 Jan from West Kowloon station: MTR to Mong Kok, about 15 minutes'],
+  go:[['Book on Booking.com',BK('hk/good-fortune-inn-south-and-north','2027-01-02','2027-01-05')]]}
+]},
+{h:'Book the day tickets open', w:'China train tickets go on sale 15 days ahead (counting the travel day), in the 12306 app. Holiday trains sell fast, so book on the opening morning, China time (5 hours behind NZ).', items:[
+ {id:'g7',cat:'Trains',t:'Train: Beijing South → Shanghai Hongqiao',d:'Opens Sun 13 Dec · travel Sun 27 Dec · G7 · 09:00 → 13:37',p:375,
+  li:['Second class, 2 adults','Agree the train with Casper first so you travel together','If G7 has moved, any morning G train is fine (G1 at 06:30 is NZ$324)'],
+  go:[['12306',R12306]]},
+ {id:'sh-sz',cat:'Trains',t:'Train: Shanghai → Suzhou',d:'Opens Wed 16 Dec · travel Wed 30 Dec · about 30 min',p:20,est:1,
+  li:['Second class, 2 adults · trains every few minutes from Shanghai station or Hongqiao','Shanghai station is closest to Pod Inn Dapuqiao'],
+  go:[['12306',R12306]]},
+ {id:'sz-hq',cat:'Trains',t:'Train: Suzhou → Shanghai Hongqiao',d:'Opens Sat 19 Dec · travel Sat 2 Jan · G7389 · 09:08 → 09:43',p:20,
+  li:['Second class, 2 adults · with Casper, who flies at 13:00','Hongqiao station connects to Terminal 2. If Spring flies from T1, add 15–20 minutes on Metro Line 10'],
+  go:[['12306',R12306]]},
+ {id:'ft-wk',cat:'Trains',t:'Train: Shenzhen Futian → Hong Kong West Kowloon',d:'Opens Sat 19 Dec · travel Sat 2 Jan · about 17:30 · 14 min',p:37,
+  li:['Second class, 2 adults · pick a train leaving about 17:30 or later; trains run every 10–20 minutes','This is your onward ticket out of China. Book it before 23 Dec: airlines and border officers check it for 240-hour transit','You leave mainland China and enter Hong Kong at West Kowloon station when the train arrives'],
+  go:[['12306',R12306]],flag:'Must be booked before you check in at Gimpo on 23 Dec.'}
+]},
+{h:'Pay on the day', w:'No booking needed. Approximate costs for two.', items:[
+ {id:'arex',cat:'Getting around',t:'Incheon Airport → Daeheung',d:'Wed 16 Dec · about 1 hour',p:14,est:1,li:['AREX all-stop train to Gongdeok, then Line 6 one stop. Last trains about 23:30. Use a T-money card or the ticket machines'],go:[]},
+ {id:'gimpo',cat:'Getting around',t:'Daeheung → Gimpo Airport',d:'Wed 23 Dec · about 30 min',p:4,est:1,li:['Line 6 to Gongdeok, then AREX to Gimpo. Be at the airport by about 12:30'],go:[]},
+ {id:'bjexp',cat:'Getting around',t:'Beijing Capital → Panjiayuan',d:'Wed 23 Dec',p:16,est:1,li:['Airport Express to Dongzhimen (CNY 25 each), then the metro to Panjiayuan, about 1 hour. Pay with Alipay or the ticket machines'],go:[]},
+ {id:'szx',cat:'Getting around',t:'Shenzhen Airport → Futian station',d:'Sat 2 Jan · about 40 min',p:5,est:1,li:['Metro Line 11 to Futian, which is under the high-speed rail station'],go:[]},
+ {id:'aexp',cat:'Getting around',t:'Mong Kok → Hong Kong Airport',d:'Tue 5 Jan · leave by about 13:00 for your 16:10 flight',p:50,est:1,li:['MTR to Kowloon station, then the Airport Express'],go:[]}
+]}
+];
+
+const ALL = G.flatMap(g=>g.items);
+const nz = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
+let done = {};
+try{ done = JSON.parse(localStorage.getItem('nj-book-v1')||'{}'); }catch(e){}
+const save = ()=>{ try{ localStorage.setItem('nj-book-v1',JSON.stringify(done)); }catch(e){} };
+
+function render(){
+  document.getElementById('groups').innerHTML = G.map(g=>`
+    <section><h2>${g.h}</h2><p class="when">${g.w}</p><div class="list">${g.items.map(it=>`
+      <div class="row ${done[it.id]?'done':''}">
+        <input type="checkbox" id="c-${it.id}" data-id="${it.id}" ${done[it.id]?'checked':''} aria-label="Booked: ${it.t}">
+        <div class="main"><label class="t" for="c-${it.id}">${it.t}</label><span class="d">${it.d}</span>
+          ${it.li&&it.li.length?`<ul>${it.li.map(l=>`<li>${l}</li>`).join('')}</ul>`:''}
+          ${it.flag?`<p class="flag">${it.flag}</p>`:''}
+          ${it.go&&it.go.length?`<p>${it.go.map(([n,u])=>`<a class="go" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join(' · ')}</p>`:''}
+        </div>
+        <span class="p num">${it.est?'≈':''}${nz(it.p)}</span>
+      </div>`).join('')}</div></section>`).join('');
+  document.querySelectorAll('#groups input').forEach(c=>c.onchange=()=>{ done[c.dataset.id]=c.checked; if(!c.checked) delete done[c.dataset.id]; save(); render(); });
+  const bookable = ALL.filter(i=>i.go&&i.go.length);
+  document.getElementById('all-n').textContent = bookable.length;
+  document.getElementById('done-n').textContent = bookable.filter(i=>done[i.id]).length;
+  document.getElementById('all-p').textContent = nz(ALL.reduce((a,i)=>a+i.p,0));
+  document.getElementById('done-p').textContent = nz(ALL.filter(i=>done[i.id]).reduce((a,i)=>a+i.p,0));
+  const cats = ['Flights','Trains','Rooms','Getting around'];
+  const rows = cats.map(c=>[c, ALL.filter(i=>i.cat===c).reduce((a,i)=>a+i.p,0)]);
+  const tot = rows.reduce((a,r)=>a+r[1],0);
+  document.getElementById('totals').innerHTML = rows.map(([c,v])=>`<span>${c}</span><span>${nz(v)}</span>`).join('')
+    + `<span class="sum">Still to pay</span><span class="sum">${nz(tot)}</span><span class="muted">Each</span><span class="muted">${nz(tot/2)}</span>`;
+}
+render();
+</script>
+</body>
+</html>

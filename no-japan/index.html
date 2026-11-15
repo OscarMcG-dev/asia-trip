@@ -183,12 +183,12 @@ const home = {d:'5 Jan',k:'Fly',t:'Airport Express, then HKG 16:10 home (booked)
 
 
 const FLY_SZX = {d:'2 Jan',k:'Fly',t:'9C8775 Hongqiao 13:05 → Shenzhen 15:50',s:'20 kg bag each · same airport and hour as Casper’s flight',p:310,l:T('sha','szx','2027-01-02'),alt:'Or the direct train G901 Suzhou South 14:18 → Hong Kong West Kowloon 21:56 (NZ$486). It arrives only 2 hours inside the limit.'};
-const CROSS_HK = {d:'2 Jan',k:'Cross',t:'Shenzhen → Hong Kong by land',s:'Futian or Shenzhen Bay crossing, then MTR. Must be done before midnight.',p:40,est:1};
+const CROSS_HK = {d:'2 Jan',k:'Train',t:'Shenzhen Futian → Hong Kong West Kowloon',s:'Metro Line 11 from the airport to Futian, then the 14-minute train. Book it on 19 Dec: it is your onward ticket for the 240-hour rule. Must be across before midnight.',p:42,l:R12306};
 const HK3 = {d:'2–5 Jan',k:'Stay',nt:3,stay:{cheap:{n:'The Cityview (YMCA), Yau Ma Tei',s:'Double · 3 nights · 8.5 · non-refundable (NZ$821 with free cancellation)',p:704,l:BK('hk/ymca','2027-01-02','2027-01-05')}}};
 
 /* ---------- routes ---------- */
 const V = [
-{id:'v1',name:'With Casper, then Hong Kong',
+{id:'v1',name:'With Casper, then Hong Kong',book:'book.html',
  lane:[['Seoul',7,'KR',1],['Beijing',4,'CN',1],['Shanghai',3,'CN',1],['Suzhou',3,'CN',1],['Hong Kong',3,'HK',0,'HK']],
  entry:{ok:1,h:'240-hour transit works.',b:'Enter Beijing 23 Dec, out of the mainland by midnight 2 Jan. Book the Shenzhen flight before 23 Dec: it is your onward ticket.'},
  sum:'Travel with Casper through Seoul, Beijing, Shanghai and Suzhou for New Year. On 2 Jan you all go to Hongqiao: he flies to Chengdu, you fly to Shenzhen and cross into Hong Kong for three nights.',
@@ -492,7 +492,7 @@ function renderDetail(){
       <span class="p num">${p?est+nz(p):'–'}</span></div>`;
   }).join('');
   $('#detail').innerHTML = `
-    <div style="display:grid;gap:10px"><h2>${esc(v.name)}</h2><p class="summary">${esc(v.sum)}</p></div>
+    <div style="display:grid;gap:10px"><h2>${esc(v.name)}</h2><p class="summary">${esc(v.sum)}</p>${v.book?`<p><a href="${v.book}" style="color:var(--accent);font-weight:600">Booking plan for this route →</a></p>`:''}</div>
     <div class="lanes">
       ${lane(v.lane,'You')}
       ${lane([['Seoul',7,'KR',1],['Beijing',4,'CN',1],['Shanghai',3,'CN',1],['Suzhou',3,'CN',1],['Chengdu',3,'CN',1,'Chengdu']],'Casper')}
