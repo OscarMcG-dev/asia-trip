@@ -14,17 +14,17 @@
 /* Layout: one column, grouped by when to book. Each row is a checkbox you tick once it's booked. */
 :root{
   --bg:#f7f8fa; --fg:#151a22; --muted:#5e6673; --line:#e1e4ea; --tint:#edf0f5;
-  --accent:#1f4fd1; --ok:#1d7a46; --warn:#9a5600; --warn-bg:#fdf1dc;
+  --accent:#1f4fd1; --ok:#1d7a46; --ok-bg:#e2f3e9; --warn:#9a5600; --warn-bg:#fdf1dc;
   --display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
   --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
-  --accent:#8fb0ff; --ok:#6fd39a; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}}
+  --accent:#8fb0ff; --ok:#6fd39a; --ok-bg:#15301f; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
-  --accent:#8fb0ff; --ok:#6fd39a; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}
+  --accent:#8fb0ff; --ok:#6fd39a; --ok-bg:#15301f; --warn:#f0b35a; --warn-bg:#2b2214; color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
@@ -47,7 +47,11 @@ header{display:grid;gap:10px}
 section{display:grid;gap:8px}
 .when{color:var(--muted);max-width:62ch}
 .list{display:grid;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:22px 1fr auto;gap:2px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
+.rank{font-family:var(--mono);font-size:13px;color:var(--muted);min-width:1.6em;text-align:right;padding-top:1px}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:1px 9px;border-radius:999px;margin-left:8px;vertical-align:1px;white-space:nowrap}
+.pill.now{background:var(--ok-bg);color:var(--ok)} .pill.after{background:var(--tint);color:var(--muted)} .pill.wait{background:var(--warn-bg);color:var(--warn)}
+.why{font-size:14px}
+.row{display:grid;grid-template-columns:auto 22px 1fr auto;gap:2px 12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:start}
 .row input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--ok);cursor:pointer}
 .row .main{min-width:0;display:grid;gap:2px}
 .row .t{font-weight:600}
@@ -58,13 +62,13 @@ section{display:grid;gap:8px}
 .row .go{font-size:14px;font-weight:600}
 .row .p{text-align:right;white-space:nowrap}
 .row.done .t{text-decoration:line-through;text-decoration-color:var(--muted)}
-.row.done .main > :not(.t):not(.d){opacity:.55}
+.row.done .main > :not(:first-child):not(.d){opacity:.55}
 .flag{background:var(--warn-bg);padding:8px 10px;border-radius:6px;font-size:14px;margin-top:4px;color:var(--fg)}
 .prep{display:grid;gap:6px;padding-left:18px;margin:0}
 .totals{display:grid;grid-template-columns:1fr auto;gap:4px 16px;max-width:420px}
 .totals .sum{font-weight:600;border-top:1px solid var(--line);padding-top:6px}
 footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
-@media (max-width:540px){.row{grid-template-columns:22px 1fr}.row .p{grid-column:2;text-align:left}}
+@media (max-width:540px){.row{grid-template-columns:auto 22px 1fr}.row .p{grid-column:3;text-align:left}.pill{margin-left:0;margin-top:2px}}
 </style>
 </head>
 <body>
@@ -72,7 +76,7 @@ footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
   <header>
     <a class="back" href="./#v1">← All routes</a>
     <h1>Booking plan: with Casper, then Hong Kong</h1>
-    <p class="muted">For you and Ina, budget rooms. Seoul 16–23 Dec, Beijing 23–27, Shanghai 27–30, Suzhou 30 Dec–2 Jan, Hong Kong 2–5 Jan. Grouped by when to book. Tick each one off as you book it; the ticks are saved on this device only.</p>
+    <p class="muted">For you and Ina, budget rooms. Seoul 16–23 Dec, Beijing 23–27, Shanghai 27–30, Suzhou 30 Dec–2 Jan, Hong Kong 2–5 Jan. Ranked in the order to book, most urgent first. Tick each one off as you book it; the ticks are saved on this device only.</p>
     <div class="progress"><span><strong id="done-n">0</strong> of <span id="all-n">0</span> booked</span><span><strong id="done-p">NZ$0</strong> of <span id="all-p">NZ$0</span></span></div>
   </header>
 
@@ -117,54 +121,72 @@ const TH = (city,id,a,b)=>`https://www.trip.com/hotels/detail/?cityId=${city}&ho
 const BK = (slug,a,b)=>`https://www.booking.com/hotel/${slug}.en-gb.html?checkin=${a}&checkout=${b}&group_adults=2&no_rooms=1&selected_currency=NZD`;
 const R12306 = 'https://www.12306.cn/en/index.html';
 
-const G = [
-{h:'Book now', w:'Refundable rooms and the two flights. Flight prices around Christmas usually rise from here.', items:[
- {id:'ca138',cat:'Flights',t:'Flight: Seoul Gimpo → Beijing',d:'Wed 23 Dec · CA138 · 14:25 → 15:45',p:568,
-  li:['<b>Air China CA138</b>, Gimpo (GMP) to Beijing Capital (PEK), 2 adults, economy','23 kg checked bag each on the fare seen','Casper is on this flight: book the same one and choose seats together if the site lets you'],
+const RANKED = [
+ {id:'seoul',st:'now',why:'Free to cancel until 2 Dec, so there’s no downside. A small guesthouse in Christmas week; budget rooms in Seoul are going fast.',
+  cat:'Rooms',t:'Seoul: BlueBird Guesthouse, Daeheung',d:'16–23 Dec · 7 nights',p:474,
+  li:['Double room, private bathroom, 2 adults · rated 8.7','Foreign guests only. You land at 20:15, so message the host with your arrival time (about 22:00)','Getting there: AREX all-stop train from Incheon to Gongdeok, then Line 6 one stop to Daeheung'],
+  go:[['Book on Booking.com',BK('kr/bluebird-guesthouse','2026-12-16','2026-12-23')]]},
+ {id:'ca138',st:'now',why:'The route depends on it, it’s the flight you share with Casper, and fares around Christmas usually keep rising.',
+  cat:'Flights',t:'Flight: Seoul Gimpo → Beijing',d:'Wed 23 Dec · CA138 · 14:25 → 15:45',p:568,
+  li:['<b>Air China CA138</b>, Gimpo (GMP) to Beijing Capital (PEK), 2 adults, economy','23 kg checked bag each on the fare seen','Book the same flight as Casper and choose seats together if the site lets you'],
   go:[['Search on Trip.com',T('sel','bjs','2026-12-23')],['Air China','https://www.airchina.com.cn/en/']]},
- {id:'9c8775',cat:'Flights',t:'Flight: Shanghai Hongqiao → Shenzhen',d:'Sat 2 Jan · Spring Airlines 9C8775 · 13:05 → 15:50',p:310,
+ {id:'9c8775',st:'now',why:'2 Jan falls in China’s New Year holiday, when cheap seats go first.',
+  cat:'Flights',t:'Flight: Shanghai Hongqiao → Shenzhen',d:'Sat 2 Jan · Spring Airlines 9C8775 · 13:05 → 15:50',p:310,
   li:['<b>9C8775</b>, Shanghai Hongqiao (SHA) to Shenzhen Bao’an (SZX), 2 adults','Make sure a 20 kg checked bag is included for each of you; Spring’s cheapest fares are carry-on only (7 kg)','Leaves from the same airport an hour after Casper’s 13:00 flight to Chengdu'],
   go:[['Search on Trip.com',T('sha','szx','2027-01-02')],['Spring Airlines','https://en.ch.com/']]},
- {id:'seoul',cat:'Rooms',t:'Seoul: BlueBird Guesthouse, Daeheung',d:'16–23 Dec · 7 nights',p:474,
-  li:['Double room, private bathroom, 2 adults · rated 8.7','Free cancellation until 2 Dec','Foreign guests only. You land at 20:15, so message the host with your arrival time (about 22:00)','Getting there: AREX all-stop train from Incheon to Gongdeok, then Line 6 one stop to Daeheung'],
-  go:[['Book on Booking.com',BK('kr/bluebird-guesthouse','2026-12-16','2026-12-23')]]},
- {id:'beijing',cat:'Rooms',t:'Beijing: Pod Inn, Panjiayuan',d:'23–27 Dec · 4 nights',p:140,
+ {id:'suzhou',st:'now',why:'New Year’s Eve in Suzhou is popular. Free to cancel until 27 Dec.',
+  cat:'Rooms',t:'Suzhou: Selected Hotel, Guanqian Street',d:'30 Dec – 2 Jan · 3 nights',p:140,
+  li:['Double, 2 adults · rated 9.2 (5.4k reviews) · old town centre'],
+  go:[['Book on Trip.com',TH(14,107536821,'2026-12-30','2027-01-02')]]},
+ {id:'beijing',st:'now',why:'Free to cancel until arrival day, so book it now to hold the price.',
+  cat:'Rooms',t:'Beijing: Pod Inn, Panjiayuan',d:'23–27 Dec · 4 nights',p:140,
   li:['Double, 2 adults · rated 8.5 · by Panjiayuan subway (Line 10)','Free cancellation until 18:00 on 23 Dec','Trip.com says foreign guests are welcome. Bring both passports to check in'],
   go:[['Book on Trip.com',TH(1,1085209,'2026-12-23','2026-12-27')]]},
- {id:'shanghai',cat:'Rooms',t:'Shanghai: Pod Inn, Dapuqiao',d:'27–30 Dec · 3 nights',p:116,
+ {id:'shanghai',st:'now',why:'Free to cancel until arrival day; least likely to sell out.',
+  cat:'Rooms',t:'Shanghai: Pod Inn, Dapuqiao',d:'27–30 Dec · 3 nights',p:116,
   li:['Double, 2 adults · rated 8.5 · near Tianzifang, Line 9','Free cancellation until 18:00 on 27 Dec'],
   go:[['Book on Trip.com',TH(2,6426537,'2026-12-27','2026-12-30')]]},
- {id:'suzhou',cat:'Rooms',t:'Suzhou: Selected Hotel, Guanqian Street',d:'30 Dec – 2 Jan · 3 nights',p:140,
-  li:['Double, 2 adults · rated 9.2 (5.4k reviews) · old town centre','Free cancellation until 18:00 on 27 Dec'],
-  go:[['Book on Trip.com',TH(14,107536821,'2026-12-30','2027-01-02')]]}
-]},
-{h:'Book once you’re sure', w:'Cheapest rate is non-refundable.', items:[
- {id:'hk',cat:'Rooms',t:'Hong Kong: Good Fortune Inn, Mong Kok',d:'2–5 Jan · 3 nights',p:362,
+ {id:'hk',st:'after',why:'Non-refundable, so book it once both flights are confirmed. Don’t leave it long: Hong Kong is busy over the New Year weekend.',
+  cat:'Rooms',t:'Hong Kong: Good Fortune Inn, Mong Kok',d:'2–5 Jan · 3 nights',p:362,
   li:['Double, 2 adults · rated 8.6','Non-refundable, but dates can be changed','You arrive the evening of 2 Jan from West Kowloon station: MTR to Mong Kok, about 15 minutes'],
-  go:[['Book on Booking.com',BK('hk/good-fortune-inn-south-and-north','2027-01-02','2027-01-05')]]}
-]},
-{h:'Book the day tickets open', w:'China train tickets go on sale 15 days ahead (counting the travel day), in the 12306 app. Holiday trains sell fast, so book on the opening morning, China time (5 hours behind NZ).', items:[
- {id:'g7',cat:'Trains',t:'Train: Beijing South → Shanghai Hongqiao',d:'Opens Sun 13 Dec · travel Sun 27 Dec · G7 · 09:00 → 13:37',p:375,
+  go:[['Book on Booking.com',BK('hk/good-fortune-inn-south-and-north','2027-01-02','2027-01-05')]]},
+ {id:'g7',st:'wait',opens:'2026-12-13',why:'The busiest train of the trip, on a holiday-season Sunday. Book on the opening morning.',
+  cat:'Trains',t:'Train: Beijing South → Shanghai Hongqiao',d:'Travel Sun 27 Dec · G7 · 09:00 → 13:37',p:375,
   li:['Second class, 2 adults','Agree the train with Casper first so you travel together','If G7 has moved, any morning G train is fine (G1 at 06:30 is NZ$324)'],
   go:[['12306',R12306]]},
- {id:'sh-sz',cat:'Trains',t:'Train: Shanghai → Suzhou',d:'Opens Wed 16 Dec · travel Wed 30 Dec · about 30 min',p:20,est:1,
-  li:['Second class, 2 adults · trains every few minutes from Shanghai station or Hongqiao','Shanghai station is closest to Pod Inn Dapuqiao'],
-  go:[['12306',R12306]]},
- {id:'sz-hq',cat:'Trains',t:'Train: Suzhou → Shanghai Hongqiao',d:'Opens Sat 19 Dec · travel Sat 2 Jan · G7389 · 09:08 → 09:43',p:20,
+ {id:'ft-wk',st:'wait',opens:'2026-12-19',why:'Your onward ticket out of China. You need it before you check in at Gimpo on 23 Dec, so book it the day it opens.',
+  cat:'Trains',t:'Train: Shenzhen Futian → Hong Kong West Kowloon',d:'Travel Sat 2 Jan · about 17:30 · 14 min',p:37,
+  li:['Second class, 2 adults · pick a train leaving about 17:30 or later; trains run every 10–20 minutes','Airlines and border officers check it for 240-hour transit','You leave mainland China and enter Hong Kong at West Kowloon station when the train arrives'],
+  go:[['12306',R12306]],flag:'Must be booked before you check in at Gimpo on 23 Dec.'},
+ {id:'sz-hq',st:'wait',opens:'2026-12-19',why:'You need to reach Hongqiao in time for the 13:05 flight, on a holiday morning.',
+  cat:'Trains',t:'Train: Suzhou → Shanghai Hongqiao',d:'Travel Sat 2 Jan · G7389 · 09:08 → 09:43',p:20,
   li:['Second class, 2 adults · with Casper, who flies at 13:00','Hongqiao station connects to Terminal 2. If Spring flies from T1, add 15–20 minutes on Metro Line 10'],
   go:[['12306',R12306]]},
- {id:'ft-wk',cat:'Trains',t:'Train: Shenzhen Futian → Hong Kong West Kowloon',d:'Opens Sat 19 Dec · travel Sat 2 Jan · about 17:30 · 14 min',p:37,
-  li:['Second class, 2 adults · pick a train leaving about 17:30 or later; trains run every 10–20 minutes','This is your onward ticket out of China. Book it before 23 Dec: airlines and border officers check it for 240-hour transit','You leave mainland China and enter Hong Kong at West Kowloon station when the train arrives'],
-  go:[['12306',R12306]],flag:'Must be booked before you check in at Gimpo on 23 Dec.'}
-]},
-{h:'Pay on the day', w:'No booking needed. Approximate costs for two.', items:[
- {id:'arex',cat:'Getting around',t:'Incheon Airport → Daeheung',d:'Wed 16 Dec · about 1 hour',p:14,est:1,li:['AREX all-stop train to Gongdeok, then Line 6 one stop. Last trains about 23:30. Use a T-money card or the ticket machines'],go:[]},
- {id:'gimpo',cat:'Getting around',t:'Daeheung → Gimpo Airport',d:'Wed 23 Dec · about 30 min',p:4,est:1,li:['Line 6 to Gongdeok, then AREX to Gimpo. Be at the airport by about 12:30'],go:[]},
- {id:'bjexp',cat:'Getting around',t:'Beijing Capital → Panjiayuan',d:'Wed 23 Dec',p:16,est:1,li:['Airport Express to Dongzhimen (CNY 25 each), then the metro to Panjiayuan, about 1 hour. Pay with Alipay or the ticket machines'],go:[]},
- {id:'szx',cat:'Getting around',t:'Shenzhen Airport → Futian station',d:'Sat 2 Jan · about 40 min',p:5,est:1,li:['Metro Line 11 to Futian, which is under the high-speed rail station'],go:[]},
- {id:'aexp',cat:'Getting around',t:'Mong Kok → Hong Kong Airport',d:'Tue 5 Jan · leave by about 13:00 for your 16:10 flight',p:50,est:1,li:['MTR to Kowloon station, then the Airport Express'],go:[]}
-]}
+ {id:'sh-sz',st:'wait',opens:'2026-12-16',why:'Trains every few minutes, so there’s little risk. Book any time after it opens.',
+  cat:'Trains',t:'Train: Shanghai → Suzhou',d:'Travel Wed 30 Dec · about 30 min',p:20,est:1,
+  li:['Second class, 2 adults · from Shanghai station or Hongqiao','Shanghai station is closest to Pod Inn Dapuqiao'],
+  go:[['12306',R12306]]}
 ];
+const ONDAY = [
+ {id:'arex',cat:'Getting around',t:'Incheon Airport → Daeheung',d:'Wed 16 Dec · about 1 hour',p:14,est:1,li:['AREX all-stop train to Gongdeok, then Line 6 one stop. Last trains about 23:30. Use a T-money card or the ticket machines']},
+ {id:'gimpo',cat:'Getting around',t:'Daeheung → Gimpo Airport',d:'Wed 23 Dec · about 30 min',p:4,est:1,li:['Line 6 to Gongdeok, then AREX to Gimpo. Be at the airport by about 12:30']},
+ {id:'bjexp',cat:'Getting around',t:'Beijing Capital → Panjiayuan',d:'Wed 23 Dec',p:16,est:1,li:['Airport Express to Dongzhimen (CNY 25 each), then the metro to Panjiayuan, about 1 hour. Pay with Alipay or the ticket machines']},
+ {id:'szx',cat:'Getting around',t:'Shenzhen Airport → Futian station',d:'Sat 2 Jan · about 40 min',p:5,est:1,li:['Metro Line 11 to Futian, which is under the high-speed rail station']},
+ {id:'aexp',cat:'Getting around',t:'Mong Kok → Hong Kong Airport',d:'Tue 5 Jan · leave by about 13:00 for your 16:10 flight',p:50,est:1,li:['MTR to Kowloon station, then the Airport Express']}
+];
+const G = [{h:'Book in this order',w:'Most urgent first. Items marked “not on sale yet” can’t be booked until the date shown: China train tickets go on sale 15 days ahead, counting the travel day, in the 12306 app, on the opening morning China time (5 hours behind NZ).',items:RANKED,ranked:1},
+           {h:'Pay on the day',w:'No booking needed. Approximate costs for two.',items:ONDAY}];
+
+// today in China time, as YYYY-MM-DD, to decide whether a train is on sale yet
+const chinaToday = ()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai'}).format(new Date());
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const fmt = iso=>{ const d=new Date(iso+'T00:00:00Z'); return `${DOW[d.getUTCDay()]} ${d.getUTCDate()} ${MON[d.getUTCMonth()]}`; };
+function pill(it){
+  if(it.st==='now') return '<span class="pill now">Book now</span>';
+  if(it.st==='after') return '<span class="pill after">After the flights</span>';
+  if(it.st==='wait') return chinaToday()>=it.opens ? `<span class="pill now">On sale since ${fmt(it.opens)}</span>` : `<span class="pill wait">Not on sale yet · opens ${fmt(it.opens)}</span>`;
+  return '';
+}
 
 const ALL = G.flatMap(g=>g.items);
 const nz = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
@@ -174,10 +196,12 @@ const save = ()=>{ try{ localStorage.setItem('nj-book-v1',JSON.stringify(done));
 
 function render(){
   document.getElementById('groups').innerHTML = G.map(g=>`
-    <section><h2>${g.h}</h2><p class="when">${g.w}</p><div class="list">${g.items.map(it=>`
+    <section><h2>${g.h}</h2><p class="when">${g.w}</p><div class="list">${g.items.map((it,i)=>`
       <div class="row ${done[it.id]?'done':''}">
+        <span class="rank">${g.ranked?i+1:''}</span>
         <input type="checkbox" id="c-${it.id}" data-id="${it.id}" ${done[it.id]?'checked':''} aria-label="Booked: ${it.t}">
-        <div class="main"><label class="t" for="c-${it.id}">${it.t}</label><span class="d">${it.d}</span>
+        <div class="main"><div><label class="t" for="c-${it.id}">${it.t}</label>${pill(it)}</div><span class="d">${it.d}</span>
+          ${it.why?`<span class="why">${it.why}</span>`:''}
           ${it.li&&it.li.length?`<ul>${it.li.map(l=>`<li>${l}</li>`).join('')}</ul>`:''}
           ${it.flag?`<p class="flag">${it.flag}</p>`:''}
           ${it.go&&it.go.length?`<p>${it.go.map(([n,u])=>`<a class="go" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join(' · ')}</p>`:''}
