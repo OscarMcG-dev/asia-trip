@@ -16,7 +16,7 @@
 :root{
   --bg:#f7f8fa; --fg:#151a22; --muted:#5e6673; --line:#e1e4ea; --tint:#edf0f5;
   --accent:#1f4fd1; --warn:#9a5600; --warn-bg:#fdf1dc; --ok:#1d7a46;
-  --kr:#2f66d0; --cn:#c4452e; --hk:#0e8a78; --tw:#7b52c4; --mo:#b0447a;
+  --kr:#2f66d0; --cn:#c4452e; --hk:#0e8a78; --tw:#7b52c4; --mo:#b0447a; --vn:#b7791f;
   --display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
   --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
@@ -24,11 +24,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
   --accent:#8fb0ff; --warn:#f0b35a; --warn-bg:#2b2214; --ok:#6fd39a;
-  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; color-scheme:dark}}
+  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; --vn:#e6b35c; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
   --accent:#8fb0ff; --warn:#f0b35a; --warn-bg:#2b2214; --ok:#6fd39a;
-  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; color-scheme:dark}
+  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; --vn:#e6b35c; color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
@@ -77,8 +77,8 @@ header{display:grid;gap:10px}
 .s{display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;white-space:nowrap;font-size:12px;font-weight:600;border-radius:5px;color:#fff;padding:0 3px}
 .s.tiny{padding:0;font-size:11px}.s .a{display:none}.s.tiny .f{display:none}.s.tiny .a{display:inline}
 .s.open{background:transparent!important;border:1.5px dashed currentColor}
-.KR{background:var(--kr);--c:var(--kr)} .CN{background:var(--cn)} .HK{background:var(--hk)} .TW{background:var(--tw)} .MO{background:var(--mo)}
-.s.open.KR{color:var(--kr)} .s.open.CN{color:var(--cn)} .s.open.HK{color:var(--hk)} .s.open.TW{color:var(--tw)} .s.open.MO{color:var(--mo)}
+.KR{background:var(--kr);--c:var(--kr)} .CN{background:var(--cn)} .HK{background:var(--hk)} .TW{background:var(--tw)} .MO{background:var(--mo)} .VN{background:var(--vn)}
+.s.open.KR{color:var(--kr)} .s.open.CN{color:var(--cn)} .s.open.HK{color:var(--hk)} .s.open.TW{color:var(--tw)} .s.open.MO{color:var(--mo)} .s.open.VN{color:var(--vn)}
 .ticks{position:relative;height:14px;margin-left:72px;font-family:var(--mono);font-size:11px;color:var(--muted)}
 .ticks span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 .ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
@@ -341,6 +341,87 @@ V.push(
 );
 
 
+/* ---------- round 3: two fresh routes (checked 15 Nov 2026, about 21:55–23:30 NZDT) ----------
+   Paste after the existing V.push(...) block in site/no-japan/index.html.
+   Uses page helpers: T, TH, BK, BKa, R12306, arrive, seoul7, sz, hk1b, home, visa.
+   Page changes this needs (not made here):
+     - CSS: add a VN lane colour, e.g. .VN{background:var(--vn)} .s.open.VN{color:var(--vn)} with a --vn token.
+     - AB map: add Harbin:'HRB', Hangzhou:'HZ', Xiamen:'XM', Sleeper:'zz', 'Hoi An':'HA', Hue:'Hue', 'Tam Coc':'TC', Hanoi:'HN'.
+   Train fares: fixed 12306 fares read on proxy dates within the current sale window (same weekday). CNY→NZD at 3.6867 (open.er-api.com, 15 Nov 2026 00:02 UTC). */
+
+/* shared bits for r1/r2 */
+const arexOut = d=>({d,k:'Train',t:'AREX to Incheon Airport',s:'From Hongik Univ., about 1 hour · ₩4,750 each',p:13,est:1});
+const szb = {...sz, stay:{...sz.stay, budget:{n:'Selected Hotel, Guanqian Street',s:'Double · 3 nights · 9.2 (5.4k reviews) · free cancellation to 27 Dec',p:140,l:TH(14,107536821,'2026-12-30','2027-01-02')}}};
+const seoul7b = {...seoul7, stay:{...seoul7.stay, budget:{n:'BlueBird Guesthouse, Daeheung',s:'Double with private bathroom · 7 nights · 8.7 · foreigners only · free cancellation before 2 Dec',p:474,l:BKa('kr/bluebird-guesthouse','2026-12-16','2026-12-23')}}};
+
+V.push(
+{id:'r1',name:'Harbin ice, sleeper to Beijing, Hangzhou and Xiamen',
+ lane:[['Seoul',5,'KR',1],['Harbin',3,'CN',0],['Sleeper',1,'CN',0],['Beijing',2,'CN',1],['Hangzhou',3,'CN',0],['Suzhou',3,'CN',1],['Xiamen',2,'CN',0],['Hong Kong',1,'HK',0,'HK']],
+ entry:{ok:0,h:'China visas.',b:'Enter Harbin 21 Dec, leave at Hong Kong West Kowloon 4 Jan: 14 days, past the 240-hour limit, so you both get L visas in Auckland (NZ$105 each, in the total). Ask the embassy whether entering on 21 Dec under the 30-day visa-free scheme (which ends 31 Dec) would cover you to 4 Jan; if yes, skip the visas.'},
+ sum:'Five nights in Seoul with Casper, then fly to Harbin for the ice and snow festival at −20°C. The overnight Z-train gets you to Beijing on Christmas morning for two nights with Casper. Then the fast train to Hangzhou and West Lake, New Year in Suzhou with Casper again, the train to Xiamen with a day out to the Fujian earth-house villages, and the direct train to Hong Kong.',
+ casper:'We’d leave Seoul on 21 Dec for Harbin and meet you in Beijing on Christmas morning, go to Hangzhou on 27 Dec while you do Shanghai, and join you in Suzhou for New Year.',
+ items:[visa,arrive,
+  {d:'16–21 Dec',k:'Stay',with:1,nt:5,stay:{
+    cheap:{n:'Take 1 Guesthouse, Hongdae',s:'Double · 5 nights · 8.0 (960 reviews) · free cancellation before 9 Dec · BoA Travel House has no rooms for 16–21 Dec',p:568,l:BKa('kr/hong-guesthouse-seoul1','2026-12-16','2026-12-21')},
+    budget:{n:'BlueBird Guesthouse, Daeheung',s:'Double with private bathroom · 5 nights · 8.7 · foreigners only · free cancellation before 2 Dec',p:338,l:BKa('kr/bluebird-guesthouse','2026-12-16','2026-12-21')}}},
+  arexOut('21 Dec'),
+  {d:'21 Dec',k:'Fly',t:'OZ339 Incheon 12:20 → Harbin 13:35',s:'Asiana · checked bag included · under 9 seats left at this fare',p:629,l:T('sel','hrb','2026-12-21'),alt:'Or China Southern CZ684 at 13:40, NZ$687 with a bag.'},
+  {d:'21 Dec',k:'Bus',t:'Airport bus to Central Street',s:'About 1 hour · about CNY 20 each',p:11,est:1},
+  {d:'21–24 Dec',k:'Stay',nt:3,stay:{
+    cheap:{n:'Jirun Hotel, Central Avenue',s:'Double, no window · 3 nights · 9.0 (482 reviews) · free cancellation to 14 Dec',p:162,l:TH(5,119311371,'2026-12-21','2026-12-24'),alt:'Nicer: Xueli Premium by St Sophia Cathedral, 9.5 (9.6k reviews), NZ$258.'},
+    budget:{n:'Changqing Fashion Hotel, Nangang',s:'Queen, no window · 3 nights · 9.0 but only 41 reviews · free cancellation to 21 Dec',p:46,l:TH(5,1848279,'2026-12-21','2026-12-24')}}},
+  {d:'24–25 Dec',k:'Train',t:'Z18 sleeper Harbin 21:19 → Beijing 07:50',s:'Soft sleeper (4-berth compartment) · CNY 409.5 each · on sale 10 Dec',p:222,l:R12306,alt:'Hard sleeper (open 6-berth bays), NZ$142. Or Z16 at 21:12, arriving 07:29.'},
+  {d:'25 Dec',k:'Metro',t:'Beijing Station → Temple of Heaven',s:'Line 2 then Line 5',p:4,est:1},
+  {d:'25–27 Dec',k:'Stay',with:1,nt:2,stay:{
+    cheap:{n:'Manxin Hotel, Temple of Heaven',s:'Queen with window · 2 nights · 9.7 (4.3k reviews) · free cancellation to 25 Dec',p:254,l:TH(1,61134552,'2026-12-25','2026-12-27')},
+    near:{n:'Ji Hotel Dongzhimen',s:'Queen · 2 nights · 9.8 · probably Casper’s hotel · free cancellation to 22 Dec',p:289,l:TH(1,1004421,'2026-12-25','2026-12-27')},
+    budget:{n:'Sinuan Yuan Hotel, Chongwenmen',s:'Queen, fixed window · 2 nights · 8.7 (458 reviews) · hutong lane · free cancellation to 25 Dec',p:128,l:TH(1,2006230,'2026-12-25','2026-12-27')}}},
+  {d:'27 Dec',k:'Train',t:'G39 Beijing South 07:56 → Hangzhou East 12:33',s:'Second class · on sale 13 Dec · Casper’s G7 to Shanghai leaves the same station at 09:00',p:342,l:R12306,alt:'Or G815 at 07:04, NZ$316.'},
+  {d:'27–30 Dec',k:'Stay',nt:3,stay:{
+    cheap:{n:'Haoyi Hotel, Hubin (West Lake)',s:'Queen, no window · 3 nights · 9.4 (10.8k reviews) · walk to the lake · free cancellation to 27 Dec',p:150,l:TH(17,77362763,'2026-12-27','2026-12-30')},
+    budget:{n:'Pod Inn, Qingchun Road',s:'Double · 3 nights · 8.3 (390 reviews) · some rooms have windows · free cancellation to 27 Dec',p:60,l:TH(17,1462173,'2026-12-27','2026-12-30')}}},
+  {d:'30 Dec',k:'Train',t:'G7390 Hangzhou East 13:40 → Suzhou 14:55',s:'Second class · on sale 16 Dec · Casper comes in from Shanghai the same day',p:72,l:R12306,alt:'Or D3142 at 14:54, NZ$55.'},
+  szb,
+  {d:'2 Jan',k:'Train',t:'G1315 Suzhou South 09:02 → Xiamen North 14:49',s:'Second class · on sale 19 Dec · Casper heads to Hongqiao for his 13:00 flight',p:288,l:R12306,alt:'Or D2281 Suzhou 08:02 → 16:53 (NZ$260), or fly 9C8837 Hongqiao 12:00 → Xiamen 14:05 (NZ$261, bag terms not checked).'},
+  {d:'2 Jan',k:'Metro',t:'Xiamen North → Zhongshan Road',s:'Metro Line 1, about 50 min',p:4,est:1},
+  {d:'2–4 Jan',k:'Stay',nt:2,stay:{
+    cheap:{n:'GreenTree Eastern, Zhongshan Road',s:'Double, no window · 2 nights · 9.2 (5.5k reviews) · ferry to Gulangyu nearby · free cancellation to 2 Jan',p:82,l:TH(25,4960975,'2027-01-02','2027-01-04'),alt:'With a window: ARULA Zhongshan Road, 9.4, NZ$151.'},
+    budget:{n:'Jiacheng Hotel, Xiamen Railway Station',s:'Queen, window to the hallway · 2 nights · 9.2 (776 reviews) · free cancellation to 2 Jan',p:65,l:TH(25,1742980,'2027-01-02','2027-01-04')}}},
+  {d:'3 Jan',k:'Day trip',t:'Fujian tulou: train to Nanjing (Fujian), then a driver to Tianluokeng',s:'G1642 Xiamen North 07:27 → Nanjing 08:03, CNY 25.5 each way. Driver and entry tickets are estimates.',p:130,est:1,l:R12306},
+  {d:'4 Jan',k:'Train',t:'G919 Xiamen North 10:15 → Hong Kong West Kowloon 13:52',s:'Second class · on sale 21 Dec · you leave China here',p:202,l:R12306,alt:'Or fly CX977 12:15 → 14:00, NZ$414.'},
+  hk1b,home],
+ watch:['By 4 Dec: passports in for China visas (or get the embassy’s answer on the 30-day scheme first).','About 20 Dec: Harbin Ice and Snow World is expected to open (no official date yet).','10, 13, 16, 19 and 21 Dec: train tickets for 24 Dec, 27 Dec, 30 Dec, 2 Jan and 4 Jan go on sale (12306 app).','9 Dec: last day to cancel Take 1 Guesthouse free; 14 Dec for Jirun Hotel.']},
+
+{id:'r2',name:'Vietnam: Hoi An, Hue, sleeper north, New Year in Hanoi',
+ lane:[['Seoul',7,'KR',1],['Hoi An',4,'VN',0],['Hue',2,'VN',0],['Sleeper',1,'VN',0],['Tam Coc',1,'VN',0],['Hanoi',4,'VN',0],['Hong Kong',1,'HK',0,'HK']],
+ entry:{ok:1,h:'No China visa needed.',b:'You never enter mainland China. Vietnam needs an e-visa for NZ passports: US$25 each on evisa.gov.vn, single entry, in the total. Apply in early December.'},
+ sum:'A week in Seoul with Casper, then fly to Da Nang the evening he leaves for Beijing. Christmas in lantern-lit Hoi An, two nights in the old imperial city of Hue, then the overnight sleeper train north to the limestone river valleys of Tam Coc. New Year’s Eve in Hanoi’s Old Quarter, and a morning flight to Hong Kong on 4 Jan.',
+ casper:'We’d spend the week in Seoul with you and leave on 23 Dec for Vietnam, so after Seoul we won’t see you until home.',
+ items:[{d:'by 9 Dec',k:'Visa',t:'Vietnam e-visas',s:'US$25 each, single entry, up to 90 days · apply on the official site evisa.gov.vn',p:90,l:'https://evisa.gov.vn/'},
+  arrive,seoul7b,arexOut('23 Dec'),
+  {d:'23 Dec',k:'Fly',t:'LJ81 Incheon 17:30 → Da Nang 20:45',s:'Jin Air · checked bag included · Casper flies from Gimpo at 14:25, so you can leave Seoul together',p:612,l:T('sel','dad','2026-12-23'),alt:'Or VietJet VJ875 at 23:50, NZ$609, carry-on only.'},
+  {d:'23 Dec',k:'Taxi',t:'Da Nang airport → Hoi An by Grab',s:'About 45 min',p:30,est:1},
+  {d:'23–27 Dec',k:'Stay',nt:4,stay:{
+    cheap:{n:'Family Hotel Hoi An Center',s:'Double · 4 nights · 9.0 (686 reviews) · free cancellation, pay at the hotel',p:141,l:BKa('vn/family-tp-hoi-an','2026-12-23','2026-12-27'),alt:'Nu Ni Homestay, 9.3 (616 reviews), NZ$166.'},
+    budget:{n:'Hoa Mau Don Homestay',s:'Double · 4 nights · 8.7 (358 reviews) · free cancellation',p:84,l:BKa('vn/hoa-mau-don','2026-12-23','2026-12-27')}}},
+  {d:'27 Dec',k:'Bus',t:'Hoi An 07:15 → Hue 10:45',s:'Hanh Cafe sleeper bus · 12Go',p:34,l:'https://12go.asia/en/travel/hoi-an/hue?date=2026-12-27&people=2',alt:'Better: a private car over the Hai Van Pass with stops, from NZ$76 a car on 12Go.'},
+  {d:'27–29 Dec',k:'Stay',nt:2,stay:{
+    cheap:{n:'Vina Boutique Hotel, Hue',s:'Double with breakfast · 2 nights · 8.9 (417 reviews) · free cancellation',p:46,l:BKa('vn/vina-boutique','2026-12-27','2026-12-29')},
+    budget:{n:'Nineties Homestay, Hue',s:'Queen · 2 nights · 8.8 (470 reviews) · free cancellation',p:37,l:BKa('vn/nineties-homestay','2026-12-27','2026-12-29')}}},
+  {d:'29–30 Dec',k:'Train',t:'Sleeper train Hue 20:48 → Ninh Binh 07:59',s:'Vietnam Railways · 4-berth soft-sleeper cabin · 12Go price; the railway’s own site dsvn.vn is cheaper',p:192,l:'https://12go.asia/en/travel/hue/ninh-binh?date=2026-12-29&people=2',alt:'Or fly VietJet Hue → Hanoi, NZ$140 for two.'},
+  {d:'30–31 Dec',k:'Stay',nt:1,stay:{
+    cheap:{n:'Thắng Thủy Tam Cốc Homestay',s:'King with breakfast · 1 night · 9.3 (92 reviews) · 700 m from the boat pier · ask for early check-in',p:23,l:BKa('vn/thang-thuy-tam-coc-homestay','2026-12-30','2026-12-31')},
+    budget:{n:'Tam Coc Lotus Lake Homestay',s:'Double, mountain view · 1 night · 9.5 (36 reviews) · free cancellation',p:19,l:BKa('vn/tamcoclotustakehomestay','2026-12-30','2026-12-31')}}},
+  {d:'31 Dec',k:'Bus',t:'Tam Coc → Hanoi Old Quarter, limousine van',s:'About 2 hours · 12Go fares from NZ$14 each',p:30,est:1,l:'https://12go.asia/en/travel/ninh-binh/hanoi?date=2026-12-31&people=2'},
+  {d:'31 Dec – 4 Jan',k:'Stay',nt:4,stay:{
+    cheap:{n:'Antique Angel Hotel, Old Quarter',s:'Deluxe double · 4 nights · 9.2 (696 reviews) · free cancellation, pay at the hotel',p:461,l:BKa('vn/antique-angel','2026-12-31','2027-01-04'),alt:'Hanoi Center Silk Charming, 9.0 (1.8k reviews), NZ$479.'},
+    budget:{n:'Ancient Lane Hotel, Old Quarter',s:'Deluxe double · 4 nights · 8.3 (927 reviews) · free cancellation',p:302,l:BKa('vn/ancient-lane-ha-noi','2026-12-31','2027-01-04')}}},
+  {d:'4 Jan',k:'Taxi',t:'Old Quarter → Noi Bai airport',s:'About 45 min by Grab (bus 86 about NZ$6)',p:21,est:1},
+  {d:'4 Jan',k:'Fly',t:'VN592 Hanoi 10:30 → Hong Kong 13:30',s:'Vietnam Airlines · Google Flights fare; bag allowance not shown, so check a checked bag is included',p:499,l:T('han','hkg','2027-01-04'),alt:'Cheaper: Sun PhuQuoc 9G530 at 09:15 (NZ$335, bags not checked) or HK Express UO541 at 09:35 (NZ$590, carry-on only).'},
+  hk1b,home],
+ watch:['Early Dec: apply for Vietnam e-visas (evisa.gov.vn, US$25 each).','2 Dec: last day to cancel BoA Travel House free (it showed 1 room left).','Hoi An and Hue in late December are at the wet tail of the rainy season: expect showers, about 20–24°C.','Hanoi rooms over New Year are about 1.5 times December rates; most picks here cancel free.']}
+);
+
 /* ---------- budget rooms for the original routes (checked 15 Nov) ---------- */
 const BUD = (n,s,p,l)=>({n,s,p,l});
 seoul7.stay.budget = BUD('BlueBird Guesthouse, Daeheung','Double, private bathroom · 7 nights · 8.7 · free cancellation before 2 Dec · a little further from the airport train',474,BK('kr/bluebird-guesthouse','2026-12-16','2026-12-23'));
@@ -380,7 +461,7 @@ function renderCompare(){
     return `<button type="button" class="row" id="r-${v.id}" aria-pressed="${v===cur}" data-id="${v.id}">
       <span class="rname">${esc(v.name)}</span>
       <span class="rtot"><strong>${nz(all)}</strong><span>${nz(all/2)} each</span></span>
-      <span class="rmeta">${together(v)} of 20 nights with Casper · ${v.entry.ok?'no visa needed':'China visas (in the total)'}</span>
+      <span class="rmeta">${together(v)} of 20 nights with Casper · ${(()=>{const vi=v.items.find(i=>i.k==='Visa'); return vi? vi.t.replace(/,.*$/,'')+' (in the total)' : 'no visa needed';})()}</span>
     </button>`;};
   const groups=[['Most of the trip with Casper',v=>together(v)>=15],['Your own way after Seoul',v=>together(v)<15]];
   $('#compare').innerHTML = groups.map(([h,f])=>{ const vs=V.filter(f).sort((a,b)=>together(b)-together(a)); return vs.length?`<div class="label ghead">${h}</div>`+vs.map(row).join(''):''; }).join('');
@@ -388,7 +469,7 @@ function renderCompare(){
   document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));
 }
 
-const AB={Seoul:'Seoul',Beijing:'BJ',Shanghai:'SH',Suzhou:'SZ','Hong Kong':'HK',Chengdu:'CD',Taipei:'TPE',Gyeongju:'GJ',Busan:'Busan',Tainan:'TN',Kaohsiung:'KH',Guilin:'GL',Yangshuo:'YS',Guangzhou:'GZ',"Xi'an":'XA',Macau:'MO'};
+const AB={Seoul:'Seoul',Beijing:'BJ',Shanghai:'SH',Suzhou:'SZ','Hong Kong':'HK',Chengdu:'CD',Taipei:'TPE',Gyeongju:'GJ',Busan:'Busan',Tainan:'TN',Kaohsiung:'KH',Guilin:'GL',Yangshuo:'YS',Guangzhou:'GZ',Harbin:'HRB',Hangzhou:'HZ',Xiamen:'XM',Sleeper:'zz','Hoi An':'HA',Hue:'Hue','Tam Coc':'TC',Hanoi:'HN',"Xi'an":'XA',Macau:'MO'};
 function lane(segs,who){
   return `<div class="lane"><span class="label">${who}</span><div class="bar">${segs.map(s=>{
     const [city,n,cc,w]=s, ab=AB[city]||city, cls=n<=2?'tiny':n<=4?'short':'';
