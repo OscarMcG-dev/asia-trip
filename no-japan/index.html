@@ -16,7 +16,7 @@
 :root{
   --bg:#f7f8fa; --fg:#151a22; --muted:#5e6673; --line:#e1e4ea; --tint:#edf0f5;
   --accent:#1f4fd1; --warn:#9a5600; --warn-bg:#fdf1dc; --ok:#1d7a46;
-  --kr:#2f66d0; --cn:#c4452e; --hk:#0e8a78; --tw:#7b52c4;
+  --kr:#2f66d0; --cn:#c4452e; --hk:#0e8a78; --tw:#7b52c4; --mo:#b0447a;
   --display:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
   --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
@@ -24,11 +24,11 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
   --accent:#8fb0ff; --warn:#f0b35a; --warn-bg:#2b2214; --ok:#6fd39a;
-  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; color-scheme:dark}}
+  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f1217; --fg:#e7eaf0; --muted:#98a1ae; --line:#262c36; --tint:#181d26;
   --accent:#8fb0ff; --warn:#f0b35a; --warn-bg:#2b2214; --ok:#6fd39a;
-  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; color-scheme:dark}
+  --kr:#6e98ec; --cn:#ec7a62; --hk:#3fbfa9; --tw:#a98ced; --mo:#e07fae; color-scheme:dark}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--body);
@@ -49,7 +49,9 @@ header{display:grid;gap:10px}
 .booked b{color:var(--fg);font-weight:600}
 
 /* compare */
-.compare{display:grid;border-top:1px solid var(--line)}
+.compare{display:grid}
+.ghead{padding:18px 10px 6px;border-bottom:1px solid var(--line)}
+.ghead:first-child{padding-top:0}
 .row{all:unset;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:12px 10px;border-bottom:1px solid var(--line);border-radius:0}
 .row:hover{background:var(--tint)}
 .row[aria-pressed="true"]{background:var(--tint)}
@@ -75,8 +77,8 @@ header{display:grid;gap:10px}
 .s{display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden;white-space:nowrap;font-size:12px;font-weight:600;border-radius:5px;color:#fff;padding:0 3px}
 .s.tiny{padding:0;font-size:11px}.s .a{display:none}.s.tiny .f{display:none}.s.tiny .a{display:inline}
 .s.open{background:transparent!important;border:1.5px dashed currentColor}
-.KR{background:var(--kr);--c:var(--kr)} .CN{background:var(--cn)} .HK{background:var(--hk)} .TW{background:var(--tw)}
-.s.open.KR{color:var(--kr)} .s.open.CN{color:var(--cn)} .s.open.HK{color:var(--hk)} .s.open.TW{color:var(--tw)}
+.KR{background:var(--kr);--c:var(--kr)} .CN{background:var(--cn)} .HK{background:var(--hk)} .TW{background:var(--tw)} .MO{background:var(--mo)}
+.s.open.KR{color:var(--kr)} .s.open.CN{color:var(--cn)} .s.open.HK{color:var(--hk)} .s.open.TW{color:var(--tw)} .s.open.MO{color:var(--mo)}
 .ticks{position:relative;height:14px;margin-left:72px;font-family:var(--mono);font-size:11px;color:var(--muted)}
 .ticks span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
 .ticks span:first-child{transform:none}.ticks span:last-child{transform:translateX(-100%)}
@@ -103,9 +105,6 @@ header{display:grid;gap:10px}
 
 .watch{display:grid;gap:6px;padding-left:18px;margin:0}
 .watch li::marker{color:var(--muted)}
-.msg{display:grid;gap:8px}
-.msg pre{margin:0;white-space:pre-wrap;font:14px/1.55 var(--body);padding:12px 14px;border:1px solid var(--line);border-radius:8px;user-select:all}
-.copy{all:unset;cursor:pointer;justify-self:start;font-size:13.5px;font-weight:600;color:var(--accent)}
 footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
 @media (max-width:540px){
   .it{grid-template-columns:1fr auto}
@@ -125,6 +124,7 @@ footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
       <span><b>In:</b> Seoul Incheon, Wed 16 Dec, 20:15</span>
       <span><b>Out:</b> Hong Kong, Tue 5 Jan, 16:10</span>
       <span>20 nights · prices for the two of you, NZD</span>
+      <span>Totals are what’s still to pay: flights between cities, trains, rooms and any visas. They leave out the two booked flights (about NZ$4,580 for two), food and activities.</span>
     </div>
   </header>
 
@@ -133,30 +133,15 @@ footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
     <div class="controls">
       <span class="label">Rooms</span>
       <div class="seg" role="group" aria-label="Room choice">
-        <button type="button" id="m-cheap" data-mode="cheap">Cheapest good room</button>
-        <button type="button" id="m-near" data-mode="near">Same place as Casper</button>
+        <button type="button" id="m-budget" data-mode="budget">Budget</button>
+        <button type="button" id="m-cheap" data-mode="cheap">Good value</button>
+        <button type="button" id="m-near" data-mode="near">Near Casper</button>
       </div>
+      <span class="muted" id="budget-note" style="font-size:13px">Budget rooms are still being checked for the first four routes; they show the good-value rooms for now.</span>
     </div>
   </section>
 
   <section class="detail" id="detail"></section>
-
-  <section class="msg">
-    <h2>Reply to Casper</h2>
-    <p class="muted">Covers the first two routes: with him to Suzhou then Hong Kong, or the whole way through Chengdu.</p>
-    <pre id="msg">Hey Casper, here's where we've got to.
-
-Our flights: Jetstar Auckland to Seoul Incheon on 16 Dec, landing 20:15 (via Sydney). Home with Fiji Airways from Hong Kong at 16:10 on 5 Jan.
-
-Two options we're weighing:
-
-1. With you to Suzhou, then Hong Kong. We'd fly CA138 with you on 23 Dec and share Seoul 16–23 Dec, Beijing 23–27, Shanghai 27–30 and Suzhou 30 Dec–2 Jan. On 2 Jan we'd go to Hongqiao with you, fly to Shenzhen and cross to Hong Kong. No visa needed (240-hour transit).
-
-2. The whole way, Chengdu too. Same again, plus 9C6747 with you on 2 Jan and Chengdu 2–4 Jan, then we fly to Hong Kong on the 4th. This one needs China visas from Auckland unless visa-free gets extended into 2027.
-
-Either way we'd take our own room, about NZ$130 a night (up to ~150 in Beijing), and we're happy to be in the same place as you. In Seoul, separate rooms at BoA Travel House come to NZ$1,591 for the week for all three of us, less than Orange Sinchon at NZ$1,858.</pre>
-    <button type="button" class="copy" id="copy">Copy message</button>
-  </section>
 
   <footer>
     <p>Fares and room prices checked live on 15 Nov 2026 (Google Flights, Trip.com, Booking.com, Airbnb), taxes included, for 2 adults. China train fares are the fixed 12306 prices; your dates go on sale 15 days ahead. ≈ marks an estimate.</p>
@@ -197,6 +182,11 @@ const flyCDHK = {d:'4 Jan',k:'Fly',t:'HX453 Chengdu 11:55 → Hong Kong 14:40',s
 const hk1 = {d:'4–5 Jan',k:'Stay',stay:{cheap:{n:'The Cityview (YMCA), Yau Ma Tei',s:'Double · 1 night · 8.5 · non-refundable (NZ$141 flexible)',p:136,l:BK('hk/ymca','2027-01-04','2027-01-05')}}};
 const home = {d:'5 Jan',k:'Fly',t:'Airport Express, then HKG 16:10 home (booked)',s:'Airport Express for two',p:50,est:1};
 
+
+const FLY_SZX = {d:'2 Jan',k:'Fly',t:'9C8775 Hongqiao 13:05 → Shenzhen 15:50',s:'20 kg bag each · same airport and hour as Casper’s flight',p:310,l:T('sha','szx','2027-01-02'),alt:'Or the direct train G901 Suzhou South 14:18 → Hong Kong West Kowloon 21:56 (NZ$486). It arrives only 2 hours inside the limit.'};
+const CROSS_HK = {d:'2 Jan',k:'Cross',t:'Shenzhen → Hong Kong by land',s:'Futian or Shenzhen Bay crossing, then MTR. Must be done before midnight.',p:40,est:1};
+const HK3 = {d:'2–5 Jan',k:'Stay',nt:3,stay:{cheap:{n:'The Cityview (YMCA), Yau Ma Tei',s:'Double · 3 nights · 8.5 · non-refundable (NZ$821 with free cancellation)',p:704,l:BK('hk/ymca','2027-01-02','2027-01-05')}}};
+
 /* ---------- routes ---------- */
 const V = [
 {id:'v1',name:'With Casper, then Hong Kong',
@@ -205,15 +195,12 @@ const V = [
  sum:'Travel with Casper through Seoul, Beijing, Shanghai and Suzhou for New Year. On 2 Jan you all go to Hongqiao: he flies to Chengdu, you fly to Shenzhen and cross into Hong Kong for three nights.',
  casper:'We’d fly CA138 with you on 23 Dec and leave China on 2 Jan from Hongqiao, about when your Chengdu flight goes.',
  items:[arrive,seoul7,flyBJ,bjExp,bj,trainSH,sh,trainSZ,sz,trainHQ,
-  {d:'2 Jan',k:'Fly',t:'9C8775 Hongqiao 13:05 → Shenzhen 15:50',s:'20 kg bag each · same airport and hour as Casper’s flight',p:310,l:T('sha','szx','2027-01-02'),alt:'Or the direct train G901 Suzhou South 14:18 → Hong Kong West Kowloon 21:56 (NZ$486). It arrives only 2 hours inside the limit.'},
-  {d:'2 Jan',k:'Cross',t:'Shenzhen → Hong Kong by land',s:'Futian or Shenzhen Bay crossing, then MTR. Must be done before midnight.',p:40,est:1},
-  {d:'2–5 Jan',k:'Stay',stay:{cheap:{n:'The Cityview (YMCA), Yau Ma Tei',s:'Double · 3 nights · 8.5 · non-refundable (NZ$821 with free cancellation)',p:704,l:BK('hk/ymca','2027-01-02','2027-01-05')}}},
-  home],
+  FLY_SZX,CROSS_HK,HK3,home],
  watch:['13, 16 and 19 Dec: China train tickets for 27 Dec, 30 Dec and 2 Jan go on sale (12306 app, passport account, no fee).','2 Dec: last day to cancel BoA Travel House free.','Hong Kong weekend nights cost about 1.5 times a weeknight; the cheap rate is non-refundable.']},
 
 {id:'v2',name:'Whole way with Casper, Chengdu too',
  lane:[['Seoul',7,'KR',1],['Beijing',4,'CN',1],['Shanghai',3,'CN',1],['Suzhou',3,'CN',1],['Chengdu',2,'CN',1,'CD'],['Hong Kong',1,'HK',0,'HK']],
- entry:{ok:0,h:'Needs China visas.',b:'12 days in China is past the 240-hour limit, and the 30-day visa-free scheme ends 31 Dec. Get L visas in Auckland (passports in by about 4 Dec), unless China extends visa-free into 2027 first.'},
+ entry:{ok:0,h:'China visas.',b:'12 days in China is past the 240-hour limit, so you’d both get L visas in Auckland: NZ$105 each, included in the total, passports in by about 4 Dec. If China extends visa-free entry into 2027 first, you can skip them.'},
  sum:'Same as the first route, then fly to Chengdu with Casper on 2 Jan. Two nights there, then Chengdu to Hong Kong on 4 Jan for one night before the flight home.',
  casper:'We’d fly CA138 with you on 23 Dec and 9C6747 to Chengdu on 2 Jan, then leave for Hong Kong on 4 Jan. This needs China visas, which we’d get in Auckland.',
  items:[{d:'by 4 Dec',k:'Visa',t:'China L visas, Auckland',s:'NZ$105 each, 4 working days. Apply online, then hand in passports at 630 Great South Rd, Ellerslie.',p:210,l:'https://auckland.china-consulate.gov.cn/eng/lsqz/Visa/'},
@@ -250,6 +237,110 @@ const V = [
  watch:['Same train sale dates as the first route (13, 16, 19 Dec).','26 Dec: last day to cancel the Morwing free.','Taipei on the night of 1 Jan costs about twice a normal night; this route avoids it.']}
 ];
 
+
+/* ---------- routes that split from Casper after Seoul ---------- */
+const BKa = (slug,a,b)=>`https://www.booking.com/hotel/${slug}.en-gb.html?checkin=${a}&checkout=${b}&group_adults=2&no_rooms=1&selected_currency=NZD`;
+const visa = {d:'by 4 Dec',k:'Visa',t:'China L visas, Auckland',s:'NZ$105 each, 4 working days. Apply online (COVA), then hand in passports at 630 Great South Rd, Ellerslie, with a 48×33 mm photo, return flights and hotel bookings.',p:210,l:'https://auckland.china-consulate.gov.cn/eng/lsqz/Visa/'};
+const flyTPE = {d:'23 Dec',k:'Fly',t:'TW667 Gimpo 11:10 → Taipei Songshan 13:05',s:'15 kg bag each · same airport as Casper’s 14:25 flight, so you can leave together · Songshan is in the city',p:876,l:T('sel','tpe','2026-12-23'),alt:'Or CI161 Incheon 12:30 → Taoyuan, NZ$806 with 23 kg bags.'};
+const flyCAN = {d:'23 Dec',k:'Fly',t:'KE867 Incheon 09:00 → Guangzhou 12:10',s:'23 kg bag each · no direct flights to Guilin',p:935,l:T('sel','can','2026-12-23'),alt:'Cheaper: China Eastern via Qingdao, NZ$539, lands 16:50 with little time for the train.'};
+const trainYS = {d:'23 Dec',k:'Train',t:'G3730 Guangzhou South 15:16 → Yangshuo 17:15',s:'Second class · on sale 9 Dec · then the shuttle bus into Yangshuo town, about 1 hour',p:104,est:1,l:R12306};
+const ys = {d:'23–28 Dec',k:'Stay',nt:5,stay:{
+  cheap:{n:'Li Yu Hotel, West Street',s:'Double · 5 nights · 9.4 · Yangshuo town',p:131,l:TH(871,78917759,'2026-12-23','2026-12-28'),alt:'Splurge: CJ Garden Resort on the Yulong River, NZ$523, 9.8.'},
+  budget:{n:'Yunjing Hotel, West Street',s:'Double · 5 nights · 9.1',p:71,l:TH(871,116725071,'2026-12-23','2026-12-28')}}};
+const hk1b = {...hk1, stay:{...hk1.stay, budget:{n:'Unique Hostel',s:'Private double · 1 night · 7.5 · non-refundable',p:74,l:BKa('hk/unique-hong-kong1','2027-01-04','2027-01-05')}}};
+const trainXA = {d:'27 Dec',k:'Train',t:'G321 Beijing West 07:00 → Xi’an North 11:20',s:'Second class · on sale 13 Dec · Casper goes on to Shanghai',p:318,l:R12306,alt:'Or G3931 at 07:39, NZ$268, arriving 13:25.'};
+const xa = {d:'27–30 Dec',k:'Stay',nt:3,stay:{
+  cheap:{n:'Mcsrh Hotel, Bell and Drum Tower',s:'Double · 3 nights · 9.4 (6.9k reviews) · inside the city wall',p:99,l:TH(10,119242336,'2026-12-27','2026-12-30')},
+  near:{n:'Liyi Hotel, Bell and Drum Tower',s:'Double · 3 nights · 9.5 · inside the city wall',p:139,l:TH(10,123246578,'2026-12-27','2026-12-30')},
+  budget:{n:'Pod Choice Hotel, Muslim Quarter',s:'Double · 3 nights · 8.9',p:56,l:TH(10,12753902,'2026-12-27','2026-12-30')}}};
+
+V.push(
+{id:'n1',name:'Taiwan, then Hong Kong for New Year',
+ lane:[['Seoul',7,'KR',1],['Taipei',4,'TW',0],['Tainan',3,'TW',0],['Hong Kong',6,'HK',0]],
+ entry:{ok:1,h:'No China visa needed.',b:'You never enter mainland China. Fill in Taiwan’s online arrival card in the week before 23 Dec.'},
+ sum:'A week in Seoul with Casper, then you fly to Taipei on the same morning he leaves for Beijing. Christmas in Taipei, the bullet train to Tainan, then six nights in Hong Kong including the New Year’s Eve harbour fireworks.',
+ items:[arrive,seoul7,flyTPE,
+  {d:'23–27 Dec',k:'Stay',nt:4,stay:{cheap:{n:'Triple Tiger Inn, Taipei',s:'Double · 4 nights · 8.1 · free cancellation before 16 Dec · Christmas week is tight in Taipei',p:824,l:BKa('tw/triple-tiger-taipei','2026-12-23','2026-12-27')},
+    budget:{n:'Private room near Ximen MRT (Airbnb)',s:'Private room and bathroom in the host’s flat · 4.68 (403 reviews) · check it shows a Taiwan licence',p:640,l:'https://www.airbnb.co.nz/rooms/35435235?check_in=2026-12-23&check_out=2026-12-27&adults=2'}}},
+  {d:'27 Dec',k:'Train',t:'High-speed rail Taipei → Tainan',s:'Reserved seat · about 1¾ hours · trains every 15–30 min',p:148,l:'https://www.thsrc.com.tw/en'},
+  {d:'27–30 Dec',k:'Stay',nt:3,stay:{cheap:{n:'Green Only Homestay, Tainan',s:'Double · 3 nights · 9.0',p:143,l:BKa('tw/lian-lian-wei-yi','2026-12-27','2026-12-30')},
+    budget:{n:'Greenonly Homestay, Tainan',s:'Double · 3 nights · 8.8',p:127,l:BKa('tw/ge-lin-wei-yi','2026-12-27','2026-12-30')}}},
+  {d:'30 Dec',k:'Fly',t:'UO131 Kaohsiung 10:10 → Hong Kong 11:50',s:'HK Express · carry-on only, checked bags extra · train from Tainan to the airport about NZ$20 (included)',p:505,l:T('khh','hkg','2026-12-30'),alt:'With bags included: EVA BR845 at 09:15, NZ$840.'},
+  {d:'30 Dec – 5 Jan',k:'Stay',nt:6,stay:{cheap:{n:'Premium Lounge, Tsim Sha Tsui',s:'Double · 6 nights · 8.1 · small guesthouse in Chungking Mansions, near the harbourfront · non-refundable · New Year’s Eve costs about 4 times a normal night',p:1333,l:BKa('hk/premium-lounge','2026-12-30','2027-01-05'),alt:'Option: Macau 2–4 Jan instead (Hotel Sintra NZ$396 plus about NZ$190 in ferries).'},
+    budget:{n:'Johnson Hostel',s:'Private double · 6 nights · 7.8 · non-refundable (NZ$1,027 flexible)',p:924,l:BKa('hk/johnston-hostel','2026-12-30','2027-01-05')}}},
+  home],
+ watch:['16 Dec: last day to cancel Triple Tiger Inn free.','Hong Kong rooms for New Year are mostly non-refundable; book once the route is settled.']},
+
+{id:'n2',name:'Christmas in Taipei, New Year with Casper',
+ lane:[['Seoul',7,'KR',1],['Taipei',5,'TW',0],['Shanghai',2,'CN',1],['Suzhou',3,'CN',1],['Hong Kong',3,'HK',0,'HK']],
+ entry:{ok:1,h:'240-hour transit should work.',b:'Enter Shanghai 28 Dec from Taiwan, out to Hong Kong on 2 Jan. The rules don’t name Taiwan as a starting point outright; check with China Eastern or the immigration hotline 12367 first. A visa would cover it anyway.'},
+ sum:'A week in Seoul with Casper, then Christmas in Taipei on your own. Fly to Shanghai on 28 Dec to catch up with him, see in the New Year together in Suzhou, then split on 2 Jan for Hong Kong.',
+ items:[arrive,seoul7,flyTPE,
+  {d:'23–28 Dec',k:'Stay',nt:5,stay:{cheap:{n:'Triple Tiger Inn, Taipei',s:'Double · 5 nights · 8.1 · free cancellation before 16 Dec',p:1004,l:BKa('tw/triple-tiger-taipei','2026-12-23','2026-12-28')},
+    budget:{n:'Private room near Ximen MRT (Airbnb)',s:'Private room and bathroom · 4.68 (403 reviews) · check it shows a Taiwan licence',p:825,l:'https://www.airbnb.co.nz/rooms/35435235?check_in=2026-12-23&check_out=2026-12-28&adults=2'}}},
+  {d:'28 Dec',k:'Fly',t:'MU5098 Taipei Songshan 17:15 → Shanghai Hongqiao 18:50',s:'23 kg bag each · city airport to city airport',p:575,l:T('tpe','sha','2026-12-28'),alt:'Or Spring 9C8952 at 11:30 to Pudong, NZ$409, carry-on only.'},
+  {d:'28–30 Dec',k:'Stay',with:1,nt:2,stay:{
+    cheap:{n:'Waiting Century Hotel, Jing’an',s:'Double · 2 nights · 9.2',p:153,l:TH(2,1230251,'2026-12-28','2026-12-30')},
+    near:{n:'Campanile Jing’an Temple',s:'Queen · 2 nights · 9.6 · Casper’s hotel',p:265,l:TH(2,21808950,'2026-12-28','2026-12-30')},
+    budget:{n:'Elong Anyun Hotel, Lujiazui',s:'Double · 2 nights · 9.4',p:112,l:TH(2,6293085,'2026-12-28','2026-12-30')}}},
+  trainSZ,sz,trainHQ,FLY_SZX,CROSS_HK,HK3,home],
+ watch:['16 Dec: last day to cancel Triple Tiger Inn free.','16 and 19 Dec: China train tickets for 30 Dec and 2 Jan go on sale.']},
+
+{id:'n3',name:'Guilin hills, then Hong Kong for New Year',
+ lane:[['Seoul',7,'KR',1],['Yangshuo',5,'CN',0],['Guangzhou',3,'CN',0],['Hong Kong',5,'HK',0]],
+ entry:{ok:1,h:'240-hour transit works.',b:'Enter Guangzhou 23 Dec, out at Hong Kong West Kowloon on 31 Dec, well inside the limit. Book the Hong Kong train or your flight home as the onward ticket.'},
+ sum:'A week in Seoul with Casper, then Christmas among the limestone hills of Yangshuo near Guilin. Three nights in Guangzhou for the food, then the train to Hong Kong on New Year’s Eve for the fireworks.',
+ items:[arrive,seoul7,flyCAN,trainYS,ys,
+  {d:'28 Dec',k:'Train',t:'G2929 Yangshuo 11:25 → Guangzhou South 13:19',s:'Second class · on sale 14 Dec',p:87,l:R12306},
+  {d:'28–31 Dec',k:'Stay',nt:3,stay:{
+    cheap:{n:'Echarm Hotel, Guangzhou South station',s:'Double · 3 nights · 9.4 · next to the station for the Hong Kong train',p:212,l:TH(32,100833097,'2026-12-28','2026-12-31')},
+    near:{n:'Zhipin Hotel, Beijing Road',s:'Double · 3 nights · 9.3 · central, for food and the old town',p:274,l:TH(32,115687180,'2026-12-28','2026-12-31')},
+    budget:{n:'Yimi Hotel, Beijing Road',s:'Double · 3 nights · 9.1 (1.4k reviews)',p:95,l:TH(32,122753344,'2026-12-28','2026-12-31')}}},
+  {d:'31 Dec',k:'Train',t:'Guangzhou South → Hong Kong West Kowloon',s:'Second class · about 1 hour · on sale 17 Dec, book on the day',p:117,l:R12306},
+  {d:'31 Dec – 5 Jan',k:'Stay',nt:5,stay:{cheap:{n:'Premium Lounge, Tsim Sha Tsui',s:'Double · 5 nights · 8.1 · near the harbourfront for the fireworks · non-refundable',p:1066,l:BKa('hk/premium-lounge','2026-12-31','2027-01-05')},
+    budget:{n:'Unique Hostel',s:'Private double · 5 nights · 7.5 · non-refundable',p:683,l:BKa('hk/unique-hong-kong1','2026-12-31','2027-01-05')}}},
+  home],
+ watch:['9, 14 and 17 Dec: China train tickets for 23, 28 and 31 Dec go on sale.','Hong Kong New Year rooms are mostly non-refundable.']},
+
+{id:'n4',name:'Beijing with Casper, then Xi’an, Hong Kong and Macau',
+ lane:[['Seoul',7,'KR',1],['Beijing',4,'CN',1],["Xi'an",3,'CN',0],['Hong Kong',3,'HK',0],['Macau',2,'MO',0],['Hong Kong',1,'HK',0]],
+ entry:{ok:1,h:'240-hour transit works.',b:'Enter Beijing 23 Dec with Casper, fly out of Xi’an to Hong Kong on 30 Dec.'},
+ sum:'Seoul and Beijing with Casper, then the train to Xi’an for the Terracotta Army while he goes to Shanghai. Fly to Hong Kong on 30 Dec for New Year’s Eve, two nights in Macau, and a last night in Hong Kong.',
+ items:[arrive,seoul7,flyBJ,bjExp,bj,trainXA,xa,
+  {d:'30 Dec',k:'Fly',t:'MU203 Xi’an 10:35 → Hong Kong 13:40',s:'23 kg bag each · one of only two direct flights',p:946,l:T('sia','hkg','2026-12-30'),alt:'Or Cathay CX947 at 15:55, about NZ$924.'},
+  {d:'30 Dec – 2 Jan',k:'Stay',nt:3,stay:{cheap:{n:'Premium Lounge, Tsim Sha Tsui',s:'Double · 3 nights · 8.1 · includes New Year’s Eve · non-refundable',p:931,l:BKa('hk/premium-lounge','2026-12-30','2027-01-02')},
+    budget:{n:'Johnson Hostel',s:'Private double · 3 nights · 7.8 · non-refundable',p:560,l:BKa('hk/johnston-hostel','2026-12-30','2027-01-02')}}},
+  {d:'2 Jan',k:'Ferry',t:'TurboJET Sheung Wan → Macau, about 1 hour',s:'Saturday fare',p:98,l:'https://www.turbojet.com.hk/en/'},
+  {d:'2–4 Jan',k:'Stay',nt:2,stay:{cheap:{n:'Hotel Sintra, Macau',s:'Double · 2 nights · 8.4 · central · non-refundable (NZ$557 flexible)',p:396,l:BKa('mo/hotel-sintra','2027-01-02','2027-01-04')},
+    budget:{n:'Casa Real Hotel, Macau',s:'Double · 2 nights · 8.0 · non-refundable',p:354,l:BKa('mo/casa-real-macau','2027-01-02','2027-01-04')}}},
+  {d:'4 Jan',k:'Ferry',t:'TurboJET Macau → Sheung Wan',s:'Monday fare',p:89,l:'https://www.turbojet.com.hk/en/'},
+  hk1b,home],
+ watch:['13 Dec: the 27 Dec Beijing–Xi’an train goes on sale.','Hong Kong and Macau rooms are mostly non-refundable.']},
+
+{id:'n5',name:'Xi’an, then New Year and Chengdu with Casper',
+ lane:[['Seoul',7,'KR',1],['Beijing',4,'CN',1],["Xi'an",3,'CN',0],['Suzhou',3,'CN',1],['Chengdu',2,'CN',1],['Hong Kong',1,'HK',0]],
+ entry:{ok:0,h:'China visas.',b:'12 days in China needs L visas from Auckland (NZ$105 each, included in the total). Passports in by about 4 Dec.'},
+ sum:'Seoul and Beijing with Casper, then three nights on your own in Xi’an while he does Shanghai. A direct train takes you to Suzhou on 30 Dec to rejoin him for New Year, then Chengdu together before Hong Kong on 4 Jan.',
+ items:[visa,arrive,seoul7,flyBJ,bjExp,bj,trainXA,xa,
+  {d:'30 Dec',k:'Train',t:'G1918 Xi’an North 09:29 → Suzhou North 16:11',s:'Second class · direct · on sale 16 Dec',p:354,l:R12306,alt:'Or fly MU2239 06:30 to Hongqiao (NZ$344) and take the train on.'},
+  sz,trainHQ,flyCD,cd,flyCDHK,hk1b,home],
+ watch:['Early Dec: passports in for visas.','13, 16 and 19 Dec: China train tickets go on sale.']},
+
+{id:'n6',name:'Guilin hills and Chongqing, meet Casper in Chengdu',
+ lane:[['Seoul',7,'KR',1],['Yangshuo',5,'CN',0],['Chongqing',5,'CN',0],['Chengdu',2,'CN',1],['Hong Kong',1,'HK',0]],
+ entry:{ok:0,h:'China visas.',b:'12 days in China needs L visas from Auckland (NZ$105 each, included in the total). Passports in by about 4 Dec.'},
+ sum:'A week in Seoul with Casper, then Christmas in Yangshuo among the limestone hills. The train to Chongqing for New Year’s Eve in the neon river city, then an hour’s train to Chengdu on 2 Jan to meet Casper, and Hong Kong on the 4th.',
+ items:[visa,arrive,seoul7,flyCAN,trainYS,ys,
+  {d:'28 Dec',k:'Train',t:'G3726 Yangshuo 11:04 → Chongqing West 15:43',s:'Second class · on sale 14 Dec · no direct flights',p:184,l:R12306},
+  {d:'28 Dec – 2 Jan',k:'Stay',nt:5,stay:{
+    cheap:{n:'Jingmu Hotel, Jiefangbei',s:'Double · 5 nights · 9.5 · central, walk to Hongyadong',p:244,l:TH(4,111109658,'2026-12-28','2027-01-02')},
+    near:{n:'Jingmu Xinyue Hotel, Jiefangbei',s:'Double · 5 nights · 9.6',p:261,l:TH(4,116551624,'2026-12-28','2027-01-02')},
+    budget:{n:'7Days Inn, Chongqing North station',s:'Double · 5 nights · 9.0 · out of the centre',p:157,l:TH(4,17344928,'2026-12-28','2027-01-02')}}},
+  {d:'2 Jan',k:'Train',t:'Chongqing → Chengdu East, about 1 hour',s:'Morning trains every few minutes · on sale 19 Dec',p:81,l:R12306},
+  cd,flyCDHK,hk1b,home],
+ watch:['Early Dec: passports in for visas.','9, 14 and 19 Dec: China train tickets go on sale.']}
+);
+
 /* ---------- helpers ---------- */
 const $ = s=>document.querySelector(s);
 const nz = n=>'NZ$'+Math.round(n).toLocaleString('en-NZ');
@@ -267,18 +358,20 @@ function current(){ const h=location.hash.slice(1); return V.find(v=>v.id===h)||
 
 function renderCompare(){
   const cur=current();
-  $('#compare').innerHTML = V.map(v=>{
+  const row=v=>{
     const t=totals(v), all=t.t+t.r;
     return `<button type="button" class="row" id="r-${v.id}" aria-pressed="${v===cur}" data-id="${v.id}">
       <span class="rname">${esc(v.name)}</span>
       <span class="rtot"><strong>${nz(all)}</strong><span>${nz(all/2)} each</span></span>
-      <span class="rmeta">${together(v)} of 20 nights with Casper · ${v.entry.ok?'no visa needed':'<span class="flag">needs China visas</span>'}</span>
-    </button>`;}).join('');
+      <span class="rmeta">${together(v)} of 20 nights with Casper · ${v.entry.ok?'no visa needed':'China visas (in the total)'}</span>
+    </button>`;};
+  const groups=[['Most of the trip with Casper',v=>together(v)>=15],['Your own way after Seoul',v=>together(v)<15]];
+  $('#compare').innerHTML = groups.map(([h,f])=>{ const vs=V.filter(f).sort((a,b)=>together(b)-together(a)); return vs.length?`<div class="label ghead">${h}</div>`+vs.map(row).join(''):''; }).join('');
   document.querySelectorAll('.row').forEach(b=>b.onclick=()=>{ location.hash=b.dataset.id; });
   document.querySelectorAll('.seg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));
 }
 
-const AB={Seoul:'Seoul',Beijing:'BJ',Shanghai:'SH',Suzhou:'SZ','Hong Kong':'HK',Chengdu:'CD',Taipei:'TPE',Gyeongju:'GJ',Busan:'Busan'};
+const AB={Seoul:'Seoul',Beijing:'BJ',Shanghai:'SH',Suzhou:'SZ','Hong Kong':'HK',Chengdu:'CD',Taipei:'TPE',Gyeongju:'GJ',Busan:'Busan',Tainan:'TN',Kaohsiung:'KH',Guilin:'GL',Yangshuo:'YS',Guangzhou:'GZ',"Xi'an":'XA',Macau:'MO'};
 function lane(segs,who){
   return `<div class="lane"><span class="label">${who}</span><div class="bar">${segs.map(s=>{
     const [city,n,cc,w]=s, ab=AB[city]||city, cls=n<=2?'tiny':n<=4?'short':'';
@@ -297,7 +390,7 @@ function renderDetail(){
     return `<div class="it ${it.with&&!it.stay?'with':''}">
       <span class="d num">${esc(it.d)}</span>
       <div class="main"><div class="t"><span class="label k">${it.k}</span>${link?`<a href="${esc(link)}" target="_blank" rel="noopener">${esc(title)}</a>`:esc(title)}</div>
-        ${sub?`<div class="sub">${esc(sub)}</div>`:''}${it.alt?`<div class="alt">${esc(it.alt)}</div>`:''}</div>
+        ${sub?`<div class="sub">${esc(sub)}</div>`:''}${it.alt?`<div class="alt">${esc(it.alt)}</div>`:''}${s&&s.alt?`<div class="alt">${esc(s.alt)}</div>`:''}</div>
       <span class="p num">${p?est+nz(p):'–'}</span></div>`;
   }).join('');
   $('#detail').innerHTML = `
@@ -308,18 +401,14 @@ function renderDetail(){
       <div class="ticks">${ticks.map(n=>`<span style="left:${n/segTotal*100}%">${dayLabel(n)}</span>`).join('')}</div>
       <p class="key">Dashed: you two without Casper. Casper goes on to Taipei 5–10 Jan.</p>
     </div>
-    <p class="entry ${v.entry.ok?'ok':'bad'}"><b>${esc(v.entry.h)}</b> ${esc(v.entry.b)}</p>
+    <p class="entry ok"><b>${esc(v.entry.h)}</b> ${esc(v.entry.b)}</p>
     <div class="days">${items}
       <div class="it total"><span></span><div class="main"><div class="t">Total for two</div><div class="sub">Getting around ${nz(t.t)} · rooms ${nz(t.r)}</div></div><span class="p num">${nz(t.t+t.r)}</span></div>
     </div>
     <div style="display:grid;gap:8px"><span class="label">Dates to watch</span><ul class="watch">${v.watch.map(w=>`<li>${esc(w)}</li>`).join('')}</ul></div>
 `;
 }
-function selectMsg(){ const r=document.createRange(); r.selectNodeContents($('#msg')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
 
-$('#copy').onclick=()=>{ const txt=$('#msg').textContent;
-  const done=()=>{ $('#copy').textContent='Copied'; setTimeout(()=>{ $('#copy').textContent='Copy message'; },1600); };
-  try{ navigator.clipboard.writeText(txt).then(done,selectMsg); }catch(e){ selectMsg(); } };
 function render(){ renderCompare(); renderDetail(); }
 document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{ mode=b.dataset.mode; try{localStorage.setItem('nj-rooms',mode);}catch(e){} render(); });
 addEventListener('hashchange',render);
