@@ -137,7 +137,6 @@ footer{font-size:13px;color:var(--muted);display:grid;gap:6px}
         <button type="button" id="m-cheap" data-mode="cheap">Good value</button>
         <button type="button" id="m-near" data-mode="near">Near Casper</button>
       </div>
-      <span class="muted" id="budget-note" style="font-size:13px">Budget rooms are still being checked for the first four routes; they show the good-value rooms for now.</span>
     </div>
   </section>
 
@@ -340,6 +339,24 @@ V.push(
   cd,flyCDHK,hk1b,home],
  watch:['Early Dec: passports in for visas.','9, 14 and 19 Dec: China train tickets go on sale.']}
 );
+
+
+/* ---------- budget rooms for the original routes (checked 15 Nov) ---------- */
+const BUD = (n,s,p,l)=>({n,s,p,l});
+seoul7.stay.budget = BUD('BlueBird Guesthouse, Daeheung','Double, private bathroom · 7 nights · 8.7 · free cancellation before 2 Dec · a little further from the airport train',474,BK('kr/bluebird-guesthouse','2026-12-16','2026-12-23'));
+bj.stay.budget = BUD('Pod Inn, Panjiayuan','Double · 4 nights · 8.5 · by the subway',140,TH(1,1085209,'2026-12-23','2026-12-27'));
+sh.stay.budget = BUD('Pod Inn, Dapuqiao','Double · 3 nights · 8.5 · near Tianzifang',116,TH(2,6426537,'2026-12-27','2026-12-30'));
+sz.stay.budget = BUD('Selected Hotel, Guanqian Street','Double · 3 nights · 9.2 (5.4k reviews) · old town centre',140,TH(14,107536821,'2026-12-30','2027-01-02'));
+cd.stay.budget = BUD('SONDERIA Hostel, private room','Private double · 2 nights · 8.5',63,TH(28,5246751,'2027-01-02','2027-01-04'));
+HK3.stay.budget = BUD('Good Fortune Inn, Mong Kok','Double · 3 nights · 8.6 · non-refundable, date changes allowed',362,BK('hk/good-fortune-inn-south-and-north','2027-01-02','2027-01-05'));
+hk1.stay.budget = BUD('Unique Hostel','Private double · 1 night · 7.5 · non-refundable',74,BK('hk/unique-hong-kong1','2027-01-04','2027-01-05'));
+{
+  const find = (id,start)=>V.find(v=>v.id===id).items.find(i=>i.stay&&i.stay.cheap.n.startsWith(start));
+  find('v3','Take 1').stay.budget = BUD('BlueBird Guesthouse, Daeheung','Double, private bathroom · 5 nights · 8.7 · free cancellation before 2 Dec',338,BK('kr/bluebird-guesthouse','2026-12-16','2026-12-21'));
+  find('v3','Aha').stay.budget = BUD('Minihotel Poongdaengi, Gyeongju','Double · 2 nights · 8.0',122,BK('kr/pungdengihoseutel','2026-12-21','2026-12-23'));
+  find('v3','Dante').stay.budget = BUD('Eve Motel, Busan','Double, private bathroom · 4 nights · 7.5',244,BK('kr/ibeumotel','2026-12-23','2026-12-27'));
+  find('v4','Morwing').stay.budget = BUD('Sofu Hotel, Banqiao','Double · 3 nights · 7.7 · 15 min by MRT from the centre · non-refundable',243,BK('tw/sofu','2027-01-02','2027-01-05'));
+}
 
 /* ---------- helpers ---------- */
 const $ = s=>document.querySelector(s);
